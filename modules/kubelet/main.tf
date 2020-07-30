@@ -93,6 +93,18 @@ data "ignition_file" "kubelet_config_tpl" {
   }
 }
 
+data "ignition_file" "bootstrap_kubeconfig" {
+  count = var.bootstrap_kubeconfig_content != "" ? 1 : 0
+
+  path       = "${local.etc_path}/bootstrap-kubelet.conf"
+  filesystem = "root"
+  mode       = 420
+
+  content {
+    content = var.bootstrap_kubeconfig_content
+  }
+}
+
 data "ignition_file" "kubelet_env" {
   path       = "/var/lib/kubelet/kubelet-flags.env"
   filesystem = "root"

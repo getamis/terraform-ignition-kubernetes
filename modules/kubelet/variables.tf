@@ -56,6 +56,12 @@ variable "extra_flags" {
   default     = {}
 }
 
+variable "bootstrap_kubeconfig_content" {
+  description = "The content of bootstrap kubeconfig."
+  type        = string
+  default     = ""
+}
+
 // TODO(kairen): add support for setting feature gates.
 variable "feature_gates" {
   description = "A set of key=value pairs that describe feature gates for alpha/experimental features."
