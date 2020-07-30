@@ -1,0 +1,36 @@
+name: "Terraform test" 
+on: [push, pull_request]
+
+jobs:
+  tflint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: TFLint
+        uses: docker://wata727/tflint
+
+  fmt-and-validate:
+    name: fmt and validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Install terraform
+        env:
+          TF_VERSION: 0.12.29
+        run: |
+          # Install terraform
+          wget https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip -O /tmp/terraform.zip
+          yes "y" | sudo unzip -d /usr/local/bin/ /tmp/terraform.zip
+      - name: Format Code
+        run: make fmt
+      - name: Validate Code
+        run: make validate
+      - name: Validate ignition
+        env:
+          IGNITION_VERSION: 0.34.0
+        run: |
+          wget https://github.com/coreos/ignition/releases/download/v${IGNITION_VERSION}/ignition-validate-x86_64-linux -O /tmp/ignition-validate
+          sudo chmod +x /tmp/ignition-validate && sudo mv /tmp/ignition-validate /usr/local/bin/ignition-validate
+          make validate-ign
+        

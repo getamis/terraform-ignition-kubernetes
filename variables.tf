@@ -77,8 +77,17 @@ variable "cloud_config" {
 }
 
 variable "kubelet_cert" {
-  description = "The kubelet cert args."
-  default     = {}
+  description = "The kubelet cert property."
+  type = object({
+    algo   = string
+    size   = number
+    expiry = string
+  })
+  default = {
+    algo   = "rsa"
+    size   = 2048
+    expiry = "87600h"
+  }
 }
 
 variable "kubelet_config" {
