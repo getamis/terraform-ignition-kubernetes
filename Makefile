@@ -28,7 +28,7 @@ fmt:
 
 .PHONY: docs
 docs:
-	$(call terraform-docs, docs/master.md, \
+	$(call terraform-docs, docs/variables/master.md, \
 		'This document gives an overview of variables used in the Ignition of the Kubernetes master module.\n', \
 		./)
 	
