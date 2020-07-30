@@ -49,29 +49,30 @@ module "ignition_kubernetes" {
 
   // Create certs through https://registry.terraform.io/providers/hashicorp/tls/latest/docs.
   certs = {
-    etcd_ca_cert = "1JR6RQsGgj5MkYrsvnA87CmB9/GgKLje7TVuV4WnpfI="
+    etcd_ca_cert = module.etcd_cert.cert_pem
 
-    ca_cert                       = "0UJHPe+UtjQAed6LhHLGcX1+QrISIX/5Bt/zRcCETwg="
-    ca_key                        = "EcVHdpIwHltNSwRAl0jHfN0wC9gNFGgYoJ9KZvokYEc="
-    admin_cert                    = "6QtninR/MVATtac7wfUKu4gpHydi3zRQzIcIHU9ozjw="
-    admin_key                     = "YpTT+PjcuC5CybVcl6QxilZ0R+J0sHrarXZbvMxkOBY="
-    apiserver_cert                = "/iIrHSh4RCT7OZshAc08wGPDBG9LXPpBqXfsMxjICug="
-    apiserver_key                 = "hxIRmFbWaDCcNX4DCxRL3K8tsSGp/GDGSNiD22F0vAM="
-    apiserver_kubelet_client_cert = "btKP9rofBTAP13qt2J9bfQqyeDyXzgnt2cWR+97eGsE="
-    apiserver_kubelet_client_key  = "nQGiyCE9BFxIH/vyETEYzNwY4kwnzAYGgtW8leYVxzg="
-    apiserver_etcd_client_cert    = "u1CjxP3EsRRQoyYdMhujS6EJypnI/MzM+7k05HMxexo="
-    apiserver_etcd_client_key     = "2iPUCEALAAcf33WNhyEWICjl9PHM7bQvTrfojyrDLEI="
-    controller_manager_cert       = "GZbupgQT6We+nCiaBZOtOJsABuqfEwK3Kq3qopIZ1MY="
-    controller_manager_key        = "N3DSa/IRNXm27yj2HBA8ioa2Kh6odzOCAWc/DSbX9Kw="
-    scheduler_cert                = "R9K3FJuBw6S3TACQxcBcn6YO5sgN27TUEgvkYqEzNLg="
-    scheduler_key                 = "4wItHrT6CKASLSaYDC89kZvEgUR0k+s91t97Nxud9XI="
-    front_proxy_ca_cert           = "MablFnDw4eP6f9FHz95l/bzo4rUW6TRzHKZzFAUfguU="
-    front_proxy_ca_key            = "dWwwluo9gkMjnHb0ZzKARU4AldP4w/jo73l0PV/iDro="
-    front_proxy_client_cert       = "vgaw53vwIiaoajlUSl4XNcUVHXBOzygSciGzQB2SAjU="
-    front_proxy_client_key        = "EWfrVxHeSaXzgD2PNQBCT8Ip4ece2bZTJZYJmJQf0pY="
-    sa_pub                        = "x6PXLHszHxv7SsIUhcm4esK7bQEh4dlif1R+r3y71C0="
-    sa_key                        = "8G3WG3nqDcUE8hKW3KbYbMh+zwjWxzy6VB2Z1I247c4="
+    ca_cert                       = module.kubernetes_ca.cert_pem
+    ca_key                        = module.kubernetes_ca.private_key_pem
+    admin_cert                    = module.admin_cert.cert_pem
+    admin_key                     = module.admin_cert.private_key_pem
+    apiserver_cert                = module.apiserver_cert.cert_pem
+    apiserver_key                 = module.apiserver_cert.private_key_pem
+    apiserver_kubelet_client_cert = module.apiserver_kubelet_client_cert.cert_pem
+    apiserver_kubelet_client_key  = module.apiserver_kubelet_client_cert.private_key_pem
+    apiserver_etcd_client_cert    = module.apiserver_etcd_client_cert.cert_pem
+    apiserver_etcd_client_key     = module.apiserver_etcd_client_cert.private_key_pem
+    controller_manager_cert       = module.controller_manager_cert.cert_pem
+    controller_manager_key        = module.controller_manager_cert.private_key_pem
+    scheduler_cert                = module.scheduler_cert.cert_pem
+    scheduler_key                 = module.scheduler_cert.private_key_pem
+    front_proxy_ca_cert           = module.front_proxy_ca.cert_pem
+    front_proxy_ca_key            = module.front_proxy_ca.private_key_pem
+    front_proxy_client_cert       = module.front_proxy_client_cert.cert_pem
+    front_proxy_client_key        = module.front_proxy_client_cert.private_key_pem
+    sa_pub                        = module.service_account.public_key_pem
+    sa_key                        = module.service_account.private_key_pem
   }
+
 }
 ```
 
