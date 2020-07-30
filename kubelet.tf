@@ -19,8 +19,8 @@ data "ignition_file" "kubelet_csr_json_tpl" {
 
   content {
     content = templatefile("${path.module}/templates/certs/kubelet-csr.json.tpl", {
-      algo = local.kubelet_cert["algo"]
-      size = local.kubelet_cert["size"]
+      algo = local.kubelet_cert.algo
+      size = local.kubelet_cert.size
     })
   }
 }
@@ -32,7 +32,7 @@ data "ignition_file" "ca_config_json_tpl" {
 
   content {
     content = templatefile("${path.module}/templates/certs/ca-config.json.tpl", {
-      expiry = local.kubelet_cert["expiry"]
+      expiry = local.kubelet_cert.expiry
     })
   }
 }

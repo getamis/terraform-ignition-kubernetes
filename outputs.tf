@@ -28,7 +28,11 @@ output "files" {
     var.network_plugin == "flannel" ? [
       data.ignition_file.flannel_yaml[0].rendered,
     ] : [],
-    module.kubelet.files
+    module.kubelet.files,
+    module.admin_kubeconfig.files,
+    module.controller_manager_kubeconfig.files,
+    module.scheduler_kubeconfig.files,
+    module.kubelet_kubeconfig.files,
   )
 }
 
@@ -52,4 +56,14 @@ output "cert_files" {
     data.ignition_file.kubelet_csr_json_tpl.rendered,
     data.ignition_file.ca_config_json_tpl.rendered,
   ]
+}
+
+output "admin_kubeconfig_content" {
+  sensitive = true
+  value     = module.admin_kubeconfig.content
+}
+
+output "bootstrap_kubeconfig_content" {
+  sensitive = true
+  value     = module.bootstrapping_kubeconfig.content
 }

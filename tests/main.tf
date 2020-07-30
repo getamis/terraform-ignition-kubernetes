@@ -1,24 +1,3 @@
-![Terraform test](https://github.com/getamis/terraform-kubernetes-ignition/workflows/Terraform%20test/badge.svg) [![GitHub license](https://img.shields.io/github/license/getamis/terraform-kubernetes-ignition)](https://github.com/getamis/terraform-kubernetes-ignition/blob/master/LICENSE)
-# Terraform Kubernetes Ignition module
-A terraform Ignition modules to bootstrap a Kubernetes cluster with CoreOS Container Linux/Flatcar Container Linux/Fedora CoreOS. (Experiment)
-
-This repo also contains the following submodules:
-
-* kubelet: Bootstrap a worker node to join a Kubernetes cluster.
-* kubeconfig: Generate a kubeconfig from variabels.
-* extra-addons.
-  - [x] Addon manager.
-  - [x] Metrics server.
-
-## Requirements
-
-* Terraform v0.12.0+.
-* [terraform-provider-ignition](https://github.com/terraform-providers/terraform-provider-ignition) 1.2.1+.
-
-## Usage example
-The following block is show you how to use this module for bootstrapping a cluster:
- 
- ```hcl
 resource "random_id" "bootstrap_token_id" {
   byte_length = 3
 }
@@ -32,8 +11,8 @@ resource "random_password" "encryption_secret" {
   special = true
 }
 
-module "ignition_kubernetes" {
-  source = "git::ssh://git@github.com/getamis/terraform-kubernetes-ignition"
+module "kubernetes_ignition" {
+  source = "../"
 
   service_network_cidr = "10.96.0.0/12"
   pod_network_cidr     = "10.244.0.0/16"
@@ -47,7 +26,6 @@ module "ignition_kubernetes" {
     secret = random_id.bootstrap_token_secret.hex
   }
 
-  // Create certs through https://registry.terraform.io/providers/hashicorp/tls/latest/docs.
   certs = {
     etcd_ca_cert = "1JR6RQsGgj5MkYrsvnA87CmB9/GgKLje7TVuV4WnpfI="
 
@@ -73,16 +51,13 @@ module "ignition_kubernetes" {
     sa_key                        = "8G3WG3nqDcUE8hKW3KbYbMh+zwjWxzy6VB2Z1I247c4="
   }
 }
-```
 
-> See [docs/variables/master.md](docs/variables/master.md) for the detail variable inputs and outputs.
+data "ignition_config" "main" {
+  files   = module.kubernetes_ignition.files
+  systemd = module.kubernetes_ignition.systemd_units
+}
 
-## Contributing
-There are several ways to contribute to this project:
-
-1. **Find bug**: create an issue in our Github issue tracker.
-2. **Fix a bug**: check our issue tracker, leave comments and send a pull request to us to fix a bug.
-3. **Make new feature**: leave your idea in the issue tracker and discuss with us then send a pull request!
-
-## License
-This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.
+resource "local_file" "file" {
+  content  = data.ignition_config.main.rendered
+  filename = "${path.root}/output/k8s.ign"
+}
