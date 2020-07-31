@@ -6,7 +6,7 @@ This document gives an overview of variables used in the Ignition of the Kuberne
 
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
-| binaries | Desired binaries(cni\_plugin) url and checksum. | <pre>map(object({<br>    url      = string<br>    chechsum = string<br>  }))</pre> | `{}` |
+| binaries | Desired binaries(cni\_plugin) url and checksum. | <pre>map(object({<br>    url      = string<br>    checksum = string<br>  }))</pre> | `{}` |
 | bootstrap\_kubeconfig\_content | The content of bootstrap kubeconfig. | `string` | `""` |
 | cloud\_config | The cloud provider configuration. | <pre>object({<br>    provider = string<br>    path     = string<br>  })</pre> | <pre>{<br>  "path": "",<br>  "provider": ""<br>}</pre> |
 | containers | Desired containers(kubelet, and so on) repo and tag. | <pre>map(object({<br>    repo = string<br>    tag  = string<br>  }))</pre> | `{}` |
