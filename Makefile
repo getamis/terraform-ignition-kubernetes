@@ -2,6 +2,11 @@ TF_DOCS := $(shell which terraform-docs 2> /dev/null)
 TF_FILES = $(shell find . -type f -name "*.tf" -exec dirname {} \; | sort -u)
 TF_TESTS = $(shell find ./tests -type f -name "*.tf" -exec dirname {} \;|sort -u)
 
+SEMTAG=tools/semtag
+TAG_QUERY=v0.1.0..
+
+scope ?= "minor"
+
 define terraform-docs
 	$(if $(TF_DOCS),,$(error "terraform-docs revision >= a8b59f8 is required (https://github.com/segmentio/terraform-docs)"))
 
@@ -25,6 +30,14 @@ validate-ign:
 .PHONY: fmt
 fmt:
 	@for m in $(TF_FILES); do (terraform fmt -diff "$$m" && echo "√ $$m"); done
+
+.PHONY: changelog
+changelog:
+	git-chglog -o CHANGELOG.md --next-tag `$(SEMTAG) final -s $(scope) -o -f` $(TAG_QUERY)
+
+.PHONY: release
+release:
+	$(SEMTAG) final -s $(scope)
 
 .PHONY: docs
 docs:
