@@ -10,6 +10,12 @@ This repo also contains the following submodules:
   - [x] Addon manager.
   - [x] Metrics server.
 
+## Features
+
+* Kubernetes v1.18.6+.
+* Supported [AWS VPC CNI](https://github.com/aws/amazon-vpc-cni-k8s), or [flannel](https://github.com/coreos/flannel) networking.
+* RBAC-enabled, Audit log, and etcd data encryption.
+
 ## Requirements
 
 * Terraform v0.12.0+.
@@ -47,7 +53,7 @@ module "ignition_kubernetes" {
     secret = random_id.bootstrap_token_secret.hex
   }
 
-  // Create certs through https://registry.terraform.io/providers/hashicorp/tls/latest/docs.
+  // Create certs through https://github.com/getamis/vishwakarma/tree/master/modules/tls.
   certs = {
     etcd_ca_cert = module.etcd_cert.cert_pem
 
@@ -72,11 +78,10 @@ module "ignition_kubernetes" {
     sa_pub                        = module.service_account.public_key_pem
     sa_key                        = module.service_account.private_key_pem
   }
-
 }
 ```
 
-> See [docs/variables/master.md](docs/variables/master.md) for the detail variable inputs and outputs.
+> See [variables/master.md](docs/variables/master.md) for the detail variable inputs and outputs.
 
 ## Contributing
 There are several ways to contribute to this project:
