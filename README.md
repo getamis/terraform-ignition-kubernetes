@@ -1,6 +1,6 @@
-![Terraform test](https://github.com/getamis/terraform-kubernetes-ignition/workflows/Terraform%20test/badge.svg) [![GitHub license](https://img.shields.io/github/license/getamis/terraform-kubernetes-ignition)](https://github.com/getamis/terraform-kubernetes-ignition/blob/master/LICENSE)
+![Terraform test](https://github.com/getamis/terraform-ignition-kubernetes/workflows/Terraform%20test/badge.svg) [![GitHub license](https://img.shields.io/github/license/getamis/terraform-ignition-kubernetes)](https://github.com/getamis/terraform-ignition-kubernetes/blob/master/LICENSE)
 # Terraform Kubernetes Ignition module
-A terraform Ignition modules to bootstrap a Kubernetes cluster with CoreOS Container Linux/Flatcar Container Linux/Fedora CoreOS. (Experiment)
+A terraform Ignition modules to bootstrap a Kubernetes cluster with CoreOS Container Linux/Flatcar Container Linux/Fedora CoreOS.
 
 This repo also contains the following submodules:
 
@@ -12,7 +12,7 @@ This repo also contains the following submodules:
 
 ## Features
 
-* Kubernetes v1.18.6+.
+* Kubernetes v1.18.0+.
 * Supported [AWS VPC CNI](https://github.com/aws/amazon-vpc-cni-k8s), or [flannel](https://github.com/coreos/flannel) networking.
 * RBAC-enabled, Audit log, and etcd data encryption.
 
@@ -39,7 +39,7 @@ resource "random_password" "encryption_secret" {
 }
 
 module "ignition_kubernetes" {
-  source = "git::ssh://git@github.com/getamis/terraform-kubernetes-ignition"
+  source = "git::ssh://git@github.com/getamis/terraform-ignition-kubernetes"
 
   service_network_cidr = "10.96.0.0/12"
   pod_network_cidr     = "10.244.0.0/16"
