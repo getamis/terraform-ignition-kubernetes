@@ -2,7 +2,7 @@ style: github
 template: CHANGELOG.tpl.md
 info:
   title: CHANGELOG
-  repository_url: https://github.com/getamis/terraform-kubernetes-ignition
+  repository_url: https://github.com/getamis/terraform-ignition-kubernetes
 options:
   commits:
     sort_by: Type
