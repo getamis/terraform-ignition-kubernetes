@@ -9,6 +9,8 @@ This repo also contains the following submodules:
 * extra-addons.
   - [x] Addon manager.
   - [x] Metrics server.
+* Webhooks.
+ - [x] aws-iam-authenticator.
 
 ## Features
 
