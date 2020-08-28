@@ -52,8 +52,16 @@ module "kubernetes_ignition" {
   }
 }
 
+module "extra_addons_ignition" {
+  source = "../modules/extra-addons/aws-pod-identity-webhook"
+
+  tls_cert_ca = "ah51X/ww7hQOikZ6sPKH5Gs3B99o6BGSddMVJL21Kw8="
+  tls_cert    = "+PyFzGjjjcoRJ33MjnH5FFWlycxbw/gsY1lMlMN1DxE="
+  tls_key     = "3Bhk5ZKRxaxJNnviFa2zP5hAAP+EBY75ag+HpI4OyzQ="
+}
+
 data "ignition_config" "main" {
-  files   = module.kubernetes_ignition.files
+  files   = concat(module.kubernetes_ignition.files, module.extra_addons_ignition.files)
   systemd = module.kubernetes_ignition.systemd_units
 }
 

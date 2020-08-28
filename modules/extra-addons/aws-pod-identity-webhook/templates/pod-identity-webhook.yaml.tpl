@@ -78,7 +78,7 @@ spec:
         imagePullPolicy: Always
         command:
         - /webhook
-%{ for flag, value in extra_flags ~}
+%{ for flag, value in flags ~}
 %{ if value != "" ~}
         - --${flag}=${value}
 %{ endif ~}
@@ -87,9 +87,20 @@ spec:
         - name: webhook-certs
           mountPath: /var/run/app/certs
           readOnly: false
+%{ if tls_cert != "" && tls_key != "" ~}
+        - name: external-webhook-certs
+          mountPath: /etc/webhook/certs
+          readOnly: true
+%{ endif ~}
       volumes:
       - name: webhook-certs
         emptyDir: {}
+%{ if tls_cert != "" && tls_key != "" ~}
+      - name: external-webhook-certs
+        hostPath:
+          path: ${pki_path}
+          type: DirectoryOrCreate
+%{ endif ~}
 ---
 apiVersion: v1
 kind: Service

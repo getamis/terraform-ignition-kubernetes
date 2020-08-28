@@ -7,5 +7,6 @@ locals {
     tls-secret        = "pod-identity-webhook"
     annotation-prefix = "k8s.amazonaws.com"
     token-audience    = "sts.amazonaws.com"
+    token-mount-path  = "/var/run/secrets/k8s.amazonaws.com/serviceaccount"
   }, var.webhook_flags)
 }
