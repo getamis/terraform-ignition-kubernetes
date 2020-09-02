@@ -7,10 +7,10 @@ This repo also contains the following submodules:
 * kubelet: Bootstrap a worker node to join a Kubernetes cluster.
 * kubeconfig: Generate a kubeconfig from variabels.
 * extra-addons.
-  - [x] Addon manager.
-  - [x] Metrics server.
-* Webhooks.
- - [x] aws-iam-authenticator.
+  - [Addon manager](https://github.com/kubernetes/kubernetes/tree/master/cluster/addons/addon-manager).
+  - [Metrics server](https://github.com/kubernetes-sigs/metrics-server).
+  - [aws-iam-authenticator](https://github.com/kubernetes-sigs/aws-iam-authenticator).
+  - [aws-pod-identity-webhook](https://github.com/aws/amazon-eks-pod-identity-webhook).
 
 ## Features
 
