@@ -84,6 +84,10 @@ spec:
         - --state-dir=/var/aws-iam-authenticator
         - --generate-kubeconfig=/etc/kubernetes/aws-iam-authenticator/kubeconfig.yaml
         - --backend-mode=CRD
+%{ for flag, value in flags ~}
+%{ if value != "" ~}
+        - --${flag}=${value}
+%{ endif ~}
         resources:
           requests:
             memory: 20Mi
@@ -99,7 +103,7 @@ spec:
       volumes:
       - name: state
         hostPath:
-          path: ${state_path}
+          path: ${cert_path}
       - name: tmp
         emptyDir: {}
 ---
