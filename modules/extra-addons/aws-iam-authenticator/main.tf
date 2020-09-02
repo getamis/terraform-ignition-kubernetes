@@ -7,7 +7,7 @@ data "ignition_file" "iam_authenticator" {
     content = templatefile("${path.module}/templates/iam-authenticator.yaml.tpl", {
       image        = "${var.container["repo"]}:${var.container["tag"]}"
       cluster_name = var.cluster_name
-      cert_path    = var.cert_path
+      cert_path    = var.pki_dir_path
       flags        = local.extra_flags
     })
   }
