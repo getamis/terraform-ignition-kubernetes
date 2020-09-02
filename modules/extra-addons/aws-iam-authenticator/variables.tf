@@ -24,7 +24,7 @@ variable "addons_dir_path" {
   default     = "/etc/kubernetes/addons"
 }
 
-variable "cert_path" {
+variable "pki_dir_path" {
   description = "Persisted TLS certificate and keys."
   type        = string
   default     = "/etc/kubernetes/pki/aws-iam-authenticator"
