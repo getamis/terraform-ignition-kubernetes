@@ -7,7 +7,21 @@ data "ignition_file" "iam_authenticator" {
     content = templatefile("${path.module}/templates/iam-authenticator.yaml.tpl", {
       image        = "${var.container["repo"]}:${var.container["tag"]}"
       cluster_name = var.cluster_name
-      state_path   = var.state_path
+      cert_path    = var.cert_path
+      flags        = local.extra_flags
+    })
+  }
+}
+
+data "ignition_file" "kubeconfig" {
+  filesystem = "root"
+  mode       = 420
+  path       = "${pathexpand(var.kubeconfig_dir_path)}/kubeconfig"
+
+  content {
+    content = templatefile("${path.module}/templates/kubeconfig.tpl", {
+      ca          = base64encode(var.auth_ca_cert)
+      server_port = var.server_port
     })
   }
 }
