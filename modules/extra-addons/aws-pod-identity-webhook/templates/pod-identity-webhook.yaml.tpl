@@ -71,6 +71,15 @@ spec:
       labels:
         app: pod-identity-webhook
     spec:
+%{ if located_control_plane ~}
+      nodeSelector:
+        node-role.kubernetes.io/master: ""
+      tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/master
+      - key: CriticalAddonsOnly
+        operator: Exists
+%{ endif ~}
       serviceAccountName: pod-identity-webhook
       containers:
       - name: pod-identity-webhook

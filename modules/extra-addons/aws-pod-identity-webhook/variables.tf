@@ -7,6 +7,12 @@ variable "container" {
   }
 }
 
+variable "located_control_plane" {
+  description = "Located in control plane nodes."
+  type        = bool
+  default     = true
+}
+
 variable "addons_dir_path" {
   description = "A path for installing addons."
   type        = string
