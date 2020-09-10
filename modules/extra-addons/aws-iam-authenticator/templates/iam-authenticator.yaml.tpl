@@ -5,7 +5,7 @@ metadata:
   namespace: kube-system
 ---
 kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: aws-iam-authenticator
 rules:
@@ -34,7 +34,7 @@ rules:
   - patch
 ---
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: aws-iam-authenticator
 roleRef:
@@ -82,12 +82,14 @@ spec:
         - server
         - --cluster-id=${cluster_name} 
         - --state-dir=/var/aws-iam-authenticator
-        - --generate-kubeconfig=/etc/kubernetes/aws-iam-authenticator/kubeconfig.yaml
+        - --kubeconfig-pregenerated=true
+        - --generate-kubeconfig=/etc/kubernetes/aws-iam-authenticator/kubeconfig
         - --backend-mode=CRD
 %{ for flag, value in flags ~}
 %{ if value != "" ~}
         - --${flag}=${value}
 %{ endif ~}
+%{ endfor ~}
         resources:
           requests:
             memory: 20Mi
@@ -98,12 +100,17 @@ spec:
         volumeMounts:
         - name: state
           mountPath: /var/aws-iam-authenticator/
+        - name: output
+          mountPath: /etc/kubernetes/aws-iam-authenticator/
         - name: tmp
           mountPath: /tmp
       volumes:
       - name: state
         hostPath:
           path: ${cert_path}
+      - name: output
+        hostPath:
+          path: ${kubeconfig_dir_path}
       - name: tmp
         emptyDir: {}
 ---

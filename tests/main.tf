@@ -11,7 +11,7 @@ resource "random_password" "encryption_secret" {
   special = true
 }
 
-module "kubernetes_ignition" {
+module "ignition_kubernetes" {
   source = "../"
 
   service_network_cidr = "10.96.0.0/12"
@@ -52,7 +52,7 @@ module "kubernetes_ignition" {
   }
 }
 
-module "extra_addons_ignition" {
+module "ignition_pod_identity_webhook" {
   source = "../modules/extra-addons/aws-pod-identity-webhook"
 
   tls_cert_ca = "ah51X/ww7hQOikZ6sPKH5Gs3B99o6BGSddMVJL21Kw8="
@@ -60,9 +60,22 @@ module "extra_addons_ignition" {
   tls_key     = "3Bhk5ZKRxaxJNnviFa2zP5hAAP+EBY75ag+HpI4OyzQ="
 }
 
+module "ignition_aws_iam_authenticator" {
+  source = "../modules/extra-addons/aws-iam-authenticator"
+
+  cluster_name        = "test-kubernetes"
+  auth_ca_cert        = "ah51X/ww7hQOikZ6sPKH5Gs3B99o6BGSddMVJL21Kw8="
+  auth_cert           = "+PyFzGjjjcoRJ33MjnH5FFWlycxbw/gsY1lMlMN1DxE="
+  auth_cert_key       = "3Bhk5ZKRxaxJNnviFa2zP5hAAP+EBY75ag+HpI4OyzQ="
+}
+
 data "ignition_config" "main" {
-  files   = concat(module.kubernetes_ignition.files, module.extra_addons_ignition.files)
-  systemd = module.kubernetes_ignition.systemd_units
+  files = concat(
+    module.ignition_kubernetes.files,
+    module.ignition_pod_identity_webhook.files,
+    module.ignition_aws_iam_authenticator.files,
+  )
+  systemd = module.ignition_kubernetes.systemd_units
 }
 
 resource "local_file" "file" {

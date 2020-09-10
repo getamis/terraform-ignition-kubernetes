@@ -13,11 +13,6 @@ variable "container" {
   }
 }
 
-variable "extra_flags" {
-  description = "The extra-flags of IAM Authenticator. The variables need to follow https://github.com/kubernetes-sigs/aws-iam-authenticator/tree/master/cmd/aws-iam-authenticator. Do not use underline."
-  default     = {}
-}
-
 variable "addons_dir_path" {
   description = "A path for installing addons."
   type        = string
@@ -55,4 +50,9 @@ variable "auth_cert" {
 variable "auth_cert_key" {
   description = "AWS iam authenticator webhook tls cert key"
   type        = string
+}
+
+variable "extra_flags" {
+  description = "The extra-flags of IAM Authenticator. The variables need to follow https://github.com/kubernetes-sigs/aws-iam-authenticator/tree/master/cmd/aws-iam-authenticator. Do not use underline."
+  default     = {}
 }
