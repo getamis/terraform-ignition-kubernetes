@@ -5,10 +5,11 @@ data "ignition_file" "iam_authenticator" {
 
   content {
     content = templatefile("${path.module}/templates/iam-authenticator.yaml.tpl", {
-      image        = "${var.container["repo"]}:${var.container["tag"]}"
-      cluster_name = var.cluster_name
-      cert_path    = var.pki_dir_path
-      flags        = local.extra_flags
+      image               = "${var.container["repo"]}:${var.container["tag"]}"
+      cluster_name        = var.cluster_name
+      cert_path           = var.pki_dir_path
+      kubeconfig_dir_path = var.kubeconfig_dir_path
+      flags               = local.extra_flags
     })
   }
 }
