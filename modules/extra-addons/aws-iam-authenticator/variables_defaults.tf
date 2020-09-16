@@ -1,3 +1,6 @@
 locals {
-  extra_flags = merge({}, var.extra_flags)
+  extra_flags = merge({
+    kubeconfig-pregenerated = true
+    backend-mode            = "CRD"
+  }, var.extra_flags)
 }

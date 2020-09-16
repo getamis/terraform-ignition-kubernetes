@@ -82,9 +82,7 @@ spec:
         - server
         - --cluster-id=${cluster_name} 
         - --state-dir=/var/aws-iam-authenticator
-        - --kubeconfig-pregenerated=true
         - --generate-kubeconfig=/etc/kubernetes/aws-iam-authenticator/kubeconfig
-        - --backend-mode=CRD
 %{ for flag, value in flags ~}
 %{ if value != "" ~}
         - --${flag}=${value}
