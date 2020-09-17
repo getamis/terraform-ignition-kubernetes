@@ -19,12 +19,6 @@ variable "addons_dir_path" {
   default     = "/etc/kubernetes/addons"
 }
 
-variable "pki_dir_path" {
-  description = "A path for writting PKI."
-  type        = string
-  default     = "/etc/kubernetes/pki/webhook"
-}
-
 variable "webhook_flags" {
   description = "The flags of pod identity webhook. The variables need to follow https://github.com/aws/amazon-eks-pod-identity-webhook/blob/master/main.go. Do not use underline."
   default     = {}
