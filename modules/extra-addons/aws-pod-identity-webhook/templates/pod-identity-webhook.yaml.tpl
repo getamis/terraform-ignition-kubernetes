@@ -92,24 +92,17 @@ spec:
         - --${flag}=${value}
 %{ endif ~}
 %{ endfor ~}
+        - --in-cluster
+        - --namespace=kube-system
+        - --service-name=pod-identity-webhook
+        - --tls-secret=pod-identity-webhook
         volumeMounts:
         - name: webhook-certs
           mountPath: /var/run/app/certs
           readOnly: false
-%{ if tls_cert != "" && tls_key != "" ~}
-        - name: external-webhook-certs
-          mountPath: /etc/webhook/certs
-          readOnly: true
-%{ endif ~}
       volumes:
       - name: webhook-certs
         emptyDir: {}
-%{ if tls_cert != "" && tls_key != "" ~}
-      - name: external-webhook-certs
-        hostPath:
-          path: ${pki_path}
-          type: DirectoryOrCreate
-%{ endif ~}
 ---
 apiVersion: v1
 kind: Service
@@ -126,6 +119,16 @@ spec:
     targetPort: 443
   selector:
     app: pod-identity-webhook 
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: pod-identity-webhook
+  namespace: kube-system
+type: Opaque
+data:
+  tls.crt: ${tls_crt}
+  tls.key: ${tls_key}
 ---
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingWebhookConfiguration
