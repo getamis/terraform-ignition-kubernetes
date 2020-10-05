@@ -49,7 +49,7 @@ data "ignition_file" "coredns" {
       replicas                 = local.coredns_config["replicas"]
       cluster_dns_ip           = local.coredns_config["cluster_dns_ip"]
       cluster_domain           = local.coredns_config["cluster_domain"]
-      upstream_nameserver      = local.coredns_config["upstream_nameserver"]
+      upstream_nameservers     = local.coredns_config["upstream_nameservers"]
       located_on_the_same_host = local.coredns_config["located_on_the_same_host"]
     })
   }
