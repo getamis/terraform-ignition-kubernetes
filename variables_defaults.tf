@@ -18,7 +18,7 @@ locals {
     }
     coredns = {
       repo = "coredns/coredns"
-      tag  = "1.7.0"
+      tag  = "1.7.1"
     }
     vpc_cni = {
       repo = "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni"
