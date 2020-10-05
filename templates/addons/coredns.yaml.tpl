@@ -71,7 +71,9 @@ data:
           ttl 30
         }
         prometheus :9153
-        forward . ${upstream_nameserver}
+        forward . ${upstream_nameservers} {
+          max_concurrent 1000
+        }
         cache 30
         loop
         reload
