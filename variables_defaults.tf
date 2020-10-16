@@ -21,8 +21,12 @@ locals {
       tag  = "1.7.1"
     }
     vpc_cni = {
-      repo = "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni"
-      tag  = "v1.6.3"
+      repo = "quay.io/amis/amazon-k8s-cni"
+      tag  = "v1.7.5"
+    }
+    vpc_cni_init = {
+      repo = "quay.io/amis/amazon-k8s-cni-init"
+      tag  = "v1.7.5"
     }
     calico_node = {
       repo = "quay.io/calico/node"
