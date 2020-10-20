@@ -33,7 +33,7 @@ fmt:
 	
 .PHONY: changelog
 changelog:
-	git-chglog -o CHANGELOG.md --next-tag `$(SEMTAG) final -s $(scope) -o -f` $(TAG_QUERY)
+	git-chglog -o CHANGELOG.md $(TAG_QUERY)
 
 .PHONY: release
 release:
