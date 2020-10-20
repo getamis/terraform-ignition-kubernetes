@@ -13,7 +13,7 @@ This document gives an overview of variables used in the Ignition of the Kuberne
 | extra\_config | The extra configuration of kubelet. The variables need to follow https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go. Do not use underline. | `map` | `{}` |
 | extra\_flags | The extra flags of kubelet. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/. Do not use underline. | `map` | `{}` |
 | feature\_gates | A set of key=value pairs that describe feature gates for alpha/experimental features. | `map(bool)` | `{}` |
-| kubernetes\_version | Desired Kubernetes version. | `string` | `"v1.18.6"` |
+| kubernetes\_version | Desired Kubernetes version. | `string` | `"v1.19.0"` |
 | network\_plugin | Desired network plugin which is use for Kubernetes cluster. e.g. 'flannel', 'amazon-vpc' | `string` | `"amazon-vpc"` |
 | service\_network\_cidr | This is the virtual IP address that will be assigned to services created on Kubernetes. | `string` | `"10.96.0.0/12"` |
 
