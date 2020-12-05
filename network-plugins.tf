@@ -14,7 +14,7 @@ data "ignition_file" "aws_vpc_cni_yaml" {
 }
 
 data "ignition_file" "aws_cni_calico_yaml" {
-  count = var.network_plugin == "amazon-vpc" ? 1 : 0
+  count = var.enable_calico ? 1 : 0
 
   filesystem = "root"
   mode       = 420

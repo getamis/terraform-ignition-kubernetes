@@ -63,10 +63,10 @@ module "ignition_pod_identity_webhook" {
 module "ignition_aws_iam_authenticator" {
   source = "../modules/extra-addons/aws-iam-authenticator"
 
-  cluster_name        = "test-kubernetes"
-  auth_ca_cert        = "ah51X/ww7hQOikZ6sPKH5Gs3B99o6BGSddMVJL21Kw8="
-  auth_cert           = "+PyFzGjjjcoRJ33MjnH5FFWlycxbw/gsY1lMlMN1DxE="
-  auth_cert_key       = "3Bhk5ZKRxaxJNnviFa2zP5hAAP+EBY75ag+HpI4OyzQ="
+  cluster_name  = "test-kubernetes"
+  auth_ca_cert  = "ah51X/ww7hQOikZ6sPKH5Gs3B99o6BGSddMVJL21Kw8="
+  auth_cert     = "+PyFzGjjjcoRJ33MjnH5FFWlycxbw/gsY1lMlMN1DxE="
+  auth_cert_key = "3Bhk5ZKRxaxJNnviFa2zP5hAAP+EBY75ag+HpI4OyzQ="
 }
 
 data "ignition_config" "main" {

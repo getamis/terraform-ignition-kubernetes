@@ -3,7 +3,7 @@ variable "container" {
   type        = map(string)
   default = {
     repo = "k8s.gcr.io/metrics-server/metrics-server"
-    tag  = "v0.3.7"
+    tag  = "v0.4.1"
   }
 }
 
