@@ -17,6 +17,7 @@ This document gives an overview of variables used in the Ignition of the Kuberne
 | containers | Desired containers(kube-apiserver, kube-controller-manager, cfssl, coredns, and so on) repo and tag. | <pre>map(object({<br>    repo = string<br>    tag  = string<br>  }))</pre> | `{}` |
 | controller\_manager\_flags | The flags of kube-controller-manager. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/. Do not use underline. | `map` | `{}` |
 | coredns\_config | The configuration of CoreDNS. | `map` | `{}` |
+| enable\_calico | (optional) whether enable the calico | `bool` | `false` |
 | enable\_iam\_auth | Enable AWS IAM authenticator or not. | `bool` | `false` |
 | enable\_irsa | Enable AWS IAM role service account or not. | `bool` | `false` |
 | encryption\_secret | The secret key for encrypting | `string` | `""` |

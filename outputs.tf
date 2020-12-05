@@ -23,10 +23,12 @@ output "files" {
     ],
     var.network_plugin == "amazon-vpc" ? [
       data.ignition_file.aws_vpc_cni_yaml[0].rendered,
-      data.ignition_file.aws_cni_calico_yaml[0].rendered,
     ] : [],
     var.network_plugin == "flannel" ? [
       data.ignition_file.flannel_yaml[0].rendered,
+    ] : [],
+    var.enable_calico ? [
+      data.ignition_file.aws_cni_calico_yaml[0].rendered,
     ] : [],
     module.kubelet.files,
     module.admin_kubeconfig.files,

@@ -7,7 +7,7 @@ This document gives an overview of variables used in the Ignition of the metrics
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
 | addons\_dir\_path | A path for installing addons. | `string` | `"/etc/kubernetes/addons"` |
-| container | Desired container repo and tag. | `map(string)` | <pre>{<br>  "repo": "k8s.gcr.io/metrics-server/metrics-server",<br>  "tag": "v0.3.7"<br>}</pre> |
+| container | Desired container repo and tag. | `map(string)` | <pre>{<br>  "repo": "k8s.gcr.io/metrics-server/metrics-server",<br>  "tag": "v0.4.1"<br>}</pre> |
 | secure\_port | The service secure port number. | `number` | `4443` |
 
 ## Outputs

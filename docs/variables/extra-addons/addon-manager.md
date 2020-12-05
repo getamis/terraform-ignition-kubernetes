@@ -7,7 +7,7 @@ This document gives an overview of variables used in the Ignition of the addon-m
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
 | addons\_dir\_path | A path for installing addons. | `string` | `"/etc/kubernetes/addons"` |
-| container | Desired container repo and tag. | `map(string)` | <pre>{<br>  "repo": "k8s.gcr.io/kube-addon-manager",<br>  "tag": "v8.7"<br>}</pre> |
+| container | Desired container repo and tag. | `map(string)` | <pre>{<br>  "repo": "k8s.gcr.io/kube-addon-manager",<br>  "tag": "v9.1.1"<br>}</pre> |
 | kubectl\_extra\_prune\_whitelist | A list of extra whitelisted resources | `list(string)` | `[]` |
 | logs\_dir\_path | A path for recording logs. | `string` | `"/var/log/kubernetes"` |
 | manifests\_dir\_path | A path for executing Kubernetes resources by kubelet. | `string` | `"/etc/kubernetes/manifests"` |

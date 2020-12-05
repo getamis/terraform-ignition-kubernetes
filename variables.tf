@@ -51,6 +51,12 @@ variable "network_plugin" {
   default     = "amazon-vpc"
 }
 
+variable "enable_calico" {
+  description = "(optional) whether enable the calico"
+  type        = bool
+  default     = false
+}
+
 variable "tls_bootstrap_token" {
   description = "The token uses to authenticate API server."
   type = object({
