@@ -11,7 +11,7 @@ This document gives an overview of variables used in the Ignition of the Kuberne
 | audit\_log\_flags | The flags of audit log in kube-apiserver. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/. Do not use underline. | `map` | `{}` |
 | audit\_log\_policy\_content | The policy content for auditing log. | `string` | `""` |
 | auth\_webhook\_config\_path | The path of webhook config for kube-apiserver. | `string` | `"/etc/kubernetes/config/aws-iam-authenticator/kubeconfig"` |
-| binaries | Desired binaries(cni\_plugin) url and checksum. | <pre>map(object({<br>    url      = string<br>    checksum = string<br>  }))</pre> | `{}` |
+| binaries | Desired binaries(cni\_plugin) url and checksum. | <pre>map(object({<br>    source   = string<br>    checksum = string<br>  }))</pre> | `{}` |
 | certs | The kubernetes and etcd certificate. | `map(string)` | `{}` |
 | cloud\_config | The cloud provider configuration. | <pre>object({<br>    provider = string<br>    path     = string<br>  })</pre> | <pre>{<br>  "path": "",<br>  "provider": ""<br>}</pre> |
 | containers | Desired containers(kube-apiserver, kube-controller-manager, cfssl, coredns, and so on) repo and tag. | <pre>map(object({<br>    repo = string<br>    tag  = string<br>  }))</pre> | `{}` |
