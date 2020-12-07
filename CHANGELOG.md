@@ -6,10 +6,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this
 project adheres to [Semantic Versioning](http://semver.org/).
 
 
+<a name="v1.0.2"></a>
+## [v1.0.2] - 2020-12-08
+FEATURES:
+- unify binary key name
+
+
+<a name="v1.0.1"></a>
+## [v1.0.1] - 2020-12-07
+
+
+
 <a name="v1.0.0"></a>
 ## v1.0.0 - 2020-10-20
 ENHANCEMENTS:
-- update docs, add v1 changelog, and update Makefile
+- update docs, add v1 changelog, and update Makefile ([#27](https://github.com/getamis/terraform-ignition-kubernetes/issues/27))
 - update list of addons ([#15](https://github.com/getamis/terraform-ignition-kubernetes/issues/15))
 - update README.md ([#5](https://github.com/getamis/terraform-ignition-kubernetes/issues/5))
 
@@ -33,4 +44,6 @@ BUG FIXES:
 - rename cert_path to pki_dir_path ([#14](https://github.com/getamis/terraform-ignition-kubernetes/issues/14))
 
 
-[Unreleased]: https://github.com/getamis/terraform-ignition-kubernetes/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/getamis/terraform-ignition-kubernetes/compare/v1.0.2...HEAD
+[v1.0.2]: https://github.com/getamis/terraform-ignition-kubernetes/compare/v1.0.1...v1.0.2
+[v1.0.1]: https://github.com/getamis/terraform-ignition-kubernetes/compare/v1.0.0...v1.0.1
