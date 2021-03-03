@@ -73,12 +73,13 @@ if test -f ${CSR_FILE_SRC} && ! test -f ${KUBELET_VAR_PATH}/pki/${FILE_NAME} ; t
   generate::file ${CA_CONFIG_SRC} ${CA_CONFIG_DEST}
   generate::file ${CSR_FILE_SRC} ${CSR_FILE_DEST}
 
-  ${DOCKER_EXEC} run --rm \
+  sudo ${DOCKER_EXEC} run --rm \
   -v ${KUBELET_VAR_PATH}/pki/:/tmp/pki/ \
   -v ${KUBE_ETC_PATH}/pki/:${KUBE_ETC_PATH}/pki/ \
   -e HOSTNAME=${HOSTNAME} \
+  --entrypoint /bin/sh \
   ${CFSSL_IMAGE} \
-    /bin/sh -c "cfssl gencert -ca=${KUBE_ETC_PATH}/pki/ca.crt -ca-key=${KUBE_ETC_PATH}/pki/ca.key -hostname=${HOSTNAME} -config=/tmp/pki/ca-config.json -profile=kubernetes /tmp/pki/csr.json | cfssljson -bare /tmp/pki/kubelet-client"
+  -c "cfssl gencert -ca=${KUBE_ETC_PATH}/pki/ca.crt -ca-key=${KUBE_ETC_PATH}/pki/ca.key -hostname=${HOSTNAME} -config=/tmp/pki/ca-config.json -profile=kubernetes /tmp/pki/csr.json | cfssljson -bare /tmp/pki/kubelet-client"
 
   DATE=$(date +%Y-%m-%d)
   cat ${KUBELET_VAR_PATH}/pki/kubelet-client.pem > ${KUBELET_VAR_PATH}/pki/kubelet-client-${DATE}.pem
