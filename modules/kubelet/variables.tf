@@ -48,11 +48,13 @@ variable "cloud_config" {
 
 variable "extra_config" {
   description = "The extra configuration of kubelet. The variables need to follow https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go. Do not use underline."
+  type        = map(string)
   default     = {}
 }
 
 variable "extra_flags" {
   description = "The extra flags of kubelet. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/. Do not use underline."
+  type        = map(string)
   default     = {}
 }
 
