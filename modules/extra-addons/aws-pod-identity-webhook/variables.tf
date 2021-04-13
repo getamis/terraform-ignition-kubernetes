@@ -24,7 +24,7 @@ variable "webhook_flags" {
   default     = {}
 }
 
-variable "tls_cert_ca" {
+variable "mutating_webhook_ca_bundle" {
   description = "TLS certificate authority."
   type        = string
   default     = ""
