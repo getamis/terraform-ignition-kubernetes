@@ -55,9 +55,9 @@ module "ignition_kubernetes" {
 module "ignition_pod_identity_webhook" {
   source = "../modules/extra-addons/aws-pod-identity-webhook"
 
-  tls_cert_ca = "ah51X/ww7hQOikZ6sPKH5Gs3B99o6BGSddMVJL21Kw8="
-  tls_cert    = "+PyFzGjjjcoRJ33MjnH5FFWlycxbw/gsY1lMlMN1DxE="
-  tls_key     = "3Bhk5ZKRxaxJNnviFa2zP5hAAP+EBY75ag+HpI4OyzQ="
+  mutating_webhook_ca_bundle = "ah51X/ww7hQOikZ6sPKH5Gs3B99o6BGSddMVJL21Kw8="
+  tls_cert                   = "+PyFzGjjjcoRJ33MjnH5FFWlycxbw/gsY1lMlMN1DxE="
+  tls_key                    = "3Bhk5ZKRxaxJNnviFa2zP5hAAP+EBY75ag+HpI4OyzQ="
 }
 
 module "ignition_aws_iam_authenticator" {
