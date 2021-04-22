@@ -8,12 +8,12 @@ locals {
 
   containers = merge({
     kubelet = {
-      repo = "quay.io/poseidon/kubelet"
+      repo = "quay.io/amis/kubelet"
       tag  = var.kubernetes_version
     }
-    // Included kubectl tool, See https://github.com/poseidon/kubelet for more information.
+    // Included kubectl tool, See https://github.com/getamis/kubelet for more information.
     kubectl = {
-      repo = "quay.io/poseidon/kubelet"
+      repo = "quay.io/amis/kubelet"
       tag  = var.kubernetes_version
     }
     pause = {
