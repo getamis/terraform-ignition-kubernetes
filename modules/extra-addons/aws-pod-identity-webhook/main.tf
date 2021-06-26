@@ -6,6 +6,8 @@ data "ignition_file" "pod_identity_webhook" {
   content {
     content = templatefile("${path.module}/templates/pod-identity-webhook.yaml.tpl", {
       image                 = "${var.container["repo"]}:${var.container["tag"]}"
+      service_name          = var.service_name
+      namespace             = var.namespace
       flags                 = local.webhook_flags
       ca_bundle             = base64encode(var.mutating_webhook_ca_bundle)
       tls_crt               = base64encode(var.tls_cert)
