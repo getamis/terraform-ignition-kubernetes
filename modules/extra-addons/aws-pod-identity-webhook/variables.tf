@@ -7,6 +7,18 @@ variable "container" {
   }
 }
 
+variable "service_name" {
+  description = "The pod identity webhook K8s service name"
+  type        = string
+  default     = "pod-identity-webhook"
+}
+
+variable "namespace" {
+  description = "The pod identity webhook K8s namespace"
+  type        = string
+  default     = "kube-system"
+}
+
 variable "located_control_plane" {
   description = "Located in control plane nodes."
   type        = bool

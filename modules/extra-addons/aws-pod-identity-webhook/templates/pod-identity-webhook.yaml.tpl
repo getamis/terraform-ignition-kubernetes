@@ -1,30 +1,14 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: pod-identity-webhook
-  namespace: kube-system
+  name: ${service_name}
+  namespace: ${namespace}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: pod-identity-webhook
+  name: ${service_name}
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - secrets
-  verbs:
-  - create
-- apiGroups:
-  - ""
-  resources:
-  - secrets
-  verbs:
-  - get
-  - update
-  - patch
-  resourceNames:
-  - "pod-identity-webhook"
 - apiGroups:
   - ""
   resources:
@@ -33,43 +17,44 @@ rules:
   - get
   - watch
   - list
-- apiGroups:
-  - certificates.k8s.io
-  resources:
-  - certificatesigningrequests
-  verbs:
-  - create
-  - get
-  - list
-  - watch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: pod-identity-webhook
+  name: ${service_name}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: pod-identity-webhook
+  name: ${service_name}
 subjects:
 - kind: ServiceAccount
-  name: pod-identity-webhook
-  namespace: kube-system
+  name: ${service_name}
+  namespace: ${namespace}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ${service_name}
+  namespace: ${namespace}
+type: Opaque
+data:
+  tls.crt: ${tls_crt}
+  tls.key: ${tls_key}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pod-identity-webhook
-  namespace: kube-system
+  name: ${service_name}
+  namespace: ${namespace}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pod-identity-webhook
+      app: ${service_name}
   template:
     metadata:
       labels:
-        app: pod-identity-webhook
+        app: ${service_name}
     spec:
 %{ if located_control_plane ~}
       nodeSelector:
@@ -80,9 +65,9 @@ spec:
       - key: CriticalAddonsOnly
         operator: Exists
 %{ endif ~}
-      serviceAccountName: pod-identity-webhook
+      serviceAccountName: ${service_name}
       containers:
-      - name: pod-identity-webhook
+      - name: ${service_name}
         image: ${image}
         imagePullPolicy: Always
         command:
@@ -92,23 +77,20 @@ spec:
         - --${flag}=${value}
 %{ endif ~}
 %{ endfor ~}
-        - --in-cluster
-        - --namespace=kube-system
-        - --service-name=pod-identity-webhook
-        - --tls-secret=pod-identity-webhook
         volumeMounts:
-        - name: webhook-certs
-          mountPath: /var/run/app/certs
-          readOnly: false
+          - name: cert
+            mountPath: "/etc/webhook/certs"
+            readOnly: true
       volumes:
-      - name: webhook-certs
-        emptyDir: {}
+        - name: cert
+          secret:
+            secretName: ${service_name}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: pod-identity-webhook
-  namespace: kube-system
+  name: ${service_name}
+  namespace: ${namespace}
   annotations:
     prometheus.io/port: "443"
     prometheus.io/scheme: "https"
@@ -118,30 +100,20 @@ spec:
   - port: 443
     targetPort: 443
   selector:
-    app: pod-identity-webhook 
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: pod-identity-webhook
-  namespace: kube-system
-type: Opaque
-data:
-  tls.crt: ${tls_crt}
-  tls.key: ${tls_key}
+    app: ${service_name}
 ---
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingWebhookConfiguration
 metadata:
-  name: pod-identity-webhook
-  namespace: kube-system
+  name: ${service_name}
+  namespace: ${namespace}
 webhooks:
-- name: pod-identity-webhook.amazonaws.com
+- name: ${service_name}.amazonaws.com
   failurePolicy: Ignore
   clientConfig:
     service:
-      name: pod-identity-webhook
-      namespace: kube-system
+      name: ${service_name}
+      namespace: ${namespace}
       path: "/mutate"
     caBundle: ${ca_bundle}
   rules:
