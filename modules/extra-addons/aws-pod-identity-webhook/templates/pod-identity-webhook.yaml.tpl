@@ -47,7 +47,11 @@ metadata:
   name: ${service_name}
   namespace: ${namespace}
 spec:
-  replicas: 1
+  replicas: ${replicas}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: ${service_name}
@@ -65,6 +69,16 @@ spec:
       - key: CriticalAddonsOnly
         operator: Exists
 %{ endif ~}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - ${service_name}
+            topologyKey: kubernetes.io/hostname
       serviceAccountName: ${service_name}
       containers:
       - name: ${service_name}
