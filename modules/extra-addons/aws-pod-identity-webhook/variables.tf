@@ -19,6 +19,12 @@ variable "namespace" {
   default     = "kube-system"
 }
 
+variable "replicas" {
+  description = "The pod identity webhook deployment replicas"
+  type        = number
+  default     = 1
+}
+
 variable "located_control_plane" {
   description = "Located in control plane nodes."
   type        = bool
