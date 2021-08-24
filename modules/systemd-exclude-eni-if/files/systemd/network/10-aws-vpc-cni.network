@@ -1,0 +1,5 @@
+[Match]
+OriginalName=eni*
+[Link]
+Unmanaged=yes
+ActivationPolicy=manual
