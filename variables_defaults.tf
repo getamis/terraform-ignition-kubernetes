@@ -110,7 +110,7 @@ locals {
   kube_proxy_config = merge({
     bindAddress        = "0.0.0.0"
     clusterCIDR        = var.pod_network_cidr
-    metricsBindAddress = "0.0.0.0:10249"
+    metricsBindAddress = "0.0.0.0"
     mode               = "iptables"
   }, var.kube_proxy_config)
 
