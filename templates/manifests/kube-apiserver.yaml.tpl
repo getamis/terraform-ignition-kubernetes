@@ -56,35 +56,20 @@ spec:
     resources:
       requests:
         cpu: 250m
+    securityContext:
+      privileged: true
     volumeMounts:
-    - mountPath: /etc/ssl/certs
-      name: ca-certs
-      readOnly: true
-    - mountPath: /etc/ca-certificates
-      name: etc-ca-certificates
-      readOnly: true
     - mountPath: ${pki_path}
       name: k8s-certs
       readOnly: true
     - mountPath: ${config_path}
       name: k8s-configs
       readOnly: true
-    - mountPath: /usr/share/ca-certificates
-      name: usr-share-ca-certificates
-      readOnly: true
     - mountPath: ${log_path}
       name: k8s-logs
   hostNetwork: true
   priorityClassName: system-cluster-critical
   volumes:
-  - hostPath:
-      path: /etc/ssl/certs
-      type: DirectoryOrCreate
-    name: ca-certs
-  - hostPath:
-      path: /etc/ca-certificates
-      type: DirectoryOrCreate
-    name: etc-ca-certificates
   - hostPath:
       path: ${pki_path}
       type: DirectoryOrCreate
@@ -97,8 +82,4 @@ spec:
       path: ${log_path}
       type: DirectoryOrCreate
     name: k8s-logs
-  - hostPath:
-      path: /usr/share/ca-certificates
-      type: DirectoryOrCreate
-    name: usr-share-ca-certificates
 status: {}

@@ -35,6 +35,8 @@ spec:
     resources:
       requests:
         cpu: 100m
+    securityContext:
+      privileged: true
     volumeMounts:
     - mountPath: ${kubeconfig}
       name: kubeconfig

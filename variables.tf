@@ -1,11 +1,11 @@
 variable "kubernetes_version" {
   description = "Desired Kubernetes version."
   type        = string
-  default     = "v1.19.3"
+  default     = "v1.23.5"
 }
 
 variable "binaries" {
-  description = "Desired binaries(cni_plugin) url and checksum."
+  description = "Desired binaries(kubelet, cni_plugin) url and checksum."
   type = map(object({
     source   = string
     checksum = string

@@ -166,9 +166,7 @@ spec:
             requests:
               cpu: 10m
           securityContext:
-            capabilities:
-              add:
-                - NET_ADMIN
+            privileged: true
           volumeMounts:
             - mountPath: /host/opt/cni/bin
               name: cni-bin-dir

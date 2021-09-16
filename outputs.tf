@@ -20,6 +20,8 @@ output "files" {
       data.ignition_file.bootstrap_token_rbac.rendered,
       data.ignition_file.audit_log_policy.rendered,
       data.ignition_file.encryption_config.rendered,
+      data.ignition_file.systemd_networkd_conf.rendered,
+      data.ignition_file.network_manager_conf.rendered,
     ],
     var.network_plugin == "amazon-vpc" ? [
       data.ignition_file.aws_vpc_cni_yaml[0].rendered,

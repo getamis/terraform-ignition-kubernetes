@@ -12,20 +12,13 @@ function require_ev_all() {
 	done
 }
 
-require_ev_all KUBECTL_IMAGE_REPO KUBECTL_IMAGE_TAG
-KUBECTL_IMAGE="${KUBECTL_IMAGE_REPO}:${KUBECTL_IMAGE_TAG}"
+KUBECTL_BINARY=/usr/local/bin/kubectl
 
 mkdir -p ${ADDONS_PATH}
 
-source /opt/kubernetes/bin/get-host-info.sh
+source /usr/local/bin/get-host-info.sh
 export KUBECONFIG=/etc/kubernetes/admin.conf
 
 set -x
-sudo docker run --rm \
-  -v /etc/kubernetes/admin.conf:/root/.kube/config:ro \
-  --entrypoint=kubectl ${KUBECTL_IMAGE} label node ${HOSTNAME_FQDN} node-role.kubernetes.io/master="" --overwrite
-
-sudo docker run --rm \
-  -v /etc/kubernetes/admin.conf:/root/.kube/config:ro \
-  -v ${ADDONS_PATH}:${ADDONS_PATH}:ro \
-  --entrypoint=kubectl ${KUBECTL_IMAGE} apply -f ${ADDONS_PATH}
+${KUBECTL_BINARY} label node ${HOSTNAME_FQDN} node-role.kubernetes.io/master="" --overwrite
+${KUBECTL_BINARY} apply -f ${ADDONS_PATH}

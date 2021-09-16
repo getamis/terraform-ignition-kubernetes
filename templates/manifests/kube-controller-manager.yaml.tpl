@@ -51,13 +51,9 @@ spec:
     resources:
       requests:
         cpu: 200m
+    securityContext:
+      privileged: true
     volumeMounts:
-    - mountPath: /etc/ssl/certs
-      name: ca-certs
-      readOnly: true
-    - mountPath: /etc/ca-certificates
-      name: etc-ca-certificates
-      readOnly: true
     - mountPath: /usr/libexec/kubernetes/kubelet-plugins/volume/exec
       name: flexvolume-dir
     - mountPath: ${pki_path}
@@ -66,20 +62,9 @@ spec:
     - mountPath: ${kubeconfig}
       name: kubeconfig
       readOnly: true
-    - mountPath: /usr/share/ca-certificates
-      name: usr-share-ca-certificates
-      readOnly: true
   hostNetwork: true
   priorityClassName: system-cluster-critical
   volumes:
-  - hostPath:
-      path: /etc/ssl/certs
-      type: DirectoryOrCreate
-    name: ca-certs
-  - hostPath:
-      path: /etc/ca-certificates
-      type: DirectoryOrCreate
-    name: etc-ca-certificates
   - hostPath:
       path: /opt/libexec/kubernetes/kubelet-plugins/volume/exec
       type: DirectoryOrCreate
@@ -92,8 +77,4 @@ spec:
       path: ${kubeconfig}
       type: FileOrCreate
     name: kubeconfig
-  - hostPath:
-      path: /usr/share/ca-certificates
-      type: DirectoryOrCreate
-    name: usr-share-ca-certificates
 status: {}
