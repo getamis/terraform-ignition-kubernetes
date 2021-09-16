@@ -8,7 +8,7 @@ RemainAfterExit=true
 
 EnvironmentFile=-/etc/default/kubernetes.env
 Environment="ADDONS_PATH=${path}"
-ExecStart=/opt/kubernetes/bin/init-addons
+ExecStart=/usr/local/bin/init-addons
       
 Restart=on-failure
 RestartSec=10

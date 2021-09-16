@@ -12,33 +12,33 @@ function require_ev_all() {
 	done
 }
 
-require_ev_all KUBELET_IMAGE_REPO KUBELET_IMAGE_TAG
-KUBELET_IMAGE="${KUBELET_IMAGE_REPO}:${KUBELET_IMAGE_TAG}"
+KUBELET_BINARY=/usr/local/bin/kubelet
 
-source /opt/kubernetes/bin/get-host-info.sh
-sudo sysctl --system
+/usr/bin/podman network rm podman || rm -rf /etc/cni/net.d/cni.lock
+
+source /usr/local/bin/get-host-info.sh
 
 set -x
-exec sudo /usr/bin/docker run --name kubelet \
-  --privileged \
-  --pid host \
-  --network host \
-  --volume /etc/kubernetes:/etc/kubernetes \
-  --volume /usr/lib/os-release:/etc/os-release:ro \
-  --volume /etc/ssl/certs:/etc/ssl/certs:ro \
-  --volume /lib/modules:/lib/modules:ro \
-  --volume /run:/run \
-  --volume /sys/fs/cgroup:/sys/fs/cgroup:ro \
-  --volume /sys/fs/cgroup/systemd:/sys/fs/cgroup/systemd \
-  --volume /usr/share/ca-certificates:/usr/share/ca-certificates:ro \
-  --volume /var/lib/calico:/var/lib/calico:ro \
-  --volume /var/lib/docker:/var/lib/docker \
-  --volume /var/lib/kubelet:/var/lib/kubelet:rshared,z \
-  --volume /var/log:/var/log \
-  --volume /var/run/lock:/var/run/lock:z \
-  --volume /opt/cni/bin:/opt/cni/bin:z \
-  --volume /etc/cni/net.d:/etc/cni/net.d \
-  ${KUBELET_IMAGE} \
-    --node-ip=${HOST_IP} \
-    --hostname-override=${HOSTNAME} \
-    "$@"
+
+/usr/bin/podman run --name kubelet \
+    --privileged \
+    --pid host \
+    --network host \
+    --volume /etc/cni/net.d:/etc/cni/net.d:ro,z \
+    --volume /etc/kubernetes:/etc/kubernetes:ro,z \
+    --volume /usr/lib/os-release:/etc/os-release:ro \
+    --volume /lib/modules:/lib/modules:ro \
+    --volume /run:/run \
+    --volume /sys/fs/cgroup:/sys/fs/cgroup \
+    --volume /var/lib/calico:/var/lib/calico:ro \
+    --volume /var/lib/docker:/var/lib/docker \
+    --volume /var/lib/kubelet:/var/lib/kubelet:rshared,z \
+    --volume /var/log:/var/log \
+    --volume /var/run/lock:/var/run/lock:z \
+    --volume /opt/cni/bin:/opt/cni/bin:z \
+    quay.io/amis/kubelet:v1.23.5 \
+        --node-ip=${HOST_IP} \
+        --hostname-override=${HOSTNAME_FQDN} \
+        --runtime-cgroups=/systemd/system.slice \
+        --v=0 \
+        "$@"

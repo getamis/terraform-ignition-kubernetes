@@ -95,6 +95,8 @@ spec:
           limits:
             memory: 20Mi
             cpu: 100m
+        securityContext:
+          privileged: true
         volumeMounts:
         - name: state
           mountPath: /var/aws-iam-authenticator/

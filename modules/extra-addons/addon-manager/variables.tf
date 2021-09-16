@@ -3,7 +3,7 @@ variable "container" {
   type        = map(string)
   default = {
     repo = "k8s.gcr.io/kube-addon-manager"
-    tag  = "v9.1.1"
+    tag  = "v9.1.5"
   }
 }
 

@@ -1,21 +1,16 @@
 locals {
   binaries = merge({
+    kubelet = {
+      source   = "https://dl.k8s.io/${var.kubernetes_version}/kubernetes-node-linux-amd64.tar.gz"
+      checksum = "sha512-57eeae81081e06e35484b353be04f18bf5c2556175a0355d63cbe3eea80d51decfae28eb42cb5fc8907492a70e4e9bae54bd86956caea7c3a51b1fc909feaea6"
+    }
     cni_plugin = {
-      source   = "https://github.com/containernetworking/plugins/releases/download/v0.9.1/cni-plugins-linux-amd64-v0.9.1.tgz"
-      checksum = "sha512-b5a59660053a5f1a33b5dd5624d9ed61864482d9dc8e5b79c9b3afc3d6f62c9830e1c30f9ccba6ee76f5fb1ff0504e58984420cc0680b26cb643f1cb07afbd1c"
+      source   = "https://github.com/containernetworking/plugins/releases/download/v1.0.0/cni-plugins-linux-amd64-v1.0.0.tgz"
+      checksum = "sha512-276633e8750e56fe864ba60fd3efef81c2157385219770a410cd7e423e88d68c024470b82420776d34027182227352f391a03cfd2e97ede9d0c7d8fa8fd578ec"
     }
   }, var.binaries)
 
   containers = merge({
-    kubelet = {
-      repo = "quay.io/amis/kubelet"
-      tag  = var.kubernetes_version
-    }
-    // Included kubectl tool, See https://github.com/getamis/kubelet for more information.
-    kubectl = {
-      repo = "quay.io/amis/kubelet"
-      tag  = var.kubernetes_version
-    }
     pause = {
       repo = "k8s.gcr.io/pause"
       tag  = "3.2"
@@ -56,6 +51,9 @@ locals {
 
     clusterDNS         = [cidrhost(var.service_network_cidr, 10)]
     clusterDomain      = "cluster.local"
+    hairpinMode        = "hairpin-veth"
+    cgroupDriver       = "systemd"
+    kubeletCgroups     = "/systemd/system.slice"
     healthzBindAddress = "127.0.0.1"
     healthzPort        = 0
     readOnlyPort       = 0

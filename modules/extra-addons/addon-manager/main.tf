@@ -1,7 +1,7 @@
 data "ignition_file" "addon_manager_pod" {
-  filesystem = "root"
-  mode       = 420
-  path       = "${var.manifests_dir_path}/addon_manager.yaml.tpl"
+  mode      = 420
+  path      = "${var.manifests_dir_path}/addon_manager.yaml.tpl"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/pod.yaml.tpl", {

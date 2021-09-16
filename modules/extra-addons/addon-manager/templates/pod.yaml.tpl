@@ -25,6 +25,8 @@ spec:
       requests:
         cpu: 3m
         memory: 50Mi
+    securityContext:
+      privileged: true
     volumeMounts:
     - mountPath: /etc/kubernetes/addons
       name: addons

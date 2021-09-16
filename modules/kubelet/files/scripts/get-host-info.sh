@@ -117,8 +117,10 @@ g3.4xlarge 234
 g3.8xlarge 234
 g3s.xlarge 58
 g4ad.16xlarge 234
+g4ad.2xlarge 8
 g4ad.4xlarge 29
 g4ad.8xlarge 58
+g4ad.xlarge 8
 g4dn.12xlarge 234
 g4dn.16xlarge 58
 g4dn.2xlarge 29
@@ -248,6 +250,15 @@ m6gd.large 29
 m6gd.medium 8
 m6gd.metal 737
 m6gd.xlarge 58
+m6i.12xlarge 234
+m6i.16xlarge 737
+m6i.24xlarge 737
+m6i.2xlarge 58
+m6i.32xlarge 737
+m6i.4xlarge 234
+m6i.8xlarge 234
+m6i.large 29
+m6i.xlarge 58
 mac1.metal 234
 p2.16xlarge 234
 p2.8xlarge 234

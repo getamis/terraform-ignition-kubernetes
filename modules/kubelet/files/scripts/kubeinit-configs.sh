@@ -22,12 +22,12 @@ function require_ev_one() {
 	exit 1
 }
 
-source /opt/kubernetes/bin/get-host-info.sh
+source /usr/local/bin/get-host-info.sh
 
 require_ev_all CFSSL_IMAGE_REPO CFSSL_IMAGE_TAG
 
 CFSSL_IMAGE="${CFSSL_IMAGE_REPO}:${CFSSL_IMAGE_TAG}"
-DOCKER_EXEC="${DOCKER_EXEC:-/usr/bin/docker}"
+PODMAN_EXEC="${PODMAN_EXEC:-/usr/bin/podman}"
 
 KUBE_OPT_PATH=${KUBE_OPT_PATH:="/opt/kubernetes"}
 KUBE_ETC_PATH=${KUBE_ETC_PATH:="/etc/kubernetes"}
@@ -47,8 +47,11 @@ mkdir -p ${KUBE_ETC_PATH}/pki
 mkdir -p ${KUBELET_VAR_PATH}
 mkdir -p ${KUBELET_VAR_PATH}/pki
 mkdir -p /run/kubelet
+mkdir -p /var/lib/calico
+mkdir -p /var/lib/kubelet/volumeplugins
 
-sudo tar -xvf /opt/cni/cni-plugins-linux.tgz -C ${CNI_BIN_PATH}/
+tar -xvf /opt/kubelet/node.tar.gz -C /usr/local/bin --strip-components=3 kubernetes/node/bin/kubectl kubernetes/node/bin/kubelet
+tar -xvf /opt/cni/cni-plugins-linux.tgz -C ${CNI_BIN_PATH}/
 
 # Generate configs
 function generate::file() {
@@ -73,13 +76,12 @@ if test -f ${CSR_FILE_SRC} && ! test -f ${KUBELET_VAR_PATH}/pki/${FILE_NAME} ; t
   generate::file ${CA_CONFIG_SRC} ${CA_CONFIG_DEST}
   generate::file ${CSR_FILE_SRC} ${CSR_FILE_DEST}
 
-  sudo ${DOCKER_EXEC} run --rm \
-  -v ${KUBELET_VAR_PATH}/pki/:/tmp/pki/ \
-  -v ${KUBE_ETC_PATH}/pki/:${KUBE_ETC_PATH}/pki/ \
+  ${PODMAN_EXEC} run --rm \
+  -v ${KUBELET_VAR_PATH}/pki/:/tmp/pki/:Z \
+  -v ${KUBE_ETC_PATH}/pki/:${KUBE_ETC_PATH}/pki/:Z \
   -e HOSTNAME=${HOSTNAME} \
-  --entrypoint /bin/sh \
   ${CFSSL_IMAGE} \
-  -c "cfssl gencert -ca=${KUBE_ETC_PATH}/pki/ca.crt -ca-key=${KUBE_ETC_PATH}/pki/ca.key -hostname=${HOSTNAME} -config=/tmp/pki/ca-config.json -profile=kubernetes /tmp/pki/csr.json | cfssljson -bare /tmp/pki/kubelet-client"
+  /bin/sh -c "cfssl gencert -ca=${KUBE_ETC_PATH}/pki/ca.crt -ca-key=${KUBE_ETC_PATH}/pki/ca.key -hostname=${HOSTNAME} -config=/tmp/pki/ca-config.json -profile=kubernetes /tmp/pki/csr.json | cfssljson -bare /tmp/pki/kubelet-client"
 
   DATE=$(date +%Y-%m-%d)
   cat ${KUBELET_VAR_PATH}/pki/kubelet-client.pem > ${KUBELET_VAR_PATH}/pki/kubelet-client-${DATE}.pem
@@ -95,6 +97,6 @@ if test -f ${CSR_FILE_SRC} && ! test -f ${KUBELET_VAR_PATH}/pki/${FILE_NAME} ; t
 fi
 
 BOOTSTRAPPING_KUBECONFIG="${KUBE_ETC_PATH}/bootstrap-kubelet.conf"
-if test -f ${BOOTSTRAPPING_KUBECONFIG} ; then 
+if test -s ${BOOTSTRAPPING_KUBECONFIG} ; then 
   grep 'certificate-authority-data' ${BOOTSTRAPPING_KUBECONFIG} | awk '{print $2}' | base64 -d > ${KUBE_ETC_PATH}/pki/ca.crt
 fi

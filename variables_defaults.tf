@@ -18,31 +18,31 @@ locals {
     }
     coredns = {
       repo = "coredns/coredns"
-      tag  = "1.8.0"
+      tag  = "1.8.4"
     }
     vpc_cni = {
       repo = "quay.io/amis/amazon-k8s-cni"
-      tag  = "v1.7.6"
+      tag  = "v1.9.0"
     }
     vpc_cni_init = {
       repo = "quay.io/amis/amazon-k8s-cni-init"
-      tag  = "v1.7.6"
+      tag  = "v1.9.0"
     }
     calico_node = {
       repo = "quay.io/calico/node"
-      tag  = "v3.17.0"
+      tag  = "v3.18.5"
     }
     calico_typha = {
       repo = "quay.io/calico/typha"
-      tag  = "v3.17.0"
+      tag  = "v3.18.5"
     }
     calico_autoscaler = {
       repo = "k8s.gcr.io/cluster-proportional-autoscaler-amd64"
-      tag  = "1.8.1"
+      tag  = "1.8.5"
     }
     flannel_cni = {
       repo = "quay.io/coreos/flannel"
-      tag  = "v0.13.0-amd64"
+      tag  = "v0.14.0-amd64"
     }
   }, var.containers)
 
@@ -110,7 +110,7 @@ locals {
   kube_proxy_config = merge({
     bindAddress        = "0.0.0.0"
     clusterCIDR        = var.pod_network_cidr
-    metricsBindAddress = "0.0.0.0:10249"
+    metricsBindAddress = "0.0.0.0"
     mode               = "iptables"
   }, var.kube_proxy_config)
 

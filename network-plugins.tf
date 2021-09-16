@@ -1,9 +1,29 @@
+data "ignition_file" "systemd_networkd_conf" {
+  path      = "/etc/systemd/network/10-aws-vpc-cni.link"
+  mode      = 420
+  overwrite = true
+
+  content {
+    content = templatefile("${path.module}/templates/network-plugins/amazon-vpc/10-aws-vpc-cni.link.tpl", {})
+  }
+}
+
+data "ignition_file" "network_manager_conf" {
+  path      = "/etc/NetworkManager/conf.d/aws-cni.conf"
+  mode      = 420
+  overwrite = true
+
+  content {
+    content = templatefile("${path.module}/templates/network-plugins/amazon-vpc/aws-cni.conf.tpl", {})
+  }
+}
+
 data "ignition_file" "aws_vpc_cni_yaml" {
   count = var.network_plugin == "amazon-vpc" ? 1 : 0
 
-  filesystem = "root"
-  mode       = 420
-  path       = "${local.etc_path}/addons/aws-k8s-cni.yaml"
+  mode      = 420
+  path      = "${local.etc_path}/addons/aws-k8s-cni.yaml"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/network-plugins/amazon-vpc/aws-vpc-cni.yaml.tpl", {
@@ -16,9 +36,9 @@ data "ignition_file" "aws_vpc_cni_yaml" {
 data "ignition_file" "aws_cni_calico_yaml" {
   count = var.enable_calico ? 1 : 0
 
-  filesystem = "root"
-  mode       = 420
-  path       = "${local.etc_path}/addons/calico-cni.yaml"
+  mode      = 420
+  path      = "${local.etc_path}/addons/calico-cni.yaml"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/network-plugins/amazon-vpc/calico.yaml.tpl", {
@@ -32,9 +52,9 @@ data "ignition_file" "aws_cni_calico_yaml" {
 data "ignition_file" "flannel_yaml" {
   count = var.network_plugin == "flannel" ? 1 : 0
 
-  filesystem = "root"
-  mode       = 420
-  path       = "${local.etc_path}/addons/flannel-cni.yaml"
+  mode      = 420
+  path      = "${local.etc_path}/addons/flannel-cni.yaml"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/network-plugins/flannel/flannel.yaml.tpl", {

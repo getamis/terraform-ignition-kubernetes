@@ -2,22 +2,44 @@
 # Terraform variables inputs and outputs
 This document gives an overview of variables used in the Ignition of the Kubernetes kubeconfig module.
 
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_ignition"></a> [ignition](#requirement\_ignition) | ~> 2.1 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_ignition"></a> [ignition](#provider\_ignition) | ~> 2.1 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [ignition_file.kubeconfig](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+
 ## Inputs
 
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| certificates | The kubernetes certificates. | `map(string)` | <pre>{<br>  "ca_cert": "",<br>  "client_cert": "",<br>  "client_cert_path": "",<br>  "client_key": "",<br>  "client_key_path": "",<br>  "token": ""<br>}</pre> |
-| cluster | Name of the cluster. | `string` | `"kubernetes"` |
-| config\_path | (Required) The path of kubeconfig. | `string` | `"/etc/kubernetes/admin.conf"` |
-| content | The content of the kubeconfig file. | `string` | `""` |
-| context | (Required) Name of the context. | `string` | `"kubernetes-admin@kubernetes"` |
-| endpoint | (Required) The endpoint of Kubernetes API server. | `string` | `"https://127.0.0.1:6443"` |
-| user | (Required) Name of the user. | `string` | `"kubernetes-admin"` |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_certificates"></a> [certificates](#input\_certificates) | The kubernetes certificates. | `map(string)` | <pre>{<br>  "ca_cert": "",<br>  "client_cert": "",<br>  "client_cert_path": "",<br>  "client_key": "",<br>  "client_key_path": "",<br>  "token": ""<br>}</pre> | no |
+| <a name="input_cluster"></a> [cluster](#input\_cluster) | Name of the cluster. | `string` | `"kubernetes"` | no |
+| <a name="input_config_path"></a> [config\_path](#input\_config\_path) | (Required) The path of kubeconfig. | `string` | `"/etc/kubernetes/admin.conf"` | no |
+| <a name="input_content"></a> [content](#input\_content) | The content of the kubeconfig file. | `string` | `""` | no |
+| <a name="input_context"></a> [context](#input\_context) | (Required) Name of the context. | `string` | `"kubernetes-admin@kubernetes"` | no |
+| <a name="input_endpoint"></a> [endpoint](#input\_endpoint) | (Required) The endpoint of Kubernetes API server. | `string` | `"https://127.0.0.1:6443"` | no |
+| <a name="input_user"></a> [user](#input\_user) | (Required) Name of the user. | `string` | `"kubernetes-admin"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| content | n/a |
-| files | n/a |
-
+| <a name="output_content"></a> [content](#output\_content) | n/a |
+| <a name="output_files"></a> [files](#output\_files) | n/a |

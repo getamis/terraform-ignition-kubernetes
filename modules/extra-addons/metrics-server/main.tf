@@ -1,7 +1,7 @@
 data "ignition_file" "metrics_server_components" {
-  filesystem = "root"
-  mode       = 420
-  path       = "${var.addons_dir_path}/metrics-server.yaml"
+  mode      = 420
+  path      = "${var.addons_dir_path}/metrics-server.yaml"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/components.yaml.tpl", {
