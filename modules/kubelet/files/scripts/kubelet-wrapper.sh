@@ -40,5 +40,5 @@ exec sudo /usr/bin/docker run --name kubelet \
   --volume /etc/cni/net.d:/etc/cni/net.d \
   ${KUBELET_IMAGE} \
     --node-ip=${HOST_IP} \
-    --hostname-override=${HOSTNAME} \
+    --hostname-override=${HOSTNAME_FQDN} \
     "$@"
