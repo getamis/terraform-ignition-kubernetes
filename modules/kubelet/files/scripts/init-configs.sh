@@ -32,6 +32,7 @@ DOCKER_EXEC="${DOCKER_EXEC:-/usr/bin/docker}"
 KUBE_OPT_PATH=${KUBE_OPT_PATH:="/opt/kubernetes"}
 KUBE_ETC_PATH=${KUBE_ETC_PATH:="/etc/kubernetes"}
 KUBELET_VAR_PATH=${KUBELET_VAR_PATH:="/var/lib/kubelet"}
+KUBELET_LOG_PATH=${KUBELET_LOG_PATH:="/var/log/kubelet"}
 
 OPT_BIN_PATH=${OPT_BIN_PATH:="${KUBE_OPT_PATH}/bin"}
 CNI_BIN_PATH=${CNI_BIN_PATH:="/opt/cni/bin"}
@@ -46,6 +47,7 @@ mkdir -p ${KUBE_ETC_PATH}/manifests
 mkdir -p ${KUBE_ETC_PATH}/pki
 mkdir -p ${KUBELET_VAR_PATH}
 mkdir -p ${KUBELET_VAR_PATH}/pki
+mkdir -p ${KUBELET_LOG_PATH}
 mkdir -p /run/kubelet
 
 sudo tar -xvf /opt/cni/cni-plugins-linux.tgz -C ${CNI_BIN_PATH}/

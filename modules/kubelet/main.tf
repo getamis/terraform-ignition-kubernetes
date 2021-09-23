@@ -18,7 +18,10 @@ locals {
   kubelet_extra_flags = merge(var.extra_flags, {
     pod-infra-container-image = "${local.containers["pause"].repo}:${local.containers["pause"].tag}"
     volume-plugin-dir         = "/var/lib/kubelet/volumeplugins"
-  })
+    logtostderr               = "false"
+    log-dir                   = "/var/log/kubelet"
+    log-file-max-size         = "128"    
+})
 }
 
 data "ignition_file" "cni_plugin_tgz" {
