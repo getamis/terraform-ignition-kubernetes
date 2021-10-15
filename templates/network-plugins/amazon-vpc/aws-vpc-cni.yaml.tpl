@@ -140,6 +140,12 @@ spec:
               value: 'false'
             - name: ENABLE_POD_ENI
               value: 'false'
+            - name: ENABLE_PREFIX_DELEGATION
+              value: '${enable_eni_prefix}'
+            - name: WARM_IP_TARGET
+              value: '1'
+            - name: MINIMUM_IP_TARGET
+              value: '1'
             - name: MY_NODE_NAME
               valueFrom:
                 fieldRef:

@@ -10,6 +10,7 @@ module "kubelet" {
   extra_config         = local.kubelet_config
   extra_flags          = var.kubelet_flags
   feature_gates        = var.feature_gates
+  enable_eni_prefix    = var.enable_eni_prefix
 }
 
 data "ignition_file" "kubelet_csr_json_tpl" {
