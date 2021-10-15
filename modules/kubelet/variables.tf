@@ -70,3 +70,9 @@ variable "feature_gates" {
   type        = map(bool)
   default     = {}
 }
+
+variable "enable_eni_prefix" {
+  description = "(Optional) assign prefix to AWS EC2 network interface"
+  type        = bool
+  default     = true
+}

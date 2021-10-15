@@ -57,6 +57,12 @@ variable "enable_calico" {
   default     = false
 }
 
+variable "enable_eni_prefix" {
+  description = "(Optional) assign prefix to AWS EC2 network interface"
+  type        = bool
+  default     = true
+}
+
 variable "tls_bootstrap_token" {
   description = "The token uses to authenticate API server."
   type = object({
