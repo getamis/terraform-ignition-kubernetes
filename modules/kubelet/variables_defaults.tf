@@ -59,6 +59,6 @@ locals {
     healthzBindAddress = "127.0.0.1"
     healthzPort        = 0
     readOnlyPort       = 0
-    maxPods            = var.enable_eni_prefix ? "110" : "$${MAX_PODS}"
+    maxPods            = var.enable_eni_prefix ? var.max_pods : "$${MAX_PODS}"
   }, var.extra_config)
 }

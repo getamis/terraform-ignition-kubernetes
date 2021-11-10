@@ -11,6 +11,7 @@ module "kubelet" {
   extra_flags          = var.kubelet_flags
   feature_gates        = var.feature_gates
   enable_eni_prefix    = var.enable_eni_prefix
+  max_pods             = var.max_pods
 }
 
 data "ignition_file" "kubelet_csr_json_tpl" {
