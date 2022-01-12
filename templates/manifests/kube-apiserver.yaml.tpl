@@ -55,7 +55,11 @@ spec:
       timeoutSeconds: 15
     resources:
       requests:
-        cpu: 250m
+        cpu: 400m
+        memory: 1536Mi
+      limits:
+        cpu: 400m
+        memory: 1536Mi
     volumeMounts:
     - mountPath: /etc/ssl/certs
       name: ca-certs
