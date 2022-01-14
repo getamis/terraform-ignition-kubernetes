@@ -90,10 +90,10 @@ spec:
 %{ endfor ~}
         resources:
           requests:
-            memory: 20Mi
+            memory: 64Mi
             cpu: 10m
           limits:
-            memory: 20Mi
+            memory: 64Mi
             cpu: 100m
         volumeMounts:
         - name: state
