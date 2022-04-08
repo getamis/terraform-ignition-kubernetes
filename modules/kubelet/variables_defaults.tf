@@ -1,8 +1,8 @@
 locals {
   binaries = merge({
     cni_plugin = {
-      source   = "https://github.com/containernetworking/plugins/releases/download/v0.9.1/cni-plugins-linux-amd64-v0.9.1.tgz"
-      checksum = "sha512-b5a59660053a5f1a33b5dd5624d9ed61864482d9dc8e5b79c9b3afc3d6f62c9830e1c30f9ccba6ee76f5fb1ff0504e58984420cc0680b26cb643f1cb07afbd1c"
+      source   = "https://github.com/containernetworking/plugins/releases/download/v1.1.1/cni-plugins-linux-amd64-v1.1.1.tgz"
+      checksum = "sha512-4d0ed0abb5951b9cf83cba938ef84bdc5b681f4ac869da8143974f6a53a3ff30c666389fa462b9d14d30af09bf03f6cdf77598c572f8fb3ea00cecdda467a48d"
     }
   }, var.binaries)
 
@@ -18,11 +18,11 @@ locals {
     }
     pause = {
       repo = "k8s.gcr.io/pause"
-      tag  = "3.2"
+      tag  = "3.3"
     }
     cfssl = {
       repo = "quay.io/amis/cfssl"
-      tag  = "v1.4.1"
+      tag  = "v1.6.1"
     }
   }, var.containers)
 

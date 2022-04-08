@@ -17,6 +17,15 @@ rules:
   - get
   - watch
   - list
+- apiGroups:
+  - certificates.k8s.io
+  resources:
+  - certificatesigningrequests
+  verbs:
+  - create
+  - get
+  - list
+  - watch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -116,7 +125,7 @@ spec:
   selector:
     app: ${service_name}
 ---
-apiVersion: admissionregistration.k8s.io/v1beta1
+apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
   name: ${service_name}
@@ -135,3 +144,5 @@ webhooks:
     apiGroups: [""]
     apiVersions: ["v1"]
     resources: ["pods"]
+  sideEffects: None
+  admissionReviewVersions: ["v1beta1"]
