@@ -18,7 +18,7 @@ locals {
     }
     coredns = {
       repo = "coredns/coredns"
-      tag  = "1.8.5"
+      tag  = "1.9.1"
     }
     vpc_cni = {
       repo = "quay.io/amis/amazon-k8s-cni"

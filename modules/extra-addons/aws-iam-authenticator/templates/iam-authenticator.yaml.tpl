@@ -32,6 +32,21 @@ rules:
   - create
   - update
   - patch
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  resourceNames:
+  - aws-auth
+  verbs:
+  - get
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -112,13 +127,12 @@ spec:
       - name: tmp
         emptyDir: {}
 ---
-apiVersion: apiextensions.k8s.io/v1beta1
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: iamidentitymappings.iamauthenticator.k8s.aws
 spec:
   group: iamauthenticator.k8s.aws
-  version: v1alpha1
   scope: Cluster
   names:
     plural: iamidentitymappings
@@ -126,21 +140,34 @@ spec:
     kind: IAMIdentityMapping
     categories:
     - all
-  subresources:
-    status: {}
-  validation:
-    openAPIV3Schema:
-      properties:
-        spec:
-          required:
-          - arn
-          - username
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
           properties:
-            arn:
-              type: string
-            username:
-              type: string
-            groups:
-              type: array
-              items:
-                type: string
+            spec:
+              type: object
+              required:
+              - arn
+              - username
+              properties:
+                arn:
+                  type: string
+                username:
+                  type: string
+                groups:
+                  type: array
+                  items:
+                    type: string
+            status:
+              type: object
+              properties:
+                canonicalARN:
+                  type: string
+                userID:
+                  type: string
+      subresources:
+        status: {}

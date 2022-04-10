@@ -28,7 +28,7 @@ This document gives an overview of variables used in the Ignition of the Kuberne
 | kubelet\_cert | The kubelet cert property. | <pre>object({<br>    algo   = string<br>    size   = number<br>    expiry = string<br>  })</pre> | <pre>{<br>  "algo": "rsa",<br>  "expiry": "87600h",<br>  "size": 2048<br>}</pre> |
 | kubelet\_config | The configuration of kubelet. The variables need to follow https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go. Do not use underline. | `map` | `{}` |
 | kubelet\_flags | The flags of kubelet. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/. Do not use underline. | `map` | `{}` |
-| kubernetes\_version | Desired Kubernetes version. | `string` | `"v1.19.15"` |
+| kubernetes\_version | Desired Kubernetes version. | `string` | `"v1.19.16"` |
 | network\_plugin | Desired network plugin which is use for Kubernetes cluster. e.g. 'flannel', 'amazon-vpc' | `string` | `"amazon-vpc"` |
 | oidc\_config | The service account config to enable pod identity feature. | <pre>object({<br>    issuer        = string<br>    api_audiences = string<br>  })</pre> | <pre>{<br>  "api_audiences": "",<br>  "issuer": ""<br>}</pre> |
 | pod\_network\_cidr | The CIDR pool used to assign IP addresses to pods in the cluster. | `string` | `"10.244.0.0/16"` |
