@@ -81,7 +81,7 @@ data "ignition_file" "kube_apiserver" {
       etcd_endpoints = var.etcd_endpoints
       cluster_cidr   = var.pod_network_cidr
       service_cidr   = var.service_network_cidr
-      resources      = local.component_resources["kube-apiserver"]
+      resources      = local.components_resource["kube_apiserver"]
 
       // TODO: move to merged_apiserver_flags
       cloud_provider    = local.cloud_config.provider

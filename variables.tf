@@ -22,6 +22,17 @@ variable "containers" {
   default = {}
 }
 
+variable "components_resource" {
+  description = "Desired resource requests and limits of kubernetes components(kube-apiserver, kube-controller-manager, kube-scheduler, etc.)"
+  type = map(object({
+    cpu_request    = string
+    cpu_limit      = string
+    memory_request = string
+    memory_limit   = string
+  }))
+  default = {}
+}
+
 variable "internal_endpoint" {
   description = "The internal endpoint of kube-apiserver."
   type        = string
@@ -137,22 +148,6 @@ variable "controller_manager_flags" {
 variable "scheduler_flags" {
   description = "The flags of kube-scheduler. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/. Do not use underline."
   default     = {}
-}
-
-
-variable "component_resources" {
-  description = "Resource mangement for kube-apiserver, kube-controller-manager, kube-scheduler, etc."
-  type = map(object({
-    requests = object({
-      cpu    = string
-      memory = string
-    })
-    limits = object({
-      cpu    = string
-      memory = string
-    })
-  }))
-  default = {}
 }
 
 variable "certs" {
