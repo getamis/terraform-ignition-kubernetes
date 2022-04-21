@@ -139,6 +139,22 @@ variable "scheduler_flags" {
   default     = {}
 }
 
+
+variable "component_resources" {
+  description = "Resource mangement for kube-apiserver, kube-controller-manager, kube-scheduler, etc."
+  type = map(object({
+    requests = object({
+      cpu    = string
+      memory = string
+    })
+    limits = object({
+      cpu    = string
+      memory = string
+    })
+  }))
+  default = {}
+}
+
 variable "certs" {
   description = "The kubernetes and etcd certificate."
   type        = map(string)

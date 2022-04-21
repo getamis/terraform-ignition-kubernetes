@@ -33,8 +33,7 @@ spec:
       initialDelaySeconds: 15
       timeoutSeconds: 15
     resources:
-      requests:
-        cpu: 100m
+      ${indent(6, yamlencode(resources))}
     volumeMounts:
     - mountPath: ${kubeconfig}
       name: kubeconfig

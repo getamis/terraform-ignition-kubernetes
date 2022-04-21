@@ -54,12 +54,7 @@ spec:
       initialDelaySeconds: 15
       timeoutSeconds: 15
     resources:
-      requests:
-        cpu: 400m
-        memory: 1536Mi
-      limits:
-        cpu: 400m
-        memory: 1536Mi
+      ${indent(6, yamlencode(resources))}
     volumeMounts:
     - mountPath: /etc/ssl/certs
       name: ca-certs

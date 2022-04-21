@@ -8,6 +8,7 @@ data "ignition_file" "kube_scheduler" {
       image       = "${local.containers["kube_scheduler"].repo}:${local.containers["kube_scheduler"].tag}"
       kubeconfig  = "${local.etc_path}/scheduler.conf"
       extra_flags = local.scheduler_flags
+      resources   = local.component_resources["kube-scheduler"]
     })
   }
 }
