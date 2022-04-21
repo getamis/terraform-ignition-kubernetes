@@ -10,6 +10,7 @@ data "ignition_file" "aws_vpc_cni_yaml" {
       image             = "${local.containers["vpc_cni"].repo}:${local.containers["vpc_cni"].tag}"
       init_image        = "${local.containers["vpc_cni_init"].repo}:${local.containers["vpc_cni_init"].tag}"
       enable_eni_prefix = var.enable_eni_prefix
+      annotate_pod_ip   = var.annotate_pod_ip
     })
   }
 }

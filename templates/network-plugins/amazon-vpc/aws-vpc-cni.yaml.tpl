@@ -63,6 +63,12 @@ rules:
     resources:
       - pods
     verbs: ["list", "watch", "get"]
+%{ if annotate_pod_ip == true ~}
+  - apiGroups: [""]
+    resources:
+      - pods
+    verbs: ["patch"]
+%{ endif ~}
   - apiGroups: [""]
     resources:
       - nodes
@@ -165,6 +171,10 @@ spec:
           env:
             - name: ADDITIONAL_ENI_TAGS
               value: "{}"
+%{ if annotate_pod_ip == true ~}
+            - name: ANNOTATE_POD_IP
+              value: "true"
+%{ endif ~}
             - name: AWS_VPC_CNI_NODE_PORT_SUPPORT
               value: "true"
             - name: AWS_VPC_ENI_MTU
