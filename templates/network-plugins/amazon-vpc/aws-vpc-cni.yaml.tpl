@@ -1,4 +1,4 @@
-# Vendored from https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/v1.10.2/config/master/aws-k8s-cni.yaml
+# Vendored from https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/v1.11.0/config/master/aws-k8s-cni.yaml
 ---
 # Source: aws-vpc-cni/templates/serviceaccount.yaml
 apiVersion: v1
@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/version: "v1.11.0"
 ---
 # Source: aws-vpc-cni/templates/customresourcedefinition.yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -21,7 +21,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/version: "v1.11.0"
 spec:
   scope: Cluster
   group: crd.k8s.amazonaws.com
@@ -48,7 +48,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/version: "v1.11.0"
 rules:
   - apiGroups:
       - crd.k8s.amazonaws.com
@@ -63,6 +63,12 @@ rules:
     resources:
       - pods
     verbs: ["list", "watch", "get"]
+%{ if annotate_pod_ip == true ~}
+  - apiGroups: [""]
+    resources:
+      - pods
+    verbs: ["patch"]
+%{ endif ~}
   - apiGroups: [""]
     resources:
       - nodes
@@ -81,7 +87,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/version: "v1.11.0"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -101,7 +107,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.10.2"
+    app.kubernetes.io/version: "v1.11.0"
 spec:
   updateStrategy:
     rollingUpdate:
@@ -165,6 +171,10 @@ spec:
           env:
             - name: ADDITIONAL_ENI_TAGS
               value: "{}"
+%{ if annotate_pod_ip == true ~}
+            - name: ANNOTATE_POD_IP
+              value: "true"
+%{ endif ~}
             - name: AWS_VPC_CNI_NODE_PORT_SUPPORT
               value: "true"
             - name: AWS_VPC_ENI_MTU
