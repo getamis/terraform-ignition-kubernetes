@@ -22,7 +22,7 @@ locals {
     }
     vpc_cni = {
       repo = "quay.io/amis/amazon-k8s-cni"
-      tag  = "v1.11.0"
+      tag  = "v1.11.0-nftables"
     }
     vpc_cni_init = {
       repo = "quay.io/amis/amazon-k8s-cni-init"
