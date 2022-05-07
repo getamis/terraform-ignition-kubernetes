@@ -13,6 +13,7 @@ data "ignition_file" "kube_controller_manager" {
       cloud_provider    = local.cloud_config.provider
       cloud_config_flag = local.cloud_config.path != "" ? "- --cloud-config=${local.cloud_config.path}" : "# no cloud provider config given"
       extra_flags       = local.controller_manager_flags
+      resources         = local.components_resource["kube_controller_manager"]
     })
   }
 }

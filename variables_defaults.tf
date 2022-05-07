@@ -118,4 +118,25 @@ locals {
     issuer        = ""
     api_audiences = ""
   }, var.oidc_config)
+
+  components_resource = merge({
+    kube_apiserver = {
+      cpu_request    = "400m"
+      memory_request = "1536Mi"
+      cpu_limit      = "400m"
+      memory_limit   = "1536Mi"
+    },
+    kube_controller_manager = {
+      cpu_request    = "200m"
+      memory_request = ""
+      cpu_limit      = ""
+      memory_limit   = ""
+    },
+    kube_scheduler = {
+      cpu_request    = "100m"
+      memory_request = ""
+      cpu_limit      = ""
+      memory_limit   = ""
+    }
+  }, var.components_resource)
 }

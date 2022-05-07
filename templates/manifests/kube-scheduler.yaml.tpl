@@ -33,8 +33,24 @@ spec:
       initialDelaySeconds: 15
       timeoutSeconds: 15
     resources:
+%{ if resources["cpu_request"] != "" || resources["memory_request"] != "" ~}
       requests:
-        cpu: 100m
+%{ if resources["cpu_request"] != "" ~}
+        cpu: ${resources["cpu_request"]}
+%{ endif ~}
+%{ if resources["memory_request"] != "" ~}
+        memory: ${resources["memory_request"]}
+%{ endif ~}
+%{ endif ~}
+%{ if resources["cpu_limit"] != "" || resources["memory_limit"] != "" ~}
+      limits:
+%{ if resources["cpu_limit"] != "" ~}
+        cpu: ${resources["cpu_limit"]}
+%{ endif ~}
+%{ if resources["memory_limit"] != "" ~}
+        memory: ${resources["memory_limit"]}
+%{ endif ~}
+%{ endif ~}
     volumeMounts:
     - mountPath: ${kubeconfig}
       name: kubeconfig

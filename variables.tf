@@ -22,6 +22,17 @@ variable "containers" {
   default = {}
 }
 
+variable "components_resource" {
+  description = "Desired resource requests and limits of kubernetes components(kube-apiserver, kube-controller-manager, kube-scheduler, etc.)"
+  type = map(object({
+    cpu_request    = string
+    cpu_limit      = string
+    memory_request = string
+    memory_limit   = string
+  }))
+  default = {}
+}
+
 variable "internal_endpoint" {
   description = "The internal endpoint of kube-apiserver."
   type        = string
@@ -61,6 +72,12 @@ variable "enable_eni_prefix" {
   description = "(Optional) assign prefix to AWS EC2 network interface"
   type        = bool
   default     = true
+}
+
+variable "annotate_pod_ip" {
+  description = "(Optional) enable to fix pod startup connectivity issue on installing Calico with aws-vpc-cni plugin. (Issue: https://github.com/aws/amazon-vpc-cni-k8s/issues/493)"
+  type        = bool
+  default     = false
 }
 
 variable "max_pods" {
