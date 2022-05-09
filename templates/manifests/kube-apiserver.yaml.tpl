@@ -53,6 +53,14 @@ spec:
         scheme: HTTPS
       initialDelaySeconds: 15
       timeoutSeconds: 15
+    readinessProbe:
+      failureThreshold: 2
+      httpGet:
+        host: 127.0.0.1
+        path: /readyz
+        port: ${secure_port}
+        scheme: HTTPS
+      timeoutSeconds: 3
     resources:
 %{ if resources["cpu_request"] != "" || resources["memory_request"] != "" ~}
       requests:
