@@ -11,6 +11,7 @@ RemainAfterExit=true
 User=root
 Group=root
 
+Environment="PATH=/opt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
 EnvironmentFile=-/etc/default/kubernetes.env
 ExecStart=/opt/kubernetes/bin/init-configs
 ExecStartPost=/bin/touch /opt/kubernetes/init-configs.done

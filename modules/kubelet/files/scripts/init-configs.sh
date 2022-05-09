@@ -75,7 +75,7 @@ if test -f ${CSR_FILE_SRC} && ! test -f ${KUBELET_VAR_PATH}/pki/${FILE_NAME} ; t
   generate::file ${CA_CONFIG_SRC} ${CA_CONFIG_DEST}
   generate::file ${CSR_FILE_SRC} ${CSR_FILE_DEST}
 
-  sudo ${DOCKER_EXEC} run --rm \
+  ${DOCKER_EXEC} run --rm \
   -v ${KUBELET_VAR_PATH}/pki/:/tmp/pki/ \
   -v ${KUBE_ETC_PATH}/pki/:${KUBE_ETC_PATH}/pki/ \
   -e HOSTNAME=${HOSTNAME} \

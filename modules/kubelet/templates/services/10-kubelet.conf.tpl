@@ -1,10 +1,11 @@
 [Service]
+Environment="PATH=/opt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
 Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=${bootstrap_kubeconfig} --kubeconfig=${kubeconfig}"
 Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
 Environment="KUBELET_NETWORK_ARGS=--network-plugin=cni"
 EnvironmentFile=-/etc/default/kubernetes.env
 EnvironmentFile=-/var/lib/kubelet/kubelet-flags.env
 ExecStart=
-ExecStartPre=-sudo /bin/docker rm kubelet
+ExecStartPre=-/bin/docker rm kubelet
 ExecStart=/opt/kubernetes/bin/kubelet-wrapper $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_NETWORK_ARGS $KUBELET_CLOUD_PROVIDER_ARGS $KUBELET_EXTRA_ARGS
 ExecStop=-/usr/bin/docker stop kubelet
