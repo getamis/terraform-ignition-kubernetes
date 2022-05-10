@@ -19,7 +19,7 @@ source /opt/kubernetes/bin/get-host-info.sh
 sudo sysctl --system
 
 set -x
-exec sudo /usr/bin/docker run --name kubelet \
+exec /usr/bin/docker run --name kubelet \
   --privileged \
   --pid host \
   --network host \
