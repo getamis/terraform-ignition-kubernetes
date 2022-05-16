@@ -17,7 +17,7 @@ function node_cleaning(){
 	docker run --rm \
 		-v /etc/kubernetes/kubelet.conf:/root/.kube/config:ro \
 		-v /var/lib/kubelet/pki/kubelet-client-current.pem:/var/lib/kubelet/pki/kubelet-client-current.pem:ro \
-		--entrypoint=kubectl "${KUBECTL_IMAGE}" cordon "${HOSTNAME_FQDN}" && \
+		--entrypoint=kubectl "${KUBECTL_IMAGE}" cordon "${HOSTNAME_FQDN}"
 
 	# Gracefully shutdown kubelet
 	systemctl stop kubelet.service
