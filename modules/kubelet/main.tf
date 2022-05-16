@@ -74,6 +74,16 @@ data "ignition_file" "get_host_info_sh" {
   }
 }
 
+data "ignition_file" "node_shutdown_sh" {
+  path       = "${local.opt_path}/bin/node-shutdown"
+  filesystem = "root"
+  mode       = 500
+
+  content {
+    content = file("${path.module}/files/scripts/node-shutdown.sh")
+  }
+}
+
 data "ignition_file" "kubelet_wrapper_sh" {
   path       = "${local.opt_path}/bin/kubelet-wrapper"
   filesystem = "root"
@@ -135,6 +145,16 @@ data "ignition_file" "systemd_drop_in_kubelet_conf" {
   }
 }
 
+data "ignition_file" "logind_kubelet_conf" {
+  path       = "/etc/systemd/logind.conf.d/99-kubelet.conf"
+  filesystem = "root"
+  mode       = 420
+
+  content {
+    content = templatefile("${path.module}/templates/services/logind-99-kubelet.conf.tpl", {})
+  }
+}
+
 data "ignition_systemd_unit" "kubelet" {
   name    = "kubelet.service"
   enabled = true
@@ -145,4 +165,10 @@ data "ignition_systemd_unit" "kubeinit_configs" {
   name    = "kubeinit-configs.service"
   enabled = true
   content = templatefile("${path.module}/templates/services/kubeinit-configs.service.tpl", {})
+}
+
+data "ignition_systemd_unit" "kubenode_shutdown" {
+  name    = "kubenode-shutdown.service"
+  enabled = true
+  content = templatefile("${path.module}/templates/services/kubenode-shutdown.service.tpl", {})
 }
