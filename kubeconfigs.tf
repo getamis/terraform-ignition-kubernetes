@@ -23,7 +23,7 @@ module "controller_manager_kubeconfig" {
   cluster  = "kubernetes"
   context  = "system:kube-controller-manager@kubernetes"
   user     = "system:kube-controller-manager"
-  endpoint = "https://127.0.0.1:${var.apiserver_secure_port}"
+  endpoint = var.internal_endpoint
 
   certificates = {
     ca_cert     = var.certs["ca_cert"]
@@ -40,7 +40,7 @@ module "scheduler_kubeconfig" {
   cluster  = "kubernetes"
   context  = "system:kube-scheduler@kubernetes"
   user     = "system:kube-scheduler"
-  endpoint = "https://127.0.0.1:${var.apiserver_secure_port}"
+  endpoint = var.internal_endpoint
 
   certificates = {
     ca_cert     = var.certs["ca_cert"]
@@ -57,7 +57,7 @@ module "kubelet_kubeconfig" {
   cluster  = "kubernetes"
   context  = "system:kubelet@kubernetes"
   user     = "system:kubelet"
-  endpoint = "https://127.0.0.1:${var.apiserver_secure_port}"
+  endpoint = var.internal_endpoint
 
   certificates = {
     ca_cert          = var.certs["ca_cert"]
