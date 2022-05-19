@@ -7,5 +7,5 @@ EnvironmentFile=-/etc/default/kubernetes.env
 EnvironmentFile=-/var/lib/kubelet/kubelet-flags.env
 ExecStart=
 ExecStartPre=-/bin/docker rm kubelet
-ExecStart=/opt/kubernetes/bin/kubelet-wrapper $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_NETWORK_ARGS $KUBELET_CLOUD_PROVIDER_ARGS $KUBELET_EXTRA_ARGS
-ExecStop=-/usr/bin/docker stop kubelet
+ExecStart=systemd-inhibit --what=shutdown --mode=delay /opt/kubernetes/bin/kubelet-wrapper $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_NETWORK_ARGS $KUBELET_CLOUD_PROVIDER_ARGS $KUBELET_EXTRA_ARGS
+ExecStop=/bin/bash -c "docker stop -t 60 $$(docker ps -q)"
