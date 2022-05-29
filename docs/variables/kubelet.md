@@ -2,25 +2,64 @@
 # Terraform variables inputs and outputs
 This document gives an overview of variables used in the Ignition of the Kubernetes kubelet module.
 
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
+| <a name="requirement_ignition"></a> [ignition](#requirement\_ignition) | ~> 1.2.1 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_ignition"></a> [ignition](#provider\_ignition) | ~> 1.2.1 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [ignition_file.bootstrap_kubeconfig](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.cni_plugin_tgz](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.get_host_info_sh](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.init_configs_sh](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kubelet_config_tpl](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kubelet_env](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kubelet_wrapper_sh](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kubernetes_env](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.logind_kubelet_conf](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.node_shutdown_sh](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.sysctl_k8s_conf](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.sysctl_max_user_watches_conf](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.systemd_drop_in_kubelet_conf](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_systemd_unit.kubeinit_configs](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/systemd_unit) | data source |
+| [ignition_systemd_unit.kubelet](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/systemd_unit) | data source |
+| [ignition_systemd_unit.kubenode_shutdown](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/systemd_unit) | data source |
+
 ## Inputs
 
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| binaries | Desired binaries(cni\_plugin) url and checksum. | <pre>map(object({<br>    source   = string<br>    checksum = string<br>  }))</pre> | `{}` |
-| bootstrap\_kubeconfig\_content | The content of bootstrap kubeconfig. | `string` | `""` |
-| cloud\_config | The cloud provider configuration. | <pre>object({<br>    provider = string<br>    path     = string<br>  })</pre> | <pre>{<br>  "path": "",<br>  "provider": ""<br>}</pre> |
-| containers | Desired containers(kubelet, and so on) repo and tag. | <pre>map(object({<br>    repo = string<br>    tag  = string<br>  }))</pre> | `{}` |
-| extra\_config | The extra configuration of kubelet. The variables need to follow https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go. Do not use underline. | `map` | `{}` |
-| extra\_flags | The extra flags of kubelet. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/. Do not use underline. | `map` | `{}` |
-| feature\_gates | A set of key=value pairs that describe feature gates for alpha/experimental features. | `map(bool)` | `{}` |
-| kubernetes\_version | Desired Kubernetes version. | `string` | `"v1.19.16"` |
-| network\_plugin | Desired network plugin which is use for Kubernetes cluster. e.g. 'flannel', 'amazon-vpc' | `string` | `"amazon-vpc"` |
-| service\_network\_cidr | This is the virtual IP address that will be assigned to services created on Kubernetes. | `string` | `"10.96.0.0/12"` |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_binaries"></a> [binaries](#input\_binaries) | Desired binaries(cni\_plugin) url and checksum. | <pre>map(object({<br>    source   = string<br>    checksum = string<br>  }))</pre> | `{}` | no |
+| <a name="input_bootstrap_kubeconfig_content"></a> [bootstrap\_kubeconfig\_content](#input\_bootstrap\_kubeconfig\_content) | The content of bootstrap kubeconfig. | `string` | `""` | no |
+| <a name="input_cloud_config"></a> [cloud\_config](#input\_cloud\_config) | The cloud provider configuration. | <pre>object({<br>    provider = string<br>    path     = string<br>  })</pre> | <pre>{<br>  "path": "",<br>  "provider": ""<br>}</pre> | no |
+| <a name="input_containers"></a> [containers](#input\_containers) | Desired containers(kubelet, and so on) repo and tag. | <pre>map(object({<br>    repo = string<br>    tag  = string<br>  }))</pre> | `{}` | no |
+| <a name="input_enable_eni_prefix"></a> [enable\_eni\_prefix](#input\_enable\_eni\_prefix) | (Optional) assign prefix to AWS EC2 network interface | `bool` | `true` | no |
+| <a name="input_extra_config"></a> [extra\_config](#input\_extra\_config) | The extra configuration of kubelet. The variables need to follow https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go. Do not use underline. | `map(string)` | `{}` | no |
+| <a name="input_extra_flags"></a> [extra\_flags](#input\_extra\_flags) | The extra flags of kubelet. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/. Do not use underline. | `map(string)` | `{}` | no |
+| <a name="input_feature_gates"></a> [feature\_gates](#input\_feature\_gates) | A set of key=value pairs that describe feature gates for alpha/experimental features. | `map(bool)` | `{}` | no |
+| <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | Desired Kubernetes version. | `string` | `"v1.19.16"` | no |
+| <a name="input_max_pods"></a> [max\_pods](#input\_max\_pods) | (Optional) the max pod number in the node when enable eni prefix | `string` | `"110"` | no |
+| <a name="input_network_plugin"></a> [network\_plugin](#input\_network\_plugin) | Desired network plugin which is use for Kubernetes cluster. e.g. 'flannel', 'amazon-vpc' | `string` | `"amazon-vpc"` | no |
+| <a name="input_service_network_cidr"></a> [service\_network\_cidr](#input\_service\_network\_cidr) | This is the virtual IP address that will be assigned to services created on Kubernetes. | `string` | `"10.96.0.0/12"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| files | n/a |
-| systemd\_units | n/a |
-
+| <a name="output_files"></a> [files](#output\_files) | n/a |
+| <a name="output_systemd_units"></a> [systemd\_units](#output\_systemd\_units) | n/a |

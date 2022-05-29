@@ -14,13 +14,13 @@ This repo also contains the following submodules:
 
 ## Features
 
-* Kubernetes v1.18.0+.
+* Kubernetes v1.19.0+.
 * Supported [AWS VPC CNI](https://github.com/aws/amazon-vpc-cni-k8s), or [flannel](https://github.com/coreos/flannel) networking.
 * RBAC-enabled, Audit log, and etcd data encryption.
 
 ## Requirements
 
-* Terraform v0.12.0+.
+* Terraform v0.13.1+.
 * [terraform-provider-ignition](https://github.com/terraform-providers/terraform-provider-ignition) 1.2.1+.
 
 ## Usage example

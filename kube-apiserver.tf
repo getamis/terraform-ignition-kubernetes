@@ -12,8 +12,8 @@ locals {
     } : {},
     var.enable_irsa ? {
       service-account-signing-key-file = "${local.etc_path}/pki/sa.key",
-      api-audiences                    = "${local.oidc_config.api_audiences}"
-      service-account-issuer           = "${local.oidc_config.issuer}"
+      api-audiences                    = local.oidc_config.api_audiences
+      service-account-issuer           = local.oidc_config.issuer
     } : {},
   )
 }
