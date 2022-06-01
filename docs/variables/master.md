@@ -2,47 +2,111 @@
 # Terraform variables inputs and outputs
 This document gives an overview of variables used in the Ignition of the Kubernetes master module.
 
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
+| <a name="requirement_ignition"></a> [ignition](#requirement\_ignition) | ~> 1.2.1 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_ignition"></a> [ignition](#provider\_ignition) | 1.2.1 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_admin_kubeconfig"></a> [admin\_kubeconfig](#module\_admin\_kubeconfig) | ./modules/kubeconfig | n/a |
+| <a name="module_bootstrapping_kubeconfig"></a> [bootstrapping\_kubeconfig](#module\_bootstrapping\_kubeconfig) | ./modules/kubeconfig | n/a |
+| <a name="module_controller_manager_kubeconfig"></a> [controller\_manager\_kubeconfig](#module\_controller\_manager\_kubeconfig) | ./modules/kubeconfig | n/a |
+| <a name="module_kubelet"></a> [kubelet](#module\_kubelet) | ./modules/kubelet | n/a |
+| <a name="module_kubelet_kubeconfig"></a> [kubelet\_kubeconfig](#module\_kubelet\_kubeconfig) | ./modules/kubeconfig | n/a |
+| <a name="module_scheduler_kubeconfig"></a> [scheduler\_kubeconfig](#module\_scheduler\_kubeconfig) | ./modules/kubeconfig | n/a |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [ignition_file.apiserver_cert](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.apiserver_etcd_client_cert](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.apiserver_etcd_client_key](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.apiserver_key](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.apiserver_kubelet_client_cert](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.apiserver_kubelet_client_key](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.audit_log_policy](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.aws_cni_calico_yaml](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.aws_vpc_cni_yaml](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.bootstrap_token_rbac](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.bootstrap_token_secret](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.ca_config_json_tpl](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.coredns](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.encryption_config](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.etcd_ca_cert](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.flannel_yaml](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.front_proxy_ca_cert](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.front_proxy_ca_key](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.front_proxy_client_cert](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.front_proxy_client_key](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.init_addons_sh](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kube_apiserver](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kube_controller_manager](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kube_proxy](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kube_proxy_cm](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kube_scheduler](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kubelet_csr_json_tpl](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kubernetes_ca_cert](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kubernetes_ca_key](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.service_account_private_key](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.service_account_public_key](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_systemd_unit.kubeinit_addons](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/systemd_unit) | data source |
+
 ## Inputs
 
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| apiserver\_flags | The flags of kube-apiserver. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/. Do not use underline. | `map` | `{}` |
-| apiserver\_secure\_port | n/a | `number` | `6443` |
-| audit\_log\_flags | The flags of audit log in kube-apiserver. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/. Do not use underline. | `map` | `{}` |
-| audit\_log\_policy\_content | The policy content for auditing log. | `string` | `""` |
-| auth\_webhook\_config\_path | The path of webhook config for kube-apiserver. | `string` | `"/etc/kubernetes/config/aws-iam-authenticator/kubeconfig"` |
-| binaries | Desired binaries(cni\_plugin) url and checksum. | <pre>map(object({<br>    source   = string<br>    checksum = string<br>  }))</pre> | `{}` |
-| certs | The kubernetes and etcd certificate. | `map(string)` | `{}` |
-| cloud\_config | The cloud provider configuration. | <pre>object({<br>    provider = string<br>    path     = string<br>  })</pre> | <pre>{<br>  "path": "",<br>  "provider": ""<br>}</pre> |
-| containers | Desired containers(kube-apiserver, kube-controller-manager, cfssl, coredns, and so on) repo and tag. | <pre>map(object({<br>    repo = string<br>    tag  = string<br>  }))</pre> | `{}` |
-| controller\_manager\_flags | The flags of kube-controller-manager. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/. Do not use underline. | `map` | `{}` |
-| coredns\_config | The configuration of CoreDNS. | `map` | `{}` |
-| enable\_calico | (optional) whether enable the calico | `bool` | `false` |
-| enable\_iam\_auth | Enable AWS IAM authenticator or not. | `bool` | `false` |
-| enable\_irsa | Enable AWS IAM role service account or not. | `bool` | `false` |
-| encryption\_secret | The secret key for encrypting | `string` | `""` |
-| etcd\_endpoints | The comma separated list of etcd endpoints (e.g., 'http://etcd1:2379,http://etcd2:2379'). | `string` | `""` |
-| feature\_gates | A set of key=value pairs that describe feature gates for alpha/experimental features. | `map(bool)` | `{}` |
-| internal\_endpoint | The internal endpoint of kube-apiserver. | `string` | `"https://127.0.0.1:6443"` |
-| kube\_proxy\_config | The configuration of kube-proxy. The variables need to follow https://github.com/kubernetes/kube-proxy/blob/master/config/v1alpha1/types.go. Do not use underline. | `map` | `{}` |
-| kubelet\_cert | The kubelet cert property. | <pre>object({<br>    algo   = string<br>    size   = number<br>    expiry = string<br>  })</pre> | <pre>{<br>  "algo": "rsa",<br>  "expiry": "87600h",<br>  "size": 2048<br>}</pre> |
-| kubelet\_config | The configuration of kubelet. The variables need to follow https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go. Do not use underline. | `map` | `{}` |
-| kubelet\_flags | The flags of kubelet. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/. Do not use underline. | `map` | `{}` |
-| kubernetes\_version | Desired Kubernetes version. | `string` | `"v1.19.16"` |
-| network\_plugin | Desired network plugin which is use for Kubernetes cluster. e.g. 'flannel', 'amazon-vpc' | `string` | `"amazon-vpc"` |
-| oidc\_config | The service account config to enable pod identity feature. | <pre>object({<br>    issuer        = string<br>    api_audiences = string<br>  })</pre> | <pre>{<br>  "api_audiences": "",<br>  "issuer": ""<br>}</pre> |
-| pod\_network\_cidr | The CIDR pool used to assign IP addresses to pods in the cluster. | `string` | `"10.244.0.0/16"` |
-| scheduler\_flags | The flags of kube-scheduler. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/. Do not use underline. | `map` | `{}` |
-| service\_network\_cidr | This is the virtual IP address that will be assigned to services created on Kubernetes. | `string` | `"10.96.0.0/12"` |
-| tls\_bootstrap\_token | The token uses to authenticate API server. | <pre>object({<br>    id     = string<br>    secret = string<br>  })</pre> | <pre>{<br>  "id": "",<br>  "secret": ""<br>}</pre> |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_annotate_pod_ip"></a> [annotate\_pod\_ip](#input\_annotate\_pod\_ip) | (Optional) enable to fix pod startup connectivity issue on installing Calico with aws-vpc-cni plugin. (Issue: https://github.com/aws/amazon-vpc-cni-k8s/issues/493) | `bool` | `false` | no |
+| <a name="input_apiserver_flags"></a> [apiserver\_flags](#input\_apiserver\_flags) | The flags of kube-apiserver. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/. Do not use underline. | `map` | `{}` | no |
+| <a name="input_apiserver_secure_port"></a> [apiserver\_secure\_port](#input\_apiserver\_secure\_port) | n/a | `number` | `6443` | no |
+| <a name="input_audit_log_flags"></a> [audit\_log\_flags](#input\_audit\_log\_flags) | The flags of audit log in kube-apiserver. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/. Do not use underline. | `map` | `{}` | no |
+| <a name="input_audit_log_policy_content"></a> [audit\_log\_policy\_content](#input\_audit\_log\_policy\_content) | The policy content for auditing log. | `string` | `""` | no |
+| <a name="input_auth_webhook_config_path"></a> [auth\_webhook\_config\_path](#input\_auth\_webhook\_config\_path) | The path of webhook config for kube-apiserver. | `string` | `"/etc/kubernetes/config/aws-iam-authenticator/kubeconfig"` | no |
+| <a name="input_binaries"></a> [binaries](#input\_binaries) | Desired binaries(cni\_plugin) url and checksum. | <pre>map(object({<br>    source   = string<br>    checksum = string<br>  }))</pre> | `{}` | no |
+| <a name="input_certs"></a> [certs](#input\_certs) | The kubernetes and etcd certificate. | `map(string)` | `{}` | no |
+| <a name="input_cloud_config"></a> [cloud\_config](#input\_cloud\_config) | The cloud provider configuration. | <pre>object({<br>    provider = string<br>    path     = string<br>  })</pre> | <pre>{<br>  "path": "",<br>  "provider": ""<br>}</pre> | no |
+| <a name="input_components_resource"></a> [components\_resource](#input\_components\_resource) | Desired resource requests and limits of kubernetes components(kube-apiserver, kube-controller-manager, kube-scheduler, etc.) | <pre>map(object({<br>    cpu_request    = string<br>    cpu_limit      = string<br>    memory_request = string<br>    memory_limit   = string<br>  }))</pre> | `{}` | no |
+| <a name="input_containers"></a> [containers](#input\_containers) | Desired containers(kube-apiserver, kube-controller-manager, cfssl, coredns, and so on) repo and tag. | <pre>map(object({<br>    repo = string<br>    tag  = string<br>  }))</pre> | `{}` | no |
+| <a name="input_controller_manager_flags"></a> [controller\_manager\_flags](#input\_controller\_manager\_flags) | The flags of kube-controller-manager. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/. Do not use underline. | `map` | `{}` | no |
+| <a name="input_coredns_config"></a> [coredns\_config](#input\_coredns\_config) | The configuration of CoreDNS. | `map` | `{}` | no |
+| <a name="input_enable_calico"></a> [enable\_calico](#input\_enable\_calico) | (optional) whether enable the calico | `bool` | `false` | no |
+| <a name="input_enable_eni_prefix"></a> [enable\_eni\_prefix](#input\_enable\_eni\_prefix) | (Optional) assign prefix to AWS EC2 network interface | `bool` | `true` | no |
+| <a name="input_enable_iam_auth"></a> [enable\_iam\_auth](#input\_enable\_iam\_auth) | Enable AWS IAM authenticator or not. | `bool` | `false` | no |
+| <a name="input_enable_irsa"></a> [enable\_irsa](#input\_enable\_irsa) | Enable AWS IAM role service account or not. | `bool` | `false` | no |
+| <a name="input_encryption_secret"></a> [encryption\_secret](#input\_encryption\_secret) | The secret key for encrypting | `string` | `""` | no |
+| <a name="input_etcd_endpoints"></a> [etcd\_endpoints](#input\_etcd\_endpoints) | The comma separated list of etcd endpoints (e.g., 'http://etcd1:2379,http://etcd2:2379'). | `string` | `""` | no |
+| <a name="input_feature_gates"></a> [feature\_gates](#input\_feature\_gates) | A set of key=value pairs that describe feature gates for alpha/experimental features. | `map(bool)` | `{}` | no |
+| <a name="input_internal_endpoint"></a> [internal\_endpoint](#input\_internal\_endpoint) | The internal endpoint of kube-apiserver. | `string` | `"https://127.0.0.1:6443"` | no |
+| <a name="input_kube_proxy_config"></a> [kube\_proxy\_config](#input\_kube\_proxy\_config) | The configuration of kube-proxy. The variables need to follow https://github.com/kubernetes/kube-proxy/blob/master/config/v1alpha1/types.go. Do not use underline. | `map` | `{}` | no |
+| <a name="input_kubelet_cert"></a> [kubelet\_cert](#input\_kubelet\_cert) | The kubelet cert property. | <pre>object({<br>    algo   = string<br>    size   = number<br>    expiry = string<br>  })</pre> | <pre>{<br>  "algo": "rsa",<br>  "expiry": "87600h",<br>  "size": 2048<br>}</pre> | no |
+| <a name="input_kubelet_config"></a> [kubelet\_config](#input\_kubelet\_config) | The configuration of kubelet. The variables need to follow https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go. Do not use underline. | `map` | `{}` | no |
+| <a name="input_kubelet_flags"></a> [kubelet\_flags](#input\_kubelet\_flags) | The flags of kubelet. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/. Do not use underline. | `map` | `{}` | no |
+| <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | Desired Kubernetes version. | `string` | `"v1.19.16"` | no |
+| <a name="input_max_pods"></a> [max\_pods](#input\_max\_pods) | (Optional) the max pod number in the node when enable eni prefix | `string` | `"110"` | no |
+| <a name="input_network_plugin"></a> [network\_plugin](#input\_network\_plugin) | Desired network plugin which is use for Kubernetes cluster. e.g. 'flannel', 'amazon-vpc' | `string` | `"amazon-vpc"` | no |
+| <a name="input_oidc_config"></a> [oidc\_config](#input\_oidc\_config) | The service account config to enable pod identity feature. | <pre>object({<br>    issuer        = string<br>    api_audiences = string<br>  })</pre> | <pre>{<br>  "api_audiences": "",<br>  "issuer": ""<br>}</pre> | no |
+| <a name="input_pod_network_cidr"></a> [pod\_network\_cidr](#input\_pod\_network\_cidr) | The CIDR pool used to assign IP addresses to pods in the cluster. | `string` | `"10.244.0.0/16"` | no |
+| <a name="input_scheduler_flags"></a> [scheduler\_flags](#input\_scheduler\_flags) | The flags of kube-scheduler. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/. Do not use underline. | `map` | `{}` | no |
+| <a name="input_service_network_cidr"></a> [service\_network\_cidr](#input\_service\_network\_cidr) | This is the virtual IP address that will be assigned to services created on Kubernetes. | `string` | `"10.96.0.0/12"` | no |
+| <a name="input_tls_bootstrap_token"></a> [tls\_bootstrap\_token](#input\_tls\_bootstrap\_token) | The token uses to authenticate API server. | <pre>object({<br>    id     = string<br>    secret = string<br>  })</pre> | <pre>{<br>  "id": "",<br>  "secret": ""<br>}</pre> | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| admin\_kubeconfig\_content | n/a |
-| bootstrap\_kubeconfig\_content | n/a |
-| cert\_files | n/a |
-| files | n/a |
-| systemd\_units | n/a |
-
+| <a name="output_admin_kubeconfig_content"></a> [admin\_kubeconfig\_content](#output\_admin\_kubeconfig\_content) | n/a |
+| <a name="output_bootstrap_kubeconfig_content"></a> [bootstrap\_kubeconfig\_content](#output\_bootstrap\_kubeconfig\_content) | n/a |
+| <a name="output_cert_files"></a> [cert\_files](#output\_cert\_files) | n/a |
+| <a name="output_files"></a> [files](#output\_files) | n/a |
+| <a name="output_systemd_units"></a> [systemd\_units](#output\_systemd\_units) | n/a |

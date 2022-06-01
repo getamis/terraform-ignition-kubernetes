@@ -20,8 +20,8 @@ locals {
     volume-plugin-dir         = "/var/lib/kubelet/volumeplugins"
     logtostderr               = "false"
     log-dir                   = "/var/log/kubelet"
-    log-file-max-size         = "128"    
-})
+    log-file-max-size         = "128"
+  })
 }
 
 data "ignition_file" "cni_plugin_tgz" {

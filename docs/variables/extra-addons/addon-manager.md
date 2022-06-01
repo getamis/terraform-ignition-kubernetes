@@ -2,19 +2,41 @@
 # Terraform variables inputs and outputs
 This document gives an overview of variables used in the Ignition of the addon-manager module.
 
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
+| <a name="requirement_ignition"></a> [ignition](#requirement\_ignition) | ~> 1.2.1 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_ignition"></a> [ignition](#provider\_ignition) | ~> 1.2.1 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [ignition_file.addon_manager_pod](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+
 ## Inputs
 
-| Name | Description | Type | Default |
-|------|-------------|------|---------|
-| addons\_dir\_path | A path for installing addons. | `string` | `"/etc/kubernetes/addons"` |
-| container | Desired container repo and tag. | `map(string)` | <pre>{<br>  "repo": "k8s.gcr.io/kube-addon-manager",<br>  "tag": "v9.1.1"<br>}</pre> |
-| kubectl\_extra\_prune\_whitelist | A list of extra whitelisted resources | `list(string)` | `[]` |
-| logs\_dir\_path | A path for recording logs. | `string` | `"/var/log/kubernetes"` |
-| manifests\_dir\_path | A path for executing Kubernetes resources by kubelet. | `string` | `"/etc/kubernetes/manifests"` |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_addons_dir_path"></a> [addons\_dir\_path](#input\_addons\_dir\_path) | A path for installing addons. | `string` | `"/etc/kubernetes/addons"` | no |
+| <a name="input_container"></a> [container](#input\_container) | Desired container repo and tag. | `map(string)` | <pre>{<br>  "repo": "k8s.gcr.io/kube-addon-manager",<br>  "tag": "v9.1.1"<br>}</pre> | no |
+| <a name="input_kubectl_extra_prune_whitelist"></a> [kubectl\_extra\_prune\_whitelist](#input\_kubectl\_extra\_prune\_whitelist) | A list of extra whitelisted resources | `list(string)` | `[]` | no |
+| <a name="input_logs_dir_path"></a> [logs\_dir\_path](#input\_logs\_dir\_path) | A path for recording logs. | `string` | `"/var/log/kubernetes"` | no |
+| <a name="input_manifests_dir_path"></a> [manifests\_dir\_path](#input\_manifests\_dir\_path) | A path for executing Kubernetes resources by kubelet. | `string` | `"/etc/kubernetes/manifests"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| files | n/a |
-
+| <a name="output_files"></a> [files](#output\_files) | n/a |
