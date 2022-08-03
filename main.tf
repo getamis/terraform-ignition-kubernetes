@@ -10,7 +10,6 @@ data "ignition_file" "init_addons_sh" {
 
   content {
     content = file("${path.module}/scripts/init-addons.sh")
-    mime = "text/yaml"
   }
 }
 

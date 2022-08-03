@@ -152,7 +152,6 @@ data "ignition_file" "logind_kubelet_conf" {
 
   content {
     content = templatefile("${path.module}/templates/services/logind-99-kubelet.conf.tpl", {})
-    mime = "text/yaml"
   }
 }
 

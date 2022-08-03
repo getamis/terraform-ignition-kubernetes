@@ -23,7 +23,6 @@ data "ignition_file" "kubelet_csr_json_tpl" {
       algo = local.kubelet_cert.algo
       size = local.kubelet_cert.size
     })
-    mime = "text/yaml"
   }
 }
 
@@ -35,6 +34,5 @@ data "ignition_file" "ca_config_json_tpl" {
     content = templatefile("${path.module}/templates/certs/ca-config.json.tpl", {
       expiry = local.kubelet_cert.expiry
     })
-    mime = "text/yaml"
   }
 }
