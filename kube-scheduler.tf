@@ -1,5 +1,4 @@
 data "ignition_file" "kube_scheduler" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/manifests/kube-scheduler.yaml"
 
@@ -10,5 +9,6 @@ data "ignition_file" "kube_scheduler" {
       extra_flags = local.scheduler_flags
       resources   = local.components_resource["kube_scheduler"]
     })
+    mime = "text/yaml"
   }
 }

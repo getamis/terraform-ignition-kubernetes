@@ -1,5 +1,4 @@
 data "ignition_file" "pod_identity_webhook" {
-  filesystem = "root"
   mode       = 420
   path       = "${var.addons_dir_path}/pod-identity-webhook.yaml"
 
@@ -15,5 +14,6 @@ data "ignition_file" "pod_identity_webhook" {
       tls_key               = base64encode(var.tls_key)
       located_control_plane = var.located_control_plane
     })
+    mime = "text/yaml"
   }
 }

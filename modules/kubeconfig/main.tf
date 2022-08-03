@@ -1,5 +1,4 @@
 data "ignition_file" "kubeconfig" {
-  filesystem = "root"
   path       = var.config_path
   mode       = 420
 
@@ -17,5 +16,6 @@ data "ignition_file" "kubeconfig" {
       client_key_path        = local.certificates["client_key_path"]
       content                = var.content
     })
+    mime = "text/yaml"
   }
 }

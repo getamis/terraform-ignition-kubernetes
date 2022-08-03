@@ -6,11 +6,11 @@ locals {
 
 data "ignition_file" "init_addons_sh" {
   path       = "${local.opt_path}/bin/init-addons"
-  filesystem = "root"
   mode       = 500
 
   content {
     content = file("${path.module}/scripts/init-addons.sh")
+    mime = "text/yaml"
   }
 }
 

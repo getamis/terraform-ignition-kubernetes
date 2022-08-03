@@ -13,7 +13,6 @@ locals {
 }
 
 data "ignition_file" "kube_proxy" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/addons/kube-proxy.yaml"
 
@@ -21,11 +20,11 @@ data "ignition_file" "kube_proxy" {
     content = templatefile("${path.module}/templates/addons/kube-proxy.yaml.tpl", {
       image = "${local.containers["kube_proxy"].repo}:${local.containers["kube_proxy"].tag}"
     })
+    mime = "text/yaml"
   }
 }
 
 data "ignition_file" "kube_proxy_cm" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/addons/kube-proxy-cm.yaml"
 
@@ -34,12 +33,12 @@ data "ignition_file" "kube_proxy_cm" {
       endpoint = var.internal_endpoint
       content  = local.kube_proxy_cm_v1alpha1
     })
+    mime = "text/yaml"
   }
 }
 
 // TODO(kairen): add support for stub-domains 
 data "ignition_file" "coredns" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/addons/coredns.yaml"
 
@@ -52,5 +51,6 @@ data "ignition_file" "coredns" {
       upstream_nameservers     = local.coredns_config["upstream_nameservers"]
       located_on_the_same_host = local.coredns_config["located_on_the_same_host"]
     })
+    mime = "text/yaml"
   }
 }

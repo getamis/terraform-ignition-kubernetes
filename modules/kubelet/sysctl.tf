@@ -1,6 +1,5 @@
 data "ignition_file" "sysctl_k8s_conf" {
   path       = "/etc/sysctl.d/k8s.conf"
-  filesystem = "root"
   mode       = 420
 
   content {
@@ -10,7 +9,6 @@ data "ignition_file" "sysctl_k8s_conf" {
 
 data "ignition_file" "sysctl_max_user_watches_conf" {
   path       = "/etc/sysctl.d/max-user-watches.conf"
-  filesystem = "root"
   mode       = 420
 
   content {

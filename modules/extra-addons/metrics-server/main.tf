@@ -1,5 +1,4 @@
 data "ignition_file" "metrics_server_components" {
-  filesystem = "root"
   mode       = 420
   path       = "${var.addons_dir_path}/metrics-server.yaml"
 
@@ -8,5 +7,6 @@ data "ignition_file" "metrics_server_components" {
       image       = "${var.container["repo"]}:${var.container["tag"]}"
       secure_port = var.secure_port
     })
+    mime = "text/yaml"
   }
 }

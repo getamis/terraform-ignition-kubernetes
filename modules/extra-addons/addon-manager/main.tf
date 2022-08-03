@@ -1,5 +1,4 @@
 data "ignition_file" "addon_manager_pod" {
-  filesystem = "root"
   mode       = 420
   path       = "${var.manifests_dir_path}/addon_manager.yaml.tpl"
 
@@ -10,5 +9,6 @@ data "ignition_file" "addon_manager_pod" {
       logs_dir_path                 = var.logs_dir_path
       kubectl_extra_prune_whitelist = join(" ", var.kubectl_extra_prune_whitelist)
     })
+    mime = "text/yaml"
   }
 }

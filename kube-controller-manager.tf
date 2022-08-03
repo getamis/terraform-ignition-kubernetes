@@ -1,5 +1,4 @@
 data "ignition_file" "kube_controller_manager" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/manifests/kube-controller-manager.yaml"
 
@@ -15,6 +14,7 @@ data "ignition_file" "kube_controller_manager" {
       extra_flags       = local.controller_manager_flags
       resources         = local.components_resource["kube_controller_manager"]
     })
+    mime = "text/yaml"
   }
 }
 

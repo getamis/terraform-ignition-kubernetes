@@ -7,13 +7,13 @@ This document gives an overview of variables used in the Ignition of the Kuberne
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
-| <a name="requirement_ignition"></a> [ignition](#requirement\_ignition) | ~> 1.2.1 |
+| <a name="requirement_ignition"></a> [ignition](#requirement\_ignition) | 2.1.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_ignition"></a> [ignition](#provider\_ignition) | ~> 1.2.1 |
+| <a name="provider_ignition"></a> [ignition](#provider\_ignition) | 2.1.2 |
 
 ## Modules
 
@@ -23,22 +23,22 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [ignition_file.bootstrap_kubeconfig](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.cni_plugin_tgz](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.get_host_info_sh](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.init_configs_sh](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.kubelet_config_tpl](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.kubelet_env](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.kubelet_wrapper_sh](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.kubernetes_env](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.logind_kubelet_conf](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.node_shutdown_sh](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.sysctl_k8s_conf](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.sysctl_max_user_watches_conf](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.systemd_drop_in_kubelet_conf](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_systemd_unit.kubeinit_configs](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/systemd_unit) | data source |
-| [ignition_systemd_unit.kubelet](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/systemd_unit) | data source |
-| [ignition_systemd_unit.kubenode_shutdown](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/systemd_unit) | data source |
+| [ignition_file.bootstrap_kubeconfig](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.cni_plugin_tgz](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.get_host_info_sh](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.init_configs_sh](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kubelet_config_tpl](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kubelet_env](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kubelet_wrapper_sh](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kubernetes_env](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.logind_kubelet_conf](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.node_shutdown_sh](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.sysctl_k8s_conf](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.sysctl_max_user_watches_conf](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.systemd_drop_in_kubelet_conf](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_systemd_unit.kubeinit_configs](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/systemd_unit) | data source |
+| [ignition_systemd_unit.kubelet](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/systemd_unit) | data source |
+| [ignition_systemd_unit.kubenode_shutdown](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/systemd_unit) | data source |
 
 ## Inputs
 

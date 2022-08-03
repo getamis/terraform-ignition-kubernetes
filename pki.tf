@@ -1,5 +1,4 @@
 data "ignition_file" "kubernetes_ca_cert" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/pki/ca.crt"
 
@@ -9,7 +8,6 @@ data "ignition_file" "kubernetes_ca_cert" {
 }
 
 data "ignition_file" "kubernetes_ca_key" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/pki/ca.key"
 
@@ -19,7 +17,6 @@ data "ignition_file" "kubernetes_ca_key" {
 }
 
 data "ignition_file" "front_proxy_ca_cert" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/pki/front-proxy-ca.crt"
 
@@ -29,7 +26,6 @@ data "ignition_file" "front_proxy_ca_cert" {
 }
 
 data "ignition_file" "front_proxy_ca_key" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/pki/front-proxy-ca.key"
 
@@ -39,7 +35,6 @@ data "ignition_file" "front_proxy_ca_key" {
 }
 
 data "ignition_file" "apiserver_cert" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/pki/apiserver.crt"
 
@@ -49,7 +44,6 @@ data "ignition_file" "apiserver_cert" {
 }
 
 data "ignition_file" "apiserver_key" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/pki/apiserver.key"
 
@@ -59,7 +53,6 @@ data "ignition_file" "apiserver_key" {
 }
 
 data "ignition_file" "apiserver_kubelet_client_cert" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/pki/apiserver-kubelet-client.crt"
 
@@ -69,7 +62,6 @@ data "ignition_file" "apiserver_kubelet_client_cert" {
 }
 
 data "ignition_file" "apiserver_kubelet_client_key" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/pki/apiserver-kubelet-client.key"
 
@@ -79,7 +71,6 @@ data "ignition_file" "apiserver_kubelet_client_key" {
 }
 
 data "ignition_file" "apiserver_etcd_client_cert" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/pki/apiserver-etcd-client.crt"
 
@@ -89,7 +80,6 @@ data "ignition_file" "apiserver_etcd_client_cert" {
 }
 
 data "ignition_file" "apiserver_etcd_client_key" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/pki/apiserver-etcd-client.key"
 
@@ -99,7 +89,6 @@ data "ignition_file" "apiserver_etcd_client_key" {
 }
 
 data "ignition_file" "front_proxy_client_cert" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/pki/front-proxy-client.crt"
 
@@ -109,7 +98,6 @@ data "ignition_file" "front_proxy_client_cert" {
 }
 
 data "ignition_file" "front_proxy_client_key" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/pki/front-proxy-client.key"
 
@@ -119,7 +107,6 @@ data "ignition_file" "front_proxy_client_key" {
 }
 
 data "ignition_file" "service_account_public_key" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/pki/sa.pub"
 
@@ -129,7 +116,6 @@ data "ignition_file" "service_account_public_key" {
 }
 
 data "ignition_file" "service_account_private_key" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/pki/sa.key"
 
@@ -139,7 +125,6 @@ data "ignition_file" "service_account_private_key" {
 }
 
 data "ignition_file" "etcd_ca_cert" {
-  filesystem = "root"
   mode       = 420
   path       = "${local.etc_path}/pki/etcd/ca.crt"
 

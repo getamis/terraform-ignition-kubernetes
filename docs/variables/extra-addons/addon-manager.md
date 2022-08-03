@@ -7,13 +7,13 @@ This document gives an overview of variables used in the Ignition of the addon-m
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
-| <a name="requirement_ignition"></a> [ignition](#requirement\_ignition) | ~> 1.2.1 |
+| <a name="requirement_ignition"></a> [ignition](#requirement\_ignition) | 2.1.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_ignition"></a> [ignition](#provider\_ignition) | ~> 1.2.1 |
+| <a name="provider_ignition"></a> [ignition](#provider\_ignition) | 2.1.2 |
 
 ## Modules
 
@@ -23,7 +23,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [ignition_file.addon_manager_pod](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.addon_manager_pod](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
 
 ## Inputs
 

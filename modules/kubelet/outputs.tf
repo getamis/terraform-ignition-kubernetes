@@ -10,6 +10,7 @@ output "files" {
   value = concat(
     [
       data.ignition_file.cni_plugin_tgz.rendered,
+      data.ignition_file.envsubst.rendered,
       data.ignition_file.kubernetes_env.rendered,
       data.ignition_file.init_configs_sh.rendered,
       data.ignition_file.get_host_info_sh.rendered,
