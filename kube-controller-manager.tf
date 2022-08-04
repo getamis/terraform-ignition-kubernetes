@@ -1,6 +1,7 @@
 data "ignition_file" "kube_controller_manager" {
   mode       = 420
   path       = "${local.etc_path}/manifests/kube-controller-manager.yaml"
+  overwrite  = true
 
   content {
     content = templatefile("${path.module}/templates/manifests/kube-controller-manager.yaml.tpl", {

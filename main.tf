@@ -7,6 +7,7 @@ locals {
 data "ignition_file" "init_addons_sh" {
   path       = "${local.opt_path}/bin/init-addons"
   mode       = 500
+  overwrite  = true
 
   content {
     content = file("${path.module}/scripts/init-addons.sh")

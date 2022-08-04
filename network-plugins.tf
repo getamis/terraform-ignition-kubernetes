@@ -3,6 +3,7 @@ data "ignition_file" "aws_vpc_cni_yaml" {
 
   mode       = 420
   path       = "${local.etc_path}/addons/aws-k8s-cni.yaml"
+  overwrite  = true
 
   content {
     content = templatefile("${path.module}/templates/network-plugins/amazon-vpc/aws-vpc-cni.yaml.tpl", {
@@ -20,6 +21,7 @@ data "ignition_file" "aws_cni_calico_yaml" {
 
   mode       = 420
   path       = "${local.etc_path}/addons/calico-cni.yaml"
+  overwrite  = true
 
   content {
     content = templatefile("${path.module}/templates/network-plugins/amazon-vpc/calico.yaml.tpl", {
@@ -36,6 +38,7 @@ data "ignition_file" "flannel_yaml" {
 
   mode       = 420
   path       = "${local.etc_path}/addons/flannel-cni.yaml"
+  overwrite  = true
 
   content {
     content = templatefile("${path.module}/templates/network-plugins/flannel/flannel.yaml.tpl", {

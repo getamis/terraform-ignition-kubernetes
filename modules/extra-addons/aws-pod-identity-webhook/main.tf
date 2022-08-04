@@ -1,6 +1,7 @@
 data "ignition_file" "pod_identity_webhook" {
   mode       = 420
   path       = "${var.addons_dir_path}/pod-identity-webhook.yaml"
+  overwrite  = true
 
   content {
     content = templatefile("${path.module}/templates/pod-identity-webhook.yaml.tpl", {

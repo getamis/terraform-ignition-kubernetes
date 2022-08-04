@@ -1,6 +1,7 @@
 data "ignition_file" "kube_scheduler" {
   mode       = 420
   path       = "${local.etc_path}/manifests/kube-scheduler.yaml"
+  overwrite  = true
 
   content {
     content = templatefile("${path.module}/templates/manifests/kube-scheduler.yaml.tpl", {

@@ -1,6 +1,7 @@
 data "ignition_file" "iam_authenticator" {
   mode       = 420
   path       = "${var.addons_dir_path}/iam-authenticator.yaml"
+  overwrite  = true
 
   content {
     content = templatefile("${path.module}/templates/iam-authenticator.yaml.tpl", {
@@ -17,6 +18,7 @@ data "ignition_file" "iam_authenticator" {
 data "ignition_file" "kubeconfig" {
   mode       = 420
   path       = "${pathexpand(var.kubeconfig_dir_path)}/kubeconfig"
+  overwrite  = true
 
   content {
     content = templatefile("${path.module}/templates/kubeconfig.tpl", {

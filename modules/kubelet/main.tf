@@ -27,6 +27,7 @@ locals {
 data "ignition_file" "cni_plugin_tgz" {
   path       = "/opt/cni/cni-plugins-linux.tgz"
   mode       = 500
+  overwrite  = true
 
   source {
     source       = local.binaries["cni_plugin"].source
@@ -35,8 +36,9 @@ data "ignition_file" "cni_plugin_tgz" {
 }
 
 data "ignition_file" "envsubst" {
-  path       = "/usr/local/bin/envsubst"
+  path       = "/opt/bin/envsubst"
   mode       = 500
+  overwrite  = true
 
   source {
     source       = local.binaries["envsubst"].source
@@ -47,6 +49,7 @@ data "ignition_file" "envsubst" {
 data "ignition_file" "kubernetes_env" {
   path       = "/etc/default/kubernetes.env"
   mode       = 420
+  overwrite  = true
 
   content {
     content = templatefile("${path.module}/templates/services/kubernetes.env.tpl", {
@@ -65,6 +68,7 @@ data "ignition_file" "kubernetes_env" {
 data "ignition_file" "init_configs_sh" {
   path       = "${local.opt_path}/bin/init-configs"
   mode       = 500
+  overwrite  = true
 
   content {
     content = file("${path.module}/files/scripts/init-configs.sh")
@@ -74,6 +78,7 @@ data "ignition_file" "init_configs_sh" {
 data "ignition_file" "get_host_info_sh" {
   path       = "${local.opt_path}/bin/get-host-info.sh"
   mode       = 500
+  overwrite  = true
 
   content {
     content = file("${path.module}/files/scripts/get-host-info.sh")
@@ -83,6 +88,7 @@ data "ignition_file" "get_host_info_sh" {
 data "ignition_file" "node_shutdown_sh" {
   path       = "${local.opt_path}/bin/node-shutdown"
   mode       = 500
+  overwrite  = true
 
   content {
     content = file("${path.module}/files/scripts/node-shutdown.sh")
@@ -92,6 +98,7 @@ data "ignition_file" "node_shutdown_sh" {
 data "ignition_file" "kubelet_wrapper_sh" {
   path       = "${local.opt_path}/bin/kubelet-wrapper"
   mode       = 500
+  overwrite  = true
 
   content {
     content = file("${path.module}/files/scripts/kubelet-wrapper.sh")
@@ -101,6 +108,7 @@ data "ignition_file" "kubelet_wrapper_sh" {
 data "ignition_file" "kubelet_config_tpl" {
   path       = "${local.opt_path}/templates/config.yaml.tpl"
   mode       = 420
+  overwrite  = true
 
   content {
     content = templatefile("${path.module}/templates/configs/kubelet.yaml.tpl", {
@@ -115,6 +123,7 @@ data "ignition_file" "bootstrap_kubeconfig" {
 
   path       = "${local.etc_path}/bootstrap-kubelet.conf"
   mode       = 420
+  overwrite  = true
 
   content {
     content = var.bootstrap_kubeconfig_content
@@ -124,6 +133,7 @@ data "ignition_file" "bootstrap_kubeconfig" {
 data "ignition_file" "kubelet_env" {
   path       = "/var/lib/kubelet/kubelet-flags.env"
   mode       = 420
+  overwrite  = true
 
   content {
     content = templatefile("${path.module}/templates/services/kubelet-flags.env.tpl", {
@@ -137,6 +147,7 @@ data "ignition_file" "kubelet_env" {
 data "ignition_file" "systemd_drop_in_kubelet_conf" {
   path       = "/etc/systemd/system/kubelet.service.d/10-kubelet.conf"
   mode       = 420
+  overwrite  = true
 
   content {
     content = templatefile("${path.module}/templates/services/10-kubelet.conf.tpl", {
@@ -149,6 +160,7 @@ data "ignition_file" "systemd_drop_in_kubelet_conf" {
 data "ignition_file" "logind_kubelet_conf" {
   path       = "/etc/systemd/logind.conf.d/99-kubelet.conf"
   mode       = 420
+  overwrite  = true
 
   content {
     content = templatefile("${path.module}/templates/services/logind-99-kubelet.conf.tpl", {})
