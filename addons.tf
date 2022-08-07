@@ -13,9 +13,9 @@ locals {
 }
 
 data "ignition_file" "kube_proxy" {
-  mode       = 420
-  path       = "${local.etc_path}/addons/kube-proxy.yaml"
-  overwrite  = true
+  mode      = 420
+  path      = "${local.etc_path}/addons/kube-proxy.yaml"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/addons/kube-proxy.yaml.tpl", {
@@ -26,9 +26,9 @@ data "ignition_file" "kube_proxy" {
 }
 
 data "ignition_file" "kube_proxy_cm" {
-  mode       = 420
-  path       = "${local.etc_path}/addons/kube-proxy-cm.yaml"
-  overwrite  = true
+  mode      = 420
+  path      = "${local.etc_path}/addons/kube-proxy-cm.yaml"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/addons/kube-proxy-cm.yaml.tpl", {
@@ -41,9 +41,9 @@ data "ignition_file" "kube_proxy_cm" {
 
 // TODO(kairen): add support for stub-domains 
 data "ignition_file" "coredns" {
-  mode       = 420
-  path       = "${local.etc_path}/addons/coredns.yaml"
-  overwrite  = true
+  mode      = 420
+  path      = "${local.etc_path}/addons/coredns.yaml"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/addons/coredns.yaml.tpl", {

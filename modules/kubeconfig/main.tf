@@ -1,7 +1,7 @@
 data "ignition_file" "kubeconfig" {
-  path       = var.config_path
-  mode       = 420
-  overwrite  = true
+  path      = var.config_path
+  mode      = 420
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/kubeconfig.yaml.tpl", {

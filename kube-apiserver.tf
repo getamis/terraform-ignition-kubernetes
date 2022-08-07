@@ -19,9 +19,9 @@ locals {
 }
 
 data "ignition_file" "bootstrap_token_secret" {
-  mode       = 420
-  path       = "${local.etc_path}/addons/bootstrap-token-secret.yaml"
-  overwrite  = true
+  mode      = 420
+  path      = "${local.etc_path}/addons/bootstrap-token-secret.yaml"
+  overwrite = true
   content {
     content = templatefile("${path.module}/templates/bootstrap-token/secret.yaml.tpl", {
       id     = var.tls_bootstrap_token.id
@@ -32,20 +32,20 @@ data "ignition_file" "bootstrap_token_secret" {
 }
 
 data "ignition_file" "bootstrap_token_rbac" {
-  mode       = 420
-  path       = "${local.etc_path}/addons/bootstrap-token-rbac.yaml"
-  overwrite  = true
+  mode      = 420
+  path      = "${local.etc_path}/addons/bootstrap-token-rbac.yaml"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/bootstrap-token/rbac.yaml.tpl", {})
-    mime = "text/yaml"
+    mime    = "text/yaml"
   }
 }
 
 data "ignition_file" "audit_log_policy" {
-  mode       = 420
-  path       = "${local.etc_path}/config/policy.yaml"
-  overwrite  = true
+  mode      = 420
+  path      = "${local.etc_path}/config/policy.yaml"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/configs/audit-policy.yaml.tpl", {
@@ -56,9 +56,9 @@ data "ignition_file" "audit_log_policy" {
 }
 
 data "ignition_file" "encryption_config" {
-  mode       = 420
-  path       = "${local.etc_path}/config/encryption.yaml"
-  overwrite  = true
+  mode      = 420
+  path      = "${local.etc_path}/config/encryption.yaml"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/configs/encryption.yaml.tpl", {
@@ -69,9 +69,9 @@ data "ignition_file" "encryption_config" {
 }
 
 data "ignition_file" "kube_apiserver" {
-  mode       = 420
-  path       = "${local.etc_path}/manifests/kube-apiserver.yaml"
-  overwrite  = true
+  mode      = 420
+  path      = "${local.etc_path}/manifests/kube-apiserver.yaml"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/manifests/kube-apiserver.yaml.tpl", {
