@@ -28,7 +28,7 @@ jobs:
         run: make validate
       - name: Validate ignition
         env:
-          IGNITION_VERSION: 0.35.0
+          IGNITION_VERSION: 2.14.0
         run: |
           wget https://github.com/coreos/ignition/releases/download/v${IGNITION_VERSION}/ignition-validate-x86_64-linux -O /tmp/ignition-validate
           sudo chmod +x /tmp/ignition-validate && sudo mv /tmp/ignition-validate /usr/local/bin/ignition-validate
