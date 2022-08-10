@@ -7,7 +7,7 @@ This document gives an overview of variables used in the Ignition of the Kuberne
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
-| <a name="requirement_ignition"></a> [ignition](#requirement\_ignition) | ~> 1.2.1 |
+| <a name="requirement_ignition"></a> [ignition](#requirement\_ignition) | 2.1.2 |
 
 ## Providers
 
@@ -30,38 +30,38 @@ This document gives an overview of variables used in the Ignition of the Kuberne
 
 | Name | Type |
 |------|------|
-| [ignition_file.apiserver_cert](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.apiserver_etcd_client_cert](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.apiserver_etcd_client_key](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.apiserver_key](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.apiserver_kubelet_client_cert](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.apiserver_kubelet_client_key](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.audit_log_policy](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.aws_cni_calico_yaml](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.aws_vpc_cni_yaml](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.bootstrap_token_rbac](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.bootstrap_token_secret](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.ca_config_json_tpl](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.coredns](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.encryption_config](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.etcd_ca_cert](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.flannel_yaml](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.front_proxy_ca_cert](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.front_proxy_ca_key](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.front_proxy_client_cert](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.front_proxy_client_key](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.init_addons_sh](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.kube_apiserver](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.kube_controller_manager](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.kube_proxy](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.kube_proxy_cm](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.kube_scheduler](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.kubelet_csr_json_tpl](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.kubernetes_ca_cert](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.kubernetes_ca_key](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.service_account_private_key](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.service_account_public_key](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_systemd_unit.kubeinit_addons](https://registry.terraform.io/providers/terraform-providers/ignition/latest/docs/data-sources/systemd_unit) | data source |
+| [ignition_file.apiserver_cert](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.apiserver_etcd_client_cert](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.apiserver_etcd_client_key](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.apiserver_key](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.apiserver_kubelet_client_cert](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.apiserver_kubelet_client_key](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.audit_log_policy](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.aws_cni_calico_yaml](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.aws_vpc_cni_yaml](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.bootstrap_token_rbac](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.bootstrap_token_secret](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.ca_config_json_tpl](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.coredns](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.encryption_config](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.etcd_ca_cert](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.flannel_yaml](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.front_proxy_ca_cert](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.front_proxy_ca_key](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.front_proxy_client_cert](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.front_proxy_client_key](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.init_addons_sh](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kube_apiserver](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kube_controller_manager](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kube_proxy](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kube_proxy_cm](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kube_scheduler](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kubelet_csr_json_tpl](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kubernetes_ca_cert](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.kubernetes_ca_key](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.service_account_private_key](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.service_account_public_key](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_systemd_unit.kubeinit_addons](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/systemd_unit) | data source |
 
 ## Inputs
 

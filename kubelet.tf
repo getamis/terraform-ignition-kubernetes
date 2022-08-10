@@ -15,9 +15,9 @@ module "kubelet" {
 }
 
 data "ignition_file" "kubelet_csr_json_tpl" {
-  path       = "${local.opt_path}/templates/kubelet-csr.json.tpl"
-  filesystem = "root"
-  mode       = 420
+  path      = "${local.opt_path}/templates/kubelet-csr.json.tpl"
+  mode      = 420
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/certs/kubelet-csr.json.tpl", {
@@ -28,9 +28,9 @@ data "ignition_file" "kubelet_csr_json_tpl" {
 }
 
 data "ignition_file" "ca_config_json_tpl" {
-  path       = "${local.opt_path}/templates/ca-config.json.tpl"
-  filesystem = "root"
-  mode       = 420
+  path      = "${local.opt_path}/templates/ca-config.json.tpl"
+  mode      = 420
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/certs/ca-config.json.tpl", {

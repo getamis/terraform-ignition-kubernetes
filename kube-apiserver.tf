@@ -19,56 +19,59 @@ locals {
 }
 
 data "ignition_file" "bootstrap_token_secret" {
-  filesystem = "root"
-  mode       = 420
-  path       = "${local.etc_path}/addons/bootstrap-token-secret.yaml"
-
+  mode      = 420
+  path      = "${local.etc_path}/addons/bootstrap-token-secret.yaml"
+  overwrite = true
   content {
     content = templatefile("${path.module}/templates/bootstrap-token/secret.yaml.tpl", {
       id     = var.tls_bootstrap_token.id
       secret = var.tls_bootstrap_token.secret
     })
+    mime = "text/yaml"
   }
 }
 
 data "ignition_file" "bootstrap_token_rbac" {
-  filesystem = "root"
-  mode       = 420
-  path       = "${local.etc_path}/addons/bootstrap-token-rbac.yaml"
+  mode      = 420
+  path      = "${local.etc_path}/addons/bootstrap-token-rbac.yaml"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/bootstrap-token/rbac.yaml.tpl", {})
+    mime    = "text/yaml"
   }
 }
 
 data "ignition_file" "audit_log_policy" {
-  filesystem = "root"
-  mode       = 420
-  path       = "${local.etc_path}/config/policy.yaml"
+  mode      = 420
+  path      = "${local.etc_path}/config/policy.yaml"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/configs/audit-policy.yaml.tpl", {
       content = var.audit_log_policy_content
     })
+    mime = "text/yaml"
   }
 }
 
 data "ignition_file" "encryption_config" {
-  filesystem = "root"
-  mode       = 420
-  path       = "${local.etc_path}/config/encryption.yaml"
+  mode      = 420
+  path      = "${local.etc_path}/config/encryption.yaml"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/configs/encryption.yaml.tpl", {
       secret = base64encode(var.encryption_secret)
     })
+    mime = "text/yaml"
   }
 }
 
 data "ignition_file" "kube_apiserver" {
-  filesystem = "root"
-  mode       = 420
-  path       = "${local.etc_path}/manifests/kube-apiserver.yaml"
+  mode      = 420
+  path      = "${local.etc_path}/manifests/kube-apiserver.yaml"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/manifests/kube-apiserver.yaml.tpl", {
@@ -88,5 +91,6 @@ data "ignition_file" "kube_apiserver" {
       cloud_config_flag = local.cloud_config.path != "" ? "- --cloud-config=${local.cloud_config.path}" : "# no cloud provider config given"
       extra_flags       = local.merged_apiserver_flags
     })
+    mime = "text/yaml"
   }
 }

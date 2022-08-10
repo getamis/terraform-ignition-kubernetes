@@ -1,7 +1,7 @@
 data "ignition_file" "kube_scheduler" {
-  filesystem = "root"
-  mode       = 420
-  path       = "${local.etc_path}/manifests/kube-scheduler.yaml"
+  mode      = 420
+  path      = "${local.etc_path}/manifests/kube-scheduler.yaml"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/manifests/kube-scheduler.yaml.tpl", {
@@ -10,5 +10,6 @@ data "ignition_file" "kube_scheduler" {
       extra_flags = local.scheduler_flags
       resources   = local.components_resource["kube_scheduler"]
     })
+    mime = "text/yaml"
   }
 }

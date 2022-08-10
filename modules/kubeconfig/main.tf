@@ -1,7 +1,7 @@
 data "ignition_file" "kubeconfig" {
-  filesystem = "root"
-  path       = var.config_path
-  mode       = 420
+  path      = var.config_path
+  mode      = 420
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/kubeconfig.yaml.tpl", {
@@ -17,5 +17,6 @@ data "ignition_file" "kubeconfig" {
       client_key_path        = local.certificates["client_key_path"]
       content                = var.content
     })
+    mime = "text/yaml"
   }
 }

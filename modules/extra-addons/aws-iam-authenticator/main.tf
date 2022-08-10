@@ -1,7 +1,7 @@
 data "ignition_file" "iam_authenticator" {
-  filesystem = "root"
-  mode       = 420
-  path       = "${var.addons_dir_path}/iam-authenticator.yaml"
+  mode      = 420
+  path      = "${var.addons_dir_path}/iam-authenticator.yaml"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/iam-authenticator.yaml.tpl", {
@@ -11,13 +11,14 @@ data "ignition_file" "iam_authenticator" {
       kubeconfig_dir_path = var.kubeconfig_dir_path
       flags               = local.extra_flags
     })
+    mime = "text/yaml"
   }
 }
 
 data "ignition_file" "kubeconfig" {
-  filesystem = "root"
-  mode       = 420
-  path       = "${pathexpand(var.kubeconfig_dir_path)}/kubeconfig"
+  mode      = 420
+  path      = "${pathexpand(var.kubeconfig_dir_path)}/kubeconfig"
+  overwrite = true
 
   content {
     content = templatefile("${path.module}/templates/kubeconfig.tpl", {
