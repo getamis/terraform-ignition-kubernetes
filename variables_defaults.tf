@@ -65,7 +65,7 @@ locals {
     allow-privileged = true
     profiling        = false
 
-    service-account-issuer = "https://kubernetes.default.svc"
+    service-account-issuer           = "https://kubernetes.default.svc"
     service-account-signing-key-file = "/etc/kubernetes/pki/sa.key"
     // TODO: fix livenessProbe while disabled anonymous auth. 
     // See https://kubernetes.io/docs/reference/access-authn-authz/authentication/#anonymous-requests for more information.
