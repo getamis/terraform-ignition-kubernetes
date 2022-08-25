@@ -20,7 +20,7 @@ This repo also contains the following submodules:
 
 ## Requirements
 
-* Terraform v0.13.1+.
+* Terraform v1.2.0+.
 * [terraform-provider-ignition](https://github.com/terraform-providers/terraform-provider-ignition) 1.2.1+.
 
 ## Usage example

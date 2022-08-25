@@ -22,11 +22,11 @@ locals {
     }
     vpc_cni = {
       repo = "quay.io/amis/amazon-k8s-cni"
-      tag  = "v1.11.0-nftables"
+      tag  = "v1.11.3-nftables"
     }
     vpc_cni_init = {
       repo = "quay.io/amis/amazon-k8s-cni-init"
-      tag  = "v1.11.0"
+      tag  = "v1.11.3"
     }
     calico_node = {
       repo = "quay.io/calico/node"
@@ -62,10 +62,11 @@ locals {
   }, var.kubelet_config)
 
   apiserver_flags = merge({
-    insecure-port    = 0
     allow-privileged = true
     profiling        = false
 
+    service-account-issuer = "https://kubernetes.default.svc"
+    service-account-signing-key-file = "/etc/kubernetes/pki/sa.key"
     // TODO: fix livenessProbe while disabled anonymous auth. 
     // See https://kubernetes.io/docs/reference/access-authn-authz/authentication/#anonymous-requests for more information.
     anonymous-auth                  = true
