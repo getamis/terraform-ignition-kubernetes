@@ -18,7 +18,7 @@ endef
 
 .PHONY: validate
 validate:
-	@for m in $(TF_TESTS); do terraform init "$$m" > /dev/null 2>&1; echo "$$m: "; terraform validate "$$m"; done
+	@for m in $(TF_TESTS); do terraform init "$$m" > /dev/null 2>&1; echo "$$m: "; cd "$$m" ;terraform validate "."; cd -; done
 
 .PHONY: validate-ign
 validate-ign:

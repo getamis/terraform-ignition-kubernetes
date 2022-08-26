@@ -6,7 +6,7 @@ This document gives an overview of variables used in the Ignition of the Kuberne
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
 | <a name="requirement_ignition"></a> [ignition](#requirement\_ignition) | 2.1.2 |
 
 ## Providers
@@ -92,7 +92,7 @@ This document gives an overview of variables used in the Ignition of the Kuberne
 | <a name="input_kubelet_cert"></a> [kubelet\_cert](#input\_kubelet\_cert) | The kubelet cert property. | <pre>object({<br>    algo   = string<br>    size   = number<br>    expiry = string<br>  })</pre> | <pre>{<br>  "algo": "rsa",<br>  "expiry": "87600h",<br>  "size": 2048<br>}</pre> | no |
 | <a name="input_kubelet_config"></a> [kubelet\_config](#input\_kubelet\_config) | The configuration of kubelet. The variables need to follow https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go. Do not use underline. | `map` | `{}` | no |
 | <a name="input_kubelet_flags"></a> [kubelet\_flags](#input\_kubelet\_flags) | The flags of kubelet. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/. Do not use underline. | `map` | `{}` | no |
-| <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | Desired Kubernetes version. | `string` | `"v1.19.16"` | no |
+| <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | Desired Kubernetes version. | `string` | `"v1.23.10"` | no |
 | <a name="input_max_pods"></a> [max\_pods](#input\_max\_pods) | (Optional) the max pod number in the node when enable eni prefix | `string` | `"110"` | no |
 | <a name="input_network_plugin"></a> [network\_plugin](#input\_network\_plugin) | Desired network plugin which is use for Kubernetes cluster. e.g. 'flannel', 'amazon-vpc' | `string` | `"amazon-vpc"` | no |
 | <a name="input_oidc_config"></a> [oidc\_config](#input\_oidc\_config) | The service account config to enable pod identity feature. | <pre>object({<br>    issuer        = string<br>    api_audiences = string<br>  })</pre> | <pre>{<br>  "api_audiences": "",<br>  "issuer": ""<br>}</pre> | no |

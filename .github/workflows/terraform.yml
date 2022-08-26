@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@master
       - name: Install terraform
         env:
-          TF_VERSION: 0.13.7
+          TF_VERSION: 1.2.8
         run: |
           # Install terraform
           wget https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip -O /tmp/terraform.zip
