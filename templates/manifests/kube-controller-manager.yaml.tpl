@@ -13,7 +13,7 @@ spec:
     image: ${image}
     command:
     - kube-controller-manager
-    - --bind-address=127.0.0.1
+    - --bind-address=0.0.0.0
     - --authentication-kubeconfig=${kubeconfig}
     - --authorization-kubeconfig=${kubeconfig}
     - --kubeconfig=${kubeconfig}
