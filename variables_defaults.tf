@@ -44,6 +44,22 @@ locals {
       repo = "quay.io/coreos/flannel"
       tag  = "v0.14.0-amd64"
     }
+    cilium_agent = {
+      repo = "quay.io/cilium/cilium"
+      tag  = "v1.11.8"
+    }
+    cilium_operator = {
+      repo = "quay.io/cilium/operator"
+      tag  = "v1.11.8"
+    }
+    hubble_relay = {
+      repo = "quay.io/cilium/hubble-relay"
+      tag  = "v1.11.8"
+    }
+    cilium_certgen = {
+      repo = "quay.io/cilium/certgen"
+      tag  = "v0.1.5"
+    }
   }, var.containers)
 
   cloud_config = merge({

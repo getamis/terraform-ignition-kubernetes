@@ -56,6 +56,12 @@ variable "pod_network_cidr" {
   default     = "10.244.0.0/16"
 }
 
+variable "node_cidr_mask_size" {
+  description = "(Optional)[cilium-vxlan] Mask size for node cidr in cluster."
+  type        = number
+  default     = 23
+}
+
 variable "network_plugin" {
   description = "Desired network plugin which is use for Kubernetes cluster. e.g. 'flannel', 'amazon-vpc'"
   type        = string
