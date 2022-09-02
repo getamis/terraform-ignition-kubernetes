@@ -65,6 +65,6 @@ locals {
     healthzBindAddress = "127.0.0.1"
     healthzPort        = 0
     readOnlyPort       = 0
-    maxPods            = (var.network_plugin != "amazon-vpc" || var.enable_eni_prefix) ? var.max_pods : "$${MAX_PODS}"
+    maxPods            = var.network_plugin != "amazon-vpc" || (var.network_plugin == "amazon-vpc" && var.enable_eni_prefix) ? var.max_pods : "$${MAX_PODS}"
   }, var.extra_config)
 }
