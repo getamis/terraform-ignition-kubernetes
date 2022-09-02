@@ -63,7 +63,7 @@ variable "node_cidr_mask_size" {
 }
 
 variable "network_plugin" {
-  description = "Desired network plugin which is use for Kubernetes cluster. e.g. 'flannel', 'amazon-vpc'"
+  description = "Desired network plugin which is use for Kubernetes cluster. e.g. 'flannel', 'amazon-vpc', 'cilium-vxlan'"
   type        = string
   default     = "amazon-vpc"
 }

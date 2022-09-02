@@ -95,7 +95,7 @@ This document gives an overview of variables used in the Ignition of the Kuberne
 | <a name="input_kubelet_flags"></a> [kubelet\_flags](#input\_kubelet\_flags) | The flags of kubelet. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/. Do not use underline. | `map` | `{}` | no |
 | <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | Desired Kubernetes version. | `string` | `"v1.23.10"` | no |
 | <a name="input_max_pods"></a> [max\_pods](#input\_max\_pods) | (Optional) the max pod number in the node when enable eni prefix | `string` | `"110"` | no |
-| <a name="input_network_plugin"></a> [network\_plugin](#input\_network\_plugin) | Desired network plugin which is use for Kubernetes cluster. e.g. 'flannel', 'amazon-vpc' | `string` | `"amazon-vpc"` | no |
+| <a name="input_network_plugin"></a> [network\_plugin](#input\_network\_plugin) | Desired network plugin which is use for Kubernetes cluster. e.g. 'flannel', 'amazon-vpc', 'cilium-vxlan' | `string` | `"amazon-vpc"` | no |
 | <a name="input_node_cidr_mask_size"></a> [node\_cidr\_mask\_size](#input\_node\_cidr\_mask\_size) | (Optional)[cilium-vxlan] Mask size for node cidr in cluster. | `number` | `24` | no |
 | <a name="input_oidc_config"></a> [oidc\_config](#input\_oidc\_config) | The service account config to enable pod identity feature. | <pre>object({<br>    issuer        = string<br>    api_audiences = string<br>  })</pre> | <pre>{<br>  "api_audiences": "",<br>  "issuer": ""<br>}</pre> | no |
 | <a name="input_pod_network_cidr"></a> [pod\_network\_cidr](#input\_pod\_network\_cidr) | The CIDR pool used to assign IP addresses to pods in the cluster. | `string` | `"10.244.0.0/16"` | no |
