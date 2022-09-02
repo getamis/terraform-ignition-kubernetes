@@ -274,7 +274,10 @@ bpf:
   lbExternalClusterIP: false
 
   # -- Enable native IP masquerade support in eBPF
-  masquerade: false
+  ## NOTE: eBPF masquerading will expose NodePort and LoadBalancer services to the outside, such behavior might be unwanted due to security concerns.
+  ## https://github.com/cilium/cilium/issues/13732
+  ## https://github.com/cilium/cilium/issues/19497
+  masquerade: false 
 
   # -- Configure whether direct routing mode should route traffic via
   # host stack (true) or directly and more efficiently out of BPF (false) if
@@ -438,8 +441,9 @@ endpointStatus:
   status: ""
 
 endpointRoutes:
-  # -- Enable use of per endpoint routes instead of routing via
-  # the cilium_host interface.
+  # -- Enable use of per endpoint routes instead of routing via the cilium_host interface.
+  ## NOTE: Packets to pods processed twice with per-endpoint routes + VXLAN
+  ## https://github.com/cilium/cilium/issues/14657
   enabled: false
 
 externalIPs:
