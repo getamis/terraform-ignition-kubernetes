@@ -58,18 +58,18 @@ data "ignition_file" "cilium_vxlan_yaml" {
 
   content {
     content = templatefile("${path.module}/templates/network-plugins/cilium/cilium-vxlan.yaml.tpl", {
-      agent_repo    = "${local.containers["cilium_agent"].repo}"
-      agent_tag     = "${local.containers["cilium_agent"].tag}"
-      operator_repo  = "${local.containers["cilium_operator"].repo}"
-      operator_tag   = "${local.containers["cilium_operator"].tag}"
-      hubble_relay_repo    = "${local.containers["hubble_relay"].repo}"
-      hubble_relay_tag     = "${local.containers["hubble_relay"].tag}"
-      certgen_repo  = "${local.containers["cilium_certgen"].repo}"
-      certgen_tag   = "${local.containers["cilium_certgen"].tag}"
-      cluster_cidr   = var.pod_network_cidr
+      agent_repo        = "${local.containers["cilium_agent"].repo}"
+      agent_tag         = "${local.containers["cilium_agent"].tag}"
+      operator_repo     = "${local.containers["cilium_operator"].repo}"
+      operator_tag      = "${local.containers["cilium_operator"].tag}"
+      hubble_relay_repo = "${local.containers["hubble_relay"].repo}"
+      hubble_relay_tag  = "${local.containers["hubble_relay"].tag}"
+      certgen_repo      = "${local.containers["cilium_certgen"].repo}"
+      certgen_tag       = "${local.containers["cilium_certgen"].tag}"
+      cluster_cidr      = var.pod_network_cidr
       cluster_mask_size = var.node_cidr_mask_size
-      apiserver_host = trimprefix(var.internal_endpoint, "https://")
-      apiserver_port = "443"
+      apiserver_host    = trimprefix(var.internal_endpoint, "https://")
+      apiserver_port    = "443"
     })
     mime = "text/yaml"
   }
