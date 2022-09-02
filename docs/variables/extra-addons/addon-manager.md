@@ -23,7 +23,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [ignition_file.addon_manager_pod](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.addon_manager_pod](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
 
 ## Inputs
 

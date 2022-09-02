@@ -23,7 +23,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [ignition_file.metrics_server_components](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
+| [ignition_file.metrics_server_components](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
 
 ## Inputs
 
