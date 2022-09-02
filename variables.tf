@@ -59,7 +59,7 @@ variable "pod_network_cidr" {
 variable "node_cidr_mask_size" {
   description = "(Optional)[cilium-vxlan] Mask size for node cidr in cluster."
   type        = number
-  default     = 23
+  default     = 24
 }
 
 variable "network_plugin" {
