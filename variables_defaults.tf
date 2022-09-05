@@ -96,7 +96,7 @@ locals {
   controller_manager_flags = merge({
     profiling                       = false
     leader-elect                    = true
-    allocate-node-cidrs             = true
+    allocate-node-cidrs             = var.network_plugin == "cilium-vxlan" ? false : true
     controllers                     = "*,bootstrapsigner"
     node-monitor-grace-period       = "40s"
     pod-eviction-timeout            = "5m"
