@@ -564,7 +564,7 @@ spec:
             topologyKey: kubernetes.io/hostname
       containers:
       - name: cilium-agent
-        image: "${agent_repo}:${agent_tag}@sha256:7f030cfb166a8aeabcb8208844d96abe5b00a3feb251e8ca47f21cf7b3a74f88"
+        image: "${agent_repo}:${agent_tag}"
         imagePullPolicy: IfNotPresent
         command:
         - cilium-agent
@@ -693,7 +693,7 @@ spec:
       # Required to mount cgroup2 filesystem on the underlying Kubernetes node.
       # We use nsenter command with host's cgroup and mount namespaces enabled.
       - name: mount-cgroup
-        image: "${agent_repo}:${agent_tag}@sha256:7f030cfb166a8aeabcb8208844d96abe5b00a3feb251e8ca47f21cf7b3a74f88"
+        image: "${agent_repo}:${agent_tag}"
         imagePullPolicy: IfNotPresent
         env:
         - name: CGROUP_ROOT
@@ -720,7 +720,7 @@ spec:
         securityContext:
           privileged: true
       - name: apply-sysctl-overwrites
-        image: "${agent_repo}:${agent_tag}@sha256:7f030cfb166a8aeabcb8208844d96abe5b00a3feb251e8ca47f21cf7b3a74f88"
+        image: "${agent_repo}:${agent_tag}"
         imagePullPolicy: IfNotPresent
         env:
         - name: BIN_PATH
@@ -745,7 +745,7 @@ spec:
         securityContext:
           privileged: true
       - name: clean-cilium-state
-        image: "${agent_repo}:${agent_tag}@sha256:7f030cfb166a8aeabcb8208844d96abe5b00a3feb251e8ca47f21cf7b3a74f88"
+        image: "${agent_repo}:${agent_tag}"
         imagePullPolicy: IfNotPresent
         command:
         - /init-container.sh
@@ -902,7 +902,7 @@ spec:
             topologyKey: kubernetes.io/hostname
       containers:
       - name: cilium-operator
-        image: ${operator_repo}-generic:${operator_tag}@sha256:471c86cba6ac1fd290a11b5b4a8c02ca73b375dce6ea1527b0ee32ab5c6c6912
+        image: ${operator_repo}-generic:${operator_tag}
         imagePullPolicy: IfNotPresent
         command:
         - cilium-operator-generic
@@ -1003,7 +1003,7 @@ spec:
             topologyKey: "kubernetes.io/hostname"
       containers:
         - name: hubble-relay
-          image: "${hubble_relay_repo}:${hubble_relay_tag}@sha256:36c847c80b52f9c0e00da8058597b4d62fa2f0a6003e6f9beff65789db0faf6e"
+          image: "${hubble_relay_repo}:${hubble_relay_tag}"
           imagePullPolicy: IfNotPresent
           command:
             - hubble-relay
