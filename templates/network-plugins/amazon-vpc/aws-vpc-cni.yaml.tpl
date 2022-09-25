@@ -233,8 +233,9 @@ spec:
             name: cni-net-dir
           - mountPath: /host/var/log/aws-routed-eni
             name: log-dir
-          - mountPath: /var/run/dockershim.sock
-            name: dockershim
+          # https://github.com/aws/amazon-vpc-cni-k8s/blob/a3af8298179c2271030dbd5c13e0408727eb2846/README.md#container-runtime
+          - mountPath: /var/run/cri.sock
+            name: containerd
           - mountPath: /var/run/aws-node
             name: run-dir
           - mountPath: /run/xtables.lock
@@ -246,9 +247,9 @@ spec:
       - name: cni-net-dir
         hostPath:
           path: /etc/cni/net.d
-      - name: dockershim
+      - name: containerd
         hostPath:
-          path: /var/run/dockershim.sock
+          path: /var/run/containerd/containerd.sock
       - name: log-dir
         hostPath:
           path: /var/log/aws-routed-eni
