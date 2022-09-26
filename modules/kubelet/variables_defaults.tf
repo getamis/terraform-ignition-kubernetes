@@ -5,11 +5,12 @@ locals {
       checksum = "sha512-4d0ed0abb5951b9cf83cba938ef84bdc5b681f4ac869da8143974f6a53a3ff30c666389fa462b9d14d30af09bf03f6cdf77598c572f8fb3ea00cecdda467a48d"
     }
     },
-    { envsubst = {
-      source   = "https://github.com/a8m/envsubst/releases/download/v1.2.0/envsubst-Linux-x86_64"
-      checksum = "sha512-91dfd502ab14173ac8af35ca318c9872ec3e0b04b34580b65f787faead355e29ca9609aaeb6ca0629d7dd9cfaeaa83769a166eb03923ae19441da04150e865c6"
+    {
+      envsubst = {
+        source   = "https://github.com/a8m/envsubst/releases/download/v1.2.0/envsubst-Linux-x86_64"
+        checksum = "sha512-91dfd502ab14173ac8af35ca318c9872ec3e0b04b34580b65f787faead355e29ca9609aaeb6ca0629d7dd9cfaeaa83769a166eb03923ae19441da04150e865c6"
       }
-  }, var.binaries)
+    }, var.binaries)
 
   containers = merge({
     kubelet = {

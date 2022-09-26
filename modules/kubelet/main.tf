@@ -15,12 +15,20 @@ locals {
     staticPodPath = "${local.etc_path}/manifests"
   })
 
+  crictl_config = {
+    runtime-endpoint = "unix:///run/containerd/containerd.sock"
+    image-endpoint   = "unix:///run/containerd/containerd.sock"
+    timeout          = 2
+  }
+
   kubelet_extra_flags = merge(var.extra_flags, {
-    pod-infra-container-image = "${local.containers["pause"].repo}:${local.containers["pause"].tag}"
-    volume-plugin-dir         = "/var/lib/kubelet/volumeplugins"
-    logtostderr               = "false"
-    log-dir                   = "/var/log/kubelet"
-    log-file-max-size         = "128"
+    pod-infra-container-image  = "${local.containers["pause"].repo}:${local.containers["pause"].tag}"
+    volume-plugin-dir          = "/var/lib/kubelet/volumeplugins"
+    logtostderr                = "false"
+    log-dir                    = "/var/log/kubelet"
+    log-file-max-size          = "128"
+    container-runtime          = "remote"
+    container-runtime-endpoint = "unix:///run/containerd/containerd.sock"
   })
 }
 
@@ -113,6 +121,19 @@ data "ignition_file" "kubelet_config_tpl" {
   content {
     content = templatefile("${path.module}/templates/configs/kubelet.yaml.tpl", {
       content = local.kubelet_config_v1beta1
+    })
+    mime = "text/yaml"
+  }
+}
+
+data "ignition_file" "crictl_config" {
+  path      = "/etc/crictl.yaml"
+  mode      = 420
+  overwrite = true
+
+  content {
+    content = templatefile("${path.module}/templates/configs/crictl.yaml.tpl", {
+      content = local.crictl_config
     })
     mime = "text/yaml"
   }
