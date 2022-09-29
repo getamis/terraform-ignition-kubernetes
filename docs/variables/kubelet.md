@@ -23,22 +23,23 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [ignition_file.bootstrap_kubeconfig](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.cni_plugin_tgz](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.get_host_info_sh](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.init_configs_sh](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.kubelet_config_tpl](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.kubelet_env](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.kubelet_wrapper_sh](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.kubernetes_env](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.logind_kubelet_conf](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.node_shutdown_sh](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.sysctl_k8s_conf](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.sysctl_max_user_watches_conf](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_file.systemd_drop_in_kubelet_conf](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/file) | data source |
-| [ignition_systemd_unit.kubeinit_configs](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/systemd_unit) | data source |
-| [ignition_systemd_unit.kubelet](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/systemd_unit) | data source |
-| [ignition_systemd_unit.kubenode_shutdown](https://registry.terraform.io/providers/community-terraform-providers/ignition/latest/docs/data-sources/systemd_unit) | data source |
+| [ignition_file.bootstrap_kubeconfig](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
+| [ignition_file.cni_plugin_tgz](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
+| [ignition_file.envsubst](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
+| [ignition_file.get_host_info_sh](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
+| [ignition_file.init_configs_sh](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
+| [ignition_file.kubelet_config_tpl](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
+| [ignition_file.kubelet_env](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
+| [ignition_file.kubelet_wrapper_sh](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
+| [ignition_file.kubernetes_env](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
+| [ignition_file.logind_kubelet_conf](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
+| [ignition_file.node_shutdown_sh](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
+| [ignition_file.sysctl_k8s_conf](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
+| [ignition_file.sysctl_max_user_watches_conf](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
+| [ignition_file.systemd_drop_in_kubelet_conf](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
+| [ignition_systemd_unit.kubeinit_configs](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/systemd_unit) | data source |
+| [ignition_systemd_unit.kubelet](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/systemd_unit) | data source |
+| [ignition_systemd_unit.kubenode_shutdown](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/systemd_unit) | data source |
 
 ## Inputs
 
@@ -54,7 +55,7 @@ No modules.
 | <a name="input_feature_gates"></a> [feature\_gates](#input\_feature\_gates) | A set of key=value pairs that describe feature gates for alpha/experimental features. | `map(bool)` | `{}` | no |
 | <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | Desired Kubernetes version. | `string` | `"v1.23.10"` | no |
 | <a name="input_max_pods"></a> [max\_pods](#input\_max\_pods) | (Optional) the max pod number in the node when enable eni prefix | `string` | `"110"` | no |
-| <a name="input_network_plugin"></a> [network\_plugin](#input\_network\_plugin) | Desired network plugin which is use for Kubernetes cluster. e.g. 'flannel', 'amazon-vpc' | `string` | `"amazon-vpc"` | no |
+| <a name="input_network_plugin"></a> [network\_plugin](#input\_network\_plugin) | Desired network plugin which is use for Kubernetes cluster. e.g. 'flannel', 'amazon-vpc', 'cilium-vxlan' | `string` | `"amazon-vpc"` | no |
 | <a name="input_service_network_cidr"></a> [service\_network\_cidr](#input\_service\_network\_cidr) | This is the virtual IP address that will be assigned to services created on Kubernetes. | `string` | `"10.96.0.0/12"` | no |
 
 ## Outputs
