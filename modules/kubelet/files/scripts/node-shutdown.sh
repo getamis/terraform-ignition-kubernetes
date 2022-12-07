@@ -14,7 +14,7 @@ function require_ev_all() {
 
 function node_cleaning(){
 	#	kubectl cordon node
-	docker run --rm \
+	crictl run --rm \
 		-v /etc/kubernetes/kubelet.conf:/root/.kube/config:ro \
 		-v /var/lib/kubelet/pki/kubelet-client-current.pem:/var/lib/kubelet/pki/kubelet-client-current.pem:ro \
 		--entrypoint=kubectl "${KUBECTL_IMAGE}" cordon "${HOSTNAME_FQDN}"
@@ -23,7 +23,7 @@ function node_cleaning(){
 	systemctl stop kubelet.service
 
 	# kubectl delete node
-	docker run --rm \
+	crictl run --rm \
 		-v /etc/kubernetes/kubelet.conf:/root/.kube/config:ro \
 		-v /var/lib/kubelet/pki/kubelet-client-current.pem:/var/lib/kubelet/pki/kubelet-client-current.pem:ro \
 		--entrypoint=kubectl "${KUBECTL_IMAGE}" delete node "${HOSTNAME_FQDN}"
