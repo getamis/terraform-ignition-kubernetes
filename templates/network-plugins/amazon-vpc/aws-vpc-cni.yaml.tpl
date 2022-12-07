@@ -1,4 +1,4 @@
-# Vendored from https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/v1.11.3/config/master/aws-k8s-cni.yaml
+# Vendored from https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/v1.12.0/config/master/aws-k8s-cni.yaml
 ---
 # Source: aws-vpc-cni/templates/serviceaccount.yaml
 apiVersion: v1
@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.11.3"
+    app.kubernetes.io/version: "v1.12.0"
 ---
 # Source: aws-vpc-cni/templates/customresourcedefinition.yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -21,7 +21,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.11.3"
+    app.kubernetes.io/version: "v1.12.0"
 spec:
   scope: Cluster
   group: crd.k8s.amazonaws.com
@@ -48,7 +48,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.11.3"
+    app.kubernetes.io/version: "v1.12.0"
 rules:
   - apiGroups:
       - crd.k8s.amazonaws.com
@@ -77,6 +77,10 @@ rules:
     resources:
       - '*'
     verbs: ["list", "watch"]
+  - apiGroups: ["", "events.k8s.io"]
+    resources:
+      - events
+    verbs: ["create", "patch", "list"]
 ---
 # Source: aws-vpc-cni/templates/clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -87,7 +91,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.11.3"
+    app.kubernetes.io/version: "v1.12.0"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -107,7 +111,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.11.3"
+    app.kubernetes.io/version: "v1.12.0"
 spec:
   updateStrategy:
     rollingUpdate:
@@ -226,6 +230,7 @@ spec:
             capabilities:
               add:
               - NET_ADMIN
+              - NET_RAW
           volumeMounts:
           - mountPath: /host/opt/cni/bin
             name: cni-bin-dir
