@@ -20,6 +20,7 @@ sudo sysctl --system
 
 set -x
 exec /usr/bin/docker run --name kubelet \
+  --log-driver=journald \
   --privileged \
   --pid host \
   --network host \
