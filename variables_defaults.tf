@@ -1,19 +1,19 @@
 locals {
   containers = merge({
     kube_apiserver = {
-      repo = "k8s.gcr.io/kube-apiserver"
+      repo = "registry.k8s.io/kube-apiserver"
       tag  = var.kubernetes_version
     }
     kube_controller_manager = {
-      repo = "k8s.gcr.io/kube-controller-manager"
+      repo = "registry.k8s.io/kube-controller-manager"
       tag  = var.kubernetes_version
     }
     kube_scheduler = {
-      repo = "k8s.gcr.io/kube-scheduler"
+      repo = "registry.k8s.io/kube-scheduler"
       tag  = var.kubernetes_version
     }
     kube_proxy = {
-      repo = "k8s.gcr.io/kube-proxy"
+      repo = "registry.k8s.io/kube-proxy"
       tag  = var.kubernetes_version
     }
     coredns = {
@@ -99,7 +99,6 @@ locals {
     allocate-node-cidrs             = var.network_plugin == "cilium-vxlan" ? false : true
     controllers                     = "*,bootstrapsigner"
     node-monitor-grace-period       = "40s"
-    pod-eviction-timeout            = "5m"
     configure-cloud-routes          = false
     use-service-account-credentials = true
     terminated-pod-gc-threshold     = 10

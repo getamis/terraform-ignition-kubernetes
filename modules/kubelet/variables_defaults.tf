@@ -10,7 +10,7 @@ locals {
         source   = "https://github.com/a8m/envsubst/releases/download/v1.2.0/envsubst-Linux-x86_64"
         checksum = "sha512-91dfd502ab14173ac8af35ca318c9872ec3e0b04b34580b65f787faead355e29ca9609aaeb6ca0629d7dd9cfaeaa83769a166eb03923ae19441da04150e865c6"
       }
-    }, var.binaries)
+  }, var.binaries)
 
   containers = merge({
     kubelet = {
@@ -21,10 +21,6 @@ locals {
     kubectl = {
       repo = "quay.io/amis/kubelet"
       tag  = var.kubernetes_version
-    }
-    pause = {
-      repo = "k8s.gcr.io/pause"
-      tag  = "3.3"
     }
     cfssl = {
       repo = "quay.io/amis/cfssl"
@@ -59,12 +55,13 @@ locals {
         cacheUnauthorizedTTL = "30s"
       }
     }
-
-    clusterDNS         = [cidrhost(var.service_network_cidr, 10)]
-    clusterDomain      = "cluster.local"
-    healthzBindAddress = "127.0.0.1"
-    healthzPort        = 0
-    readOnlyPort       = 0
-    maxPods            = var.network_plugin != "amazon-vpc" || (var.network_plugin == "amazon-vpc" && var.enable_eni_prefix) ? var.max_pods : "$${MAX_PODS}"
+    containerRuntimeEndpoint = "unix:///run/containerd/containerd.sock"
+    volumePluginDir          = "/var/lib/kubelet/volumeplugins"
+    clusterDNS               = [cidrhost(var.service_network_cidr, 10)]
+    clusterDomain            = "cluster.local"
+    healthzBindAddress       = "127.0.0.1"
+    healthzPort              = 0
+    readOnlyPort             = 0
+    maxPods                  = var.network_plugin != "amazon-vpc" || (var.network_plugin == "amazon-vpc" && var.enable_eni_prefix) ? var.max_pods : "$${MAX_PODS}"
   }, var.extra_config)
 }
