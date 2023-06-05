@@ -2,7 +2,6 @@
 Environment="PATH=/opt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
 Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=${bootstrap_kubeconfig} --kubeconfig=${kubeconfig}"
 Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
-Environment="KUBELET_NETWORK_ARGS=--network-plugin=cni"
 EnvironmentFile=-/etc/default/kubernetes.env
 EnvironmentFile=-/var/lib/kubelet/kubelet-flags.env
 ExecStart=

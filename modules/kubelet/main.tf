@@ -21,15 +21,7 @@ locals {
     timeout          = 2
   }
 
-  kubelet_extra_flags = merge(var.extra_flags, {
-    pod-infra-container-image  = "${local.containers["pause"].repo}:${local.containers["pause"].tag}"
-    volume-plugin-dir          = "/var/lib/kubelet/volumeplugins"
-    logtostderr                = "false"
-    log-dir                    = "/var/log/kubelet"
-    log-file-max-size          = "128"
-    container-runtime          = "remote"
-    container-runtime-endpoint = "unix:///run/containerd/containerd.sock"
-  })
+  kubelet_extra_flags = merge(var.extra_flags, {})
 }
 
 data "ignition_file" "cni_plugin_tgz" {
@@ -158,8 +150,9 @@ data "ignition_file" "kubelet_env" {
 
   content {
     content = templatefile("${path.module}/templates/services/kubelet-flags.env.tpl", {
-      kubelet_cloud_provider_flag    = local.cloud_config.provider != "" ? "--cloud-provider=${local.cloud_config.provider}" : ""
-      kubelet_cloud_config_path_flag = local.cloud_config.path != "" ? "--cloud-config=${local.cloud_config.path}" : ""
+      # REMOVE this flag temporarily, will add it back if we want to use cloud-controller-manager
+      # https://kubernetes.io/docs/tasks/administer-cluster/running-cloud-controller/#running-cloud-controller-manager
+      # kubelet_cloud_provider_flag    = local.cloud_config.provider != "" ? "--cloud-provider=external" : ""
       extra_flags                    = local.kubelet_extra_flags
     })
   }
