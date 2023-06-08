@@ -153,7 +153,7 @@ data "ignition_file" "kubelet_env" {
       # REMOVE this flag temporarily, will add it back if we want to use cloud-controller-manager
       # https://kubernetes.io/docs/tasks/administer-cluster/running-cloud-controller/#running-cloud-controller-manager
       # kubelet_cloud_provider_flag    = local.cloud_config.provider != "" ? "--cloud-provider=external" : ""
-      extra_flags                    = local.kubelet_extra_flags
+      extra_flags = local.kubelet_extra_flags
     })
   }
 }

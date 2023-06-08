@@ -29,7 +29,7 @@ exec /usr/bin/docker run --name kubelet \
   --volume /etc/ssl/certs:/etc/ssl/certs:ro \
   --volume /lib/modules:/lib/modules:ro \
   --volume /run:/run \
-  --volume /sys/fs/cgroup:/sys/fs/cgroup:ro \
+  --volume /sys/fs/cgroup:/sys/fs/cgroup \
   --volume /sys/fs/cgroup/systemd:/sys/fs/cgroup/systemd \
   --volume /usr/share/ca-certificates:/usr/share/ca-certificates:ro \
   --volume /var/lib/containerd/:/var/lib/containerd \
