@@ -55,6 +55,9 @@ locals {
         cacheUnauthorizedTTL = "30s"
       }
     }
+
+    # https://github.com/containerd/containerd/issues/4857
+    cgroupDriver             = "systemd"
     containerRuntimeEndpoint = "unix:///run/containerd/containerd.sock"
     volumePluginDir          = "/var/lib/kubelet/volumeplugins"
     clusterDNS               = [cidrhost(var.service_network_cidr, 10)]
