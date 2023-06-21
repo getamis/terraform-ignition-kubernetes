@@ -15,10 +15,17 @@ locals {
     staticPodPath = "${local.etc_path}/manifests"
   })
 
-  crictl_config = {
-    runtime-endpoint = "unix:///run/containerd/containerd.sock"
-    image-endpoint   = "unix:///run/containerd/containerd.sock"
-    timeout          = 2
+  kubelet_credential_provider_config = {
+    apiVersion = "kubelet.config.k8s.io/v1"
+    kind = "CredentialProviderConfig"
+    providers = [
+      { 
+        name = "ecr-credential-provider"
+        matchImages = ["*.dkr.ecr.*.amazonaws.com", "*.dkr.ecr.*.amazonaws.com.cn"]
+        apiVersion = "credentialprovider.kubelet.k8s.io/v1"
+        defaultCacheDuration = "0"
+      }
+    ]
   }
 
   kubelet_extra_flags = merge(var.extra_flags, {})
@@ -118,14 +125,14 @@ data "ignition_file" "kubelet_config_tpl" {
   }
 }
 
-data "ignition_file" "crictl_config" {
-  path      = "/etc/crictl.yaml"
+data "ignition_file" "kubelet_credential_provider_config_tpl" {
+  path      = "${local.opt_path}/templates/credential_provider.yaml"
   mode      = 420
   overwrite = true
 
   content {
-    content = templatefile("${path.module}/templates/configs/crictl.yaml.tpl", {
-      content = local.crictl_config
+    content = templatefile("${path.module}/templates/configs/credential_provider.yaml.tpl", {
+      content = local.kubelet_credential_provider_config
     })
     mime = "text/yaml"
   }
@@ -153,6 +160,8 @@ data "ignition_file" "kubelet_env" {
       # REMOVE this flag temporarily, will add it back if we want to use cloud-controller-manager
       # https://kubernetes.io/docs/tasks/administer-cluster/running-cloud-controller/#running-cloud-controller-manager
       # kubelet_cloud_provider_flag    = local.cloud_config.provider != "" ? "--cloud-provider=external" : ""
+      kubelet_credential_provider_config = "--image-credential-provider-config=${local.opt_path}/templates/credential_provider.yaml"
+      kubelet_credential_provider_binary = "--image-credential-provider-bin-dir=/opt/bin/ecr-credential-provider"
       extra_flags = local.kubelet_extra_flags
     })
   }
