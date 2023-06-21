@@ -39,6 +39,7 @@ exec /usr/bin/docker run --name kubelet \
   --volume /var/log:/var/log \
   --volume /var/run/lock:/var/run/lock:z \
   --volume /opt/cni/bin:/opt/cni/bin:z \
+  --volume /opt/bin/ecr-credential-provider:/opt/bin/ecr-credential-provider:z \
   --volume /etc/cni/net.d:/etc/cni/net.d \
   ${KUBELET_IMAGE} \
     --node-ip=${HOST_IP} \
