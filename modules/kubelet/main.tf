@@ -15,12 +15,6 @@ locals {
     staticPodPath = "${local.etc_path}/manifests"
   })
 
-  crictl_config = {
-    runtime-endpoint = "unix:///run/containerd/containerd.sock"
-    image-endpoint   = "unix:///run/containerd/containerd.sock"
-    timeout          = 2
-  }
-
   kubelet_extra_flags = merge(var.extra_flags, {})
 }
 
@@ -118,16 +112,13 @@ data "ignition_file" "kubelet_config_tpl" {
   }
 }
 
-data "ignition_file" "crictl_config" {
-  path      = "/etc/crictl.yaml"
+data "ignition_file" "kubelet_credential_provider_config_tpl" {
+  path      = "${local.opt_path}/templates/credential_provider.yaml"
   mode      = 420
   overwrite = true
 
   content {
-    content = templatefile("${path.module}/templates/configs/crictl.yaml.tpl", {
-      content = local.crictl_config
-    })
-    mime = "text/yaml"
+    content = file("${path.module}/files/configs/credential_provider.yaml")
   }
 }
 

@@ -19,7 +19,7 @@ output "files" {
       data.ignition_file.kubelet_env.rendered,
       data.ignition_file.systemd_drop_in_kubelet_conf.rendered,
       data.ignition_file.kubelet_config_tpl.rendered,
-      data.ignition_file.crictl_config.rendered,
+      data.ignition_file.kubelet_credential_provider_config_tpl.rendered,
       data.ignition_file.sysctl_k8s_conf.rendered,
       data.ignition_file.sysctl_max_user_watches_conf.rendered,
       data.ignition_file.logind_kubelet_conf.rendered,

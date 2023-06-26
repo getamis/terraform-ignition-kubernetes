@@ -66,6 +66,10 @@ KUBELET_CONFIG_SRC="${KUBE_OPT_PATH}/templates/config.yaml.tpl"
 KUBELET_CONFIG_DEST="${KUBELET_VAR_PATH}/config.yaml"
 generate::file ${KUBELET_CONFIG_SRC} ${KUBELET_CONFIG_DEST}
 
+KUBELET_CREDENTIAL_PROVIDER_CONFIG_SRC="${KUBE_OPT_PATH}/templates/credential_provider.yaml"
+KUBELET_CREDENTIAL_PROVIDER_CONFIG_DEST="${KUBELET_VAR_PATH}/credential_provider.yaml"
+generate::file ${KUBELET_CREDENTIAL_PROVIDER_CONFIG_SRC} ${KUBELET_CREDENTIAL_PROVIDER_CONFIG_DEST}
+
 CA_CONFIG_SRC="${KUBE_OPT_PATH}/templates/ca-config.json.tpl"
 CA_CONFIG_DEST="${KUBELET_VAR_PATH}/pki/ca-config.json"
 CSR_FILE_SRC="${KUBE_OPT_PATH}/templates/kubelet-csr.json.tpl"

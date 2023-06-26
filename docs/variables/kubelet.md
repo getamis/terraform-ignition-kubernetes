@@ -53,7 +53,7 @@ No modules.
 | <a name="input_extra_config"></a> [extra\_config](#input\_extra\_config) | The extra configuration of kubelet. The variables need to follow https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go. Do not use underline. | `map(string)` | `{}` | no |
 | <a name="input_extra_flags"></a> [extra\_flags](#input\_extra\_flags) | The extra flags of kubelet. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/. Do not use underline. | `map(string)` | `{}` | no |
 | <a name="input_feature_gates"></a> [feature\_gates](#input\_feature\_gates) | A set of key=value pairs that describe feature gates for alpha/experimental features. | `map(bool)` | `{}` | no |
-| <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | Desired Kubernetes version. | `string` | `"v1.23.10"` | no |
+| <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | Desired Kubernetes version. | `string` | `"v1.27.2"` | no |
 | <a name="input_max_pods"></a> [max\_pods](#input\_max\_pods) | (Optional) the max pod number in the node when enable eni prefix | `string` | `"110"` | no |
 | <a name="input_network_plugin"></a> [network\_plugin](#input\_network\_plugin) | Desired network plugin which is use for Kubernetes cluster. e.g. 'flannel', 'amazon-vpc', 'cilium-vxlan' | `string` | `"amazon-vpc"` | no |
 | <a name="input_service_network_cidr"></a> [service\_network\_cidr](#input\_service\_network\_cidr) | This is the virtual IP address that will be assigned to services created on Kubernetes. | `string` | `"10.96.0.0/12"` | no |
