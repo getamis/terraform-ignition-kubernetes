@@ -1,7 +1,7 @@
 [Service]
 Environment="PATH=/opt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
 Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=${bootstrap_kubeconfig} --kubeconfig=${kubeconfig}"
-Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml --image-credential-provider-config=/var/lib/kubelet/credential_provider.yaml --image-credential-provider-bin-dir=/opt/bin/ecr-credential-provider"
+Environment="KUBELET_CONFIG_ARGS=--cloud-provider=external --config=/var/lib/kubelet/config.yaml --image-credential-provider-config=/var/lib/kubelet/credential_provider.yaml --image-credential-provider-bin-dir=/opt/bin/ecr-credential-provider"
 EnvironmentFile=-/etc/default/kubernetes.env
 EnvironmentFile=-/var/lib/kubelet/kubelet-flags.env
 ExecStart=
