@@ -205,7 +205,7 @@ securityContext:
   # -- User to run the pod with
   # runAsUser: 0
   # -- Run the pod with elevated privileges
-  privileged: false
+  privileged: true
   # -- SELinux options for the `cilium-agent` and init containers
   seLinuxOptions:
     level: 's0'
@@ -2086,7 +2086,7 @@ nodeinit:
 
   # -- Security context to be added to nodeinit pods.
   securityContext:
-    privileged: false
+    privileged: true
     seLinuxOptions:
       level: 's0'
       # Running with spc_t since we have removed the privileged mode.
