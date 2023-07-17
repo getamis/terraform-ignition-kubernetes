@@ -46,19 +46,19 @@ locals {
     }
     cilium_agent = {
       repo = "quay.io/cilium/cilium"
-      tag  = "v1.11.8"
+      tag  = "v1.13.4"
     }
     cilium_operator = {
       repo = "quay.io/cilium/operator"
-      tag  = "v1.11.8"
+      tag  = "v1.13.4"
     }
     hubble_relay = {
       repo = "quay.io/cilium/hubble-relay"
-      tag  = "v1.11.8"
+      tag  = "v1.13.4"
     }
     cilium_certgen = {
       repo = "quay.io/cilium/certgen"
-      tag  = "v0.1.5"
+      tag  = "v0.1.8"
     }
   }, var.containers)
 
