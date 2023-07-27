@@ -34,16 +34,10 @@ variable "network_plugin" {
   default     = "amazon-vpc"
 }
 
-variable "cloud_config" {
+variable "cloud_provider" {
   description = "The cloud provider configuration."
-  type = object({
-    provider = string
-    path     = string
-  })
-  default = {
-    provider = ""
-    path     = ""
-  }
+  type        = string
+  default     = "aws"
 }
 
 variable "extra_config" {

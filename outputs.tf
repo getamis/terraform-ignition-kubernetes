@@ -19,6 +19,9 @@ output "files" {
       data.ignition_file.audit_log_policy.rendered,
       data.ignition_file.encryption_config.rendered,
     ],
+    var.cloud_provider == "aws" ? [
+      data.ignition_file.aws_cloud_controller_manager[0].rendered,
+    ] : [],
     var.network_plugin == "amazon-vpc" ? [
       data.ignition_file.kube_proxy.rendered,
       data.ignition_file.kube_proxy_cm.rendered,

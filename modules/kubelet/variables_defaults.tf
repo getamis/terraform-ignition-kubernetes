@@ -28,13 +28,7 @@ locals {
     }
   }, var.containers)
 
-  cloud_config = merge({
-    // The provider for cloud services. Specify empty string for running with no cloud provider.
-    provider = "aws"
-
-    // The path to the cloud provider configuration file. Empty string for no configuration file.
-    path = ""
-  }, var.cloud_config)
+  cloud_provider = "aws"
 
   kubelet_config = merge({
     authentication = {

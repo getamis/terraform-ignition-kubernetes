@@ -6,7 +6,7 @@ module "kubelet" {
   containers           = local.containers
   service_network_cidr = var.service_network_cidr
   network_plugin       = var.network_plugin
-  cloud_config         = var.cloud_config
+  cloud_provider       = var.cloud_provider
   extra_config         = local.kubelet_config
   extra_flags          = var.kubelet_flags
   feature_gates        = var.feature_gates

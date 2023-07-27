@@ -87,9 +87,8 @@ data "ignition_file" "kube_apiserver" {
       resources      = local.components_resource["kube_apiserver"]
 
       // TODO: move to merged_apiserver_flags
-      cloud_provider    = local.cloud_config.provider
-      cloud_config_flag = local.cloud_config.path != "" ? "- --cloud-config=${local.cloud_config.path}" : "# no cloud provider config given"
-      extra_flags       = local.merged_apiserver_flags
+      cloud_provider = local.cloud_provider
+      extra_flags    = local.merged_apiserver_flags
     })
     mime = "text/yaml"
   }

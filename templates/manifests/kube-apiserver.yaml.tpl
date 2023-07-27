@@ -36,7 +36,6 @@ spec:
 %{ endif ~}
 %{ if cloud_provider != "" ~}
     - --cloud-provider=external
-    ${cloud_config_flag}
 %{ endif ~}
 %{ for flag, value in extra_flags ~}
 %{ if value != "" ~}

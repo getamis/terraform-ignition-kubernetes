@@ -60,12 +60,13 @@ locals {
       repo = "quay.io/cilium/certgen"
       tag  = "v0.1.8"
     }
+    cloud_controller_manager = {
+      repo = "registry.k8s.io/provider-aws/cloud-controller-manager"
+      tag  = "v1.27.1"
+    }
   }, var.containers)
 
-  cloud_config = merge({
-    provider = "aws"
-    path     = ""
-  }, var.cloud_config)
+  cloud_provider = "aws"
 
   kubelet_cert = merge({
     algo   = "rsa"
@@ -122,6 +123,12 @@ locals {
     upstream_nameservers     = "/etc/resolv.conf"
     located_on_the_same_host = false
   }, var.coredns_config)
+
+  ccm_config = merge(
+    {
+      use_service_account_credentials = true
+      configure_cloud_routes          = false
+  }, var.ccm_config)
 
   kube_proxy_config = merge({
     bindAddress        = "0.0.0.0"

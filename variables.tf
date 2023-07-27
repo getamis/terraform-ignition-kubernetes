@@ -105,16 +105,15 @@ variable "tls_bootstrap_token" {
   }
 }
 
-variable "cloud_config" {
+variable "cloud_provider" {
   description = "The cloud provider configuration."
-  type = object({
-    provider = string
-    path     = string
-  })
-  default = {
-    provider = ""
-    path     = ""
-  }
+  type = string
+  default = ""
+}
+
+variable "ccm_config" {
+  description = "The cloud contorller manager configuration."
+  default     = {}
 }
 
 variable "kubelet_cert" {
