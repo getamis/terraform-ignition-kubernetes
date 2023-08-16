@@ -18,6 +18,9 @@ KUBELET_IMAGE="${KUBELET_IMAGE_REPO}:${KUBELET_IMAGE_TAG}"
 source /opt/kubernetes/bin/get-host-info.sh
 sudo sysctl --system
 
+PARAMS=("$@")
+[[ ! -z ${PROVIDER_ID} ]] && PARAMS+=(--provider-id=${PROVIDER_ID})
+
 set -x
 exec /usr/bin/docker run --name kubelet \
   --log-driver=journald \
@@ -44,4 +47,4 @@ exec /usr/bin/docker run --name kubelet \
   ${KUBELET_IMAGE} \
     --node-ip=${HOST_IP} \
     --hostname-override=${HOSTNAME_FQDN} \
-    "$@"
+    "${PARAMS[@]}"
