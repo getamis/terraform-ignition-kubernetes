@@ -53,7 +53,7 @@ data "ignition_file" "kubernetes_env" {
       kubectl_image_tag  = local.containers["kubectl"].tag
       cfssl_image_repo   = local.containers["cfssl"].repo
       cfssl_image_tag    = local.containers["cfssl"].tag
-      cloud_provider     = local.cloud_config.provider
+      cloud_provider     = local.cloud_provider
       network_plugin     = var.network_plugin
     })
   }
@@ -143,8 +143,8 @@ data "ignition_file" "kubelet_env" {
     content = templatefile("${path.module}/templates/services/kubelet-flags.env.tpl", {
       # REMOVE this flag temporarily, will add it back if we want to use cloud-controller-manager
       # https://kubernetes.io/docs/tasks/administer-cluster/running-cloud-controller/#running-cloud-controller-manager
-      # kubelet_cloud_provider_flag    = local.cloud_config.provider != "" ? "--cloud-provider=external" : ""
-      extra_flags = local.kubelet_extra_flags
+      kubelet_cloud_provider_flag = local.cloud_provider != "" ? "--cloud-provider=external --image-credential-provider-config=/var/lib/kubelet/credential_provider.yaml --image-credential-provider-bin-dir=/opt/bin/ecr-credential-provider" : ""
+      extra_flags                 = local.kubelet_extra_flags
     })
   }
 }

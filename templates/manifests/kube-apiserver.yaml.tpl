@@ -35,8 +35,7 @@ spec:
     - --service-cluster-ip-range=${service_cidr}
 %{ endif ~}
 %{ if cloud_provider != "" ~}
-    - --cloud-provider=${cloud_provider}
-    ${cloud_config_flag}
+    - --cloud-provider=external
 %{ endif ~}
 %{ for flag, value in extra_flags ~}
 %{ if value != "" ~}

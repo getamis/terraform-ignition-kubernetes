@@ -47,7 +47,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_binaries"></a> [binaries](#input\_binaries) | Desired binaries(cni\_plugin) url and checksum. | <pre>map(object({<br>    source   = string<br>    checksum = string<br>  }))</pre> | `{}` | no |
 | <a name="input_bootstrap_kubeconfig_content"></a> [bootstrap\_kubeconfig\_content](#input\_bootstrap\_kubeconfig\_content) | The content of bootstrap kubeconfig. | `string` | `""` | no |
-| <a name="input_cloud_config"></a> [cloud\_config](#input\_cloud\_config) | The cloud provider configuration. | <pre>object({<br>    provider = string<br>    path     = string<br>  })</pre> | <pre>{<br>  "path": "",<br>  "provider": ""<br>}</pre> | no |
+| <a name="input_cloud_provider"></a> [cloud\_provider](#input\_cloud\_provider) | The cloud provider configuration. | string | "" | no |
 | <a name="input_containers"></a> [containers](#input\_containers) | Desired containers(kubelet, and so on) repo and tag. | <pre>map(object({<br>    repo = string<br>    tag  = string<br>  }))</pre> | `{}` | no |
 | <a name="input_enable_eni_prefix"></a> [enable\_eni\_prefix](#input\_enable\_eni\_prefix) | (Optional) assign prefix to AWS EC2 network interface | `bool` | `true` | no |
 | <a name="input_extra_config"></a> [extra\_config](#input\_extra\_config) | The extra configuration of kubelet. The variables need to follow https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go. Do not use underline. | `map(string)` | `{}` | no |

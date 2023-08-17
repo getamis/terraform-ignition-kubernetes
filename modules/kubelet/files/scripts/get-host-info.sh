@@ -539,7 +539,10 @@ export MAX_PODS="110"
 set +o pipefail
 if [[ $CLOUD_PROVIDER == "aws" ]]; then 
   export HOSTNAME=$(curl -s http://169.254.169.254/latest/meta-data/local-hostname | cut -d '.' -f 1)
+  export AZ=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
+  export INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
   export HOSTNAME_FQDN=$(curl -s http://169.254.169.254/latest/meta-data/local-hostname)
+  export PROVIDER_ID=aws://${AZ}/${INSTANCE_ID}
   export HOST_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
   if [[ $NETWORK_PLUGIN == "amazon-vpc" ]]; then 
     INSTANCE_TYPE=$(curl -s http://169.254.169.254/latest/meta-data/instance-type)
@@ -553,5 +556,8 @@ if hash systemctl 2>/dev/null; then
   systemctl set-environment HOSTNAME_FQDN=$HOSTNAME_FQDN
   systemctl set-environment HOST_IP=$HOST_IP
   systemctl set-environment MAX_PODS=$MAX_PODS
+  systemctl set-environment AZ=$AZ
+  systemctl set-environment INSTANCE_ID=$INSTANCE_ID
+  systemctl set-environment PROVIDER_ID=$PROVIDER_ID
 fi
 
