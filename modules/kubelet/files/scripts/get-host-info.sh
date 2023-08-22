@@ -542,7 +542,7 @@ if [[ $CLOUD_PROVIDER == "aws" ]]; then
   export AZ=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
   export INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
   export HOSTNAME_FQDN=$(curl -s http://169.254.169.254/latest/meta-data/local-hostname)
-  export PROVIDER_ID=aws://${AZ}/${INSTANCE_ID}
+  export PROVIDER_ID=aws:///${AZ}/${INSTANCE_ID}
   export HOST_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
   if [[ $NETWORK_PLUGIN == "amazon-vpc" ]]; then 
     INSTANCE_TYPE=$(curl -s http://169.254.169.254/latest/meta-data/instance-type)
