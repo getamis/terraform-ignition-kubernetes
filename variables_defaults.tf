@@ -46,19 +46,19 @@ locals {
     }
     cilium_agent = {
       repo = "quay.io/cilium/cilium"
-      tag  = "v1.13.4"
+      tag  = "v1.14.2"
     }
     cilium_operator = {
       repo = "quay.io/cilium/operator"
-      tag  = "v1.13.4"
+      tag  = "v1.14.2"
     }
     hubble_relay = {
       repo = "quay.io/cilium/hubble-relay"
-      tag  = "v1.13.4"
+      tag  = "v1.14.2"
     }
     cilium_certgen = {
       repo = "quay.io/cilium/certgen"
-      tag  = "v0.1.8"
+      tag  = "v0.1.9"
     }
     cloud_controller_manager = {
       repo = "registry.k8s.io/provider-aws/cloud-controller-manager"
