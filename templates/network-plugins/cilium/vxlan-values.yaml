@@ -10,7 +10,7 @@
 
 debug:
   # -- Enable debug logging
-  enabled: false
+  enabled: true
   # -- Configure verbosity levels for debug logging
   # This option is used to enable debug messages for operations related to such
   # sub-system such as (e.g. kvstore, envoy, datapath or policy), and flow is
@@ -36,9 +36,9 @@ imagePullSecrets:
 # @default -- `"~/.kube/config"`
 kubeConfigPath: ""
 # -- (string) Kubernetes service host
-k8sServiceHost: ""
+k8sServiceHost: "${apiserver_host}"
 # -- (string) Kubernetes service port
-k8sServicePort: ""
+k8sServicePort: "${apiserver_port}"
 
 # -- Configure the client side rate limit for the agent and operator
 #
@@ -142,11 +142,11 @@ rollOutCiliumPods: false
 # -- Agent container image.
 image:
   override: ~
-  repository: "quay.io/cilium/cilium"
-  tag: "v1.14.2"
+  repository: "${agent_repo}"
+  tag: "${agent_tag}"
   pullPolicy: "IfNotPresent"
   # cilium-digest
-  digest: ""
+  digest: "sha256:6263f3a3d5d63b267b538298dbeb5ae87da3efacf09a2c620446c873ba807d35"
   useDigest: false
 
 # -- Affinity for cilium-agent.
@@ -222,19 +222,19 @@ podLabels: {}
 
 # -- Agent resource limits & requests
 # ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-resources: {}
+resources:
   # limits:
   #   cpu: 4000m
   #   memory: 4Gi
-  # requests:
-  #   cpu: 100m
-  #   memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 512Mi
 
 securityContext:
   # -- User to run the pod with
   # runAsUser: 0
   # -- Run the pod with elevated privileges
-  privileged: false
+  privileged: true
   # -- SELinux options for the `cilium-agent` and init containers
   seLinuxOptions:
     level: 's0'
@@ -331,7 +331,7 @@ aksbyocni:
 autoDirectNodeRoutes: false
 
 # -- Annotate k8s node upon initialization with Cilium's metadata.
-annotateK8sNode: false
+annotateK8sNode: true
 
 azure:
   # -- Enable Azure integration.
@@ -498,7 +498,7 @@ bpf:
   vlanBypass: ~
 
 # -- Enable BPF clock source probing for more efficient tick retrieval.
-bpfClockProbe: false
+bpfClockProbe: true
 
 # -- Clean all eBPF datapath state from the initContainer of the cilium-agent
 # DaemonSet.
@@ -526,7 +526,7 @@ cni:
   # if you're removing Cilium from the cluster. Disable this to prevent the CNI
   # configuration file from being removed during agent upgrade, which can cause
   # nodes to go unmanageable.
-  uninstall: false
+  uninstall: true
 
   # -- Configure chaining on top of other CNI plugins. Possible values:
   #  - none
@@ -851,7 +851,7 @@ eni:
   # -- Enable Elastic Network Interface (ENI) integration.
   enabled: false
   # -- Update ENI Adapter limits from the EC2 API
-  updateEC2AdapterLimitViaAPI: true
+  updateEC2AdapterLimitViaAPI: false
   # -- Release IPs not used from the ENI
   awsReleaseExcessIPs: false
   # -- Enable ENI prefix delegation
@@ -927,10 +927,10 @@ socketLB:
 certgen:
   image:
     override: ~
-    repository: "quay.io/cilium/certgen"
-    tag: "v0.1.9"
-    digest: "sha256:89a0847753686444daabde9474b48340993bd19c7bea66a46e45b2974b82041f"
-    useDigest: true
+    repository: "${certgen_repo}"
+    tag: "${certgen_tag}"
+    digest: ""
+    useDigest: false
     pullPolicy: "IfNotPresent"
   # -- Seconds after which the completed job pod will be deleted
   ttlSecondsAfterFinished: 1800
@@ -1064,7 +1064,7 @@ hubble:
       #                 certificates not provided by the user at installation
       #                 time.
       # - certmanager:  This method use cert-manager to generate & rotate certificates.
-      method: helm
+      method: cronJob
       # -- Generated certificates validity duration in days.
       certValidityDuration: 1095
       # -- Schedule for certificates regeneration (regardless of their expiration date).
@@ -1095,7 +1095,7 @@ hubble:
 
   relay:
     # -- Enable Hubble Relay (requires hubble.enabled=true)
-    enabled: false
+    enabled: true
 
     # -- Roll out Hubble Relay pods automatically when configmap is updated.
     rollOutPods: false
@@ -1103,16 +1103,21 @@ hubble:
     # -- Hubble-relay container image.
     image:
       override: ~
-      repository: "quay.io/cilium/hubble-relay"
-      tag: "v1.14.2"
+      repository: "${hubble_relay_repo}"
+      tag: "${hubble_relay_tag}"
        # hubble-relay-digest
-      digest: ""
+      digest: "sha256:a89030b31f333e8fb1c10d2473250399a1a537c27d022cd8becc1a65d1bef1d6"
       useDigest: false
       pullPolicy: "IfNotPresent"
 
     # -- Specifies the resources for the hubble-relay pods
-    resources: {}
-
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 1024M
+      requests:
+        cpu: 100m
+        memory: 64Mi
     # -- Number of replicas run for the hubble-relay deployment.
     replicas: 1
 
@@ -1490,9 +1495,9 @@ ipam:
   ciliumNodeUpdateRate: "15s"
   operator:
     # -- IPv4 CIDR list range to delegate to individual nodes for IPAM.
-    clusterPoolIPv4PodCIDRList: ["10.0.0.0/8"]
+    clusterPoolIPv4PodCIDRList: ["${cluster_cidr}"]
     # -- IPv4 CIDR mask size to delegate to individual nodes for IPAM.
-    clusterPoolIPv4MaskSize: 24
+    clusterPoolIPv4MaskSize: ${cluster_mask_size}
     # -- IPv6 CIDR list range to delegate to individual nodes for IPAM.
     clusterPoolIPv6PodCIDRList: ["fd00::/104"]
     # -- IPv6 CIDR mask size to delegate to individual nodes for IPAM.
@@ -1575,7 +1580,7 @@ readinessProbe:
 # -- Configure the kube-proxy replacement in Cilium BPF datapath
 # Valid options are "true", "false", "disabled" (deprecated), "partial" (deprecated), "strict" (deprecated).
 # ref: https://docs.cilium.io/en/stable/network/kubernetes/kubeproxy-free/
-#kubeProxyReplacement: "false"
+kubeProxyReplacement: "strict"
 
 # -- healthz server bind address for the kube-proxy replacement.
 # To enable set the value to '0.0.0.0:10256' for all ipv4
@@ -1624,7 +1629,7 @@ enableIPv6BIGTCP: false
 enableIPv4BIGTCP: false
 
 # -- Enables masquerading of IPv6 traffic leaving the node from endpoints.
-enableIPv6Masquerade: true
+enableIPv6Masquerade: false
 
 # -- Enables egress gateway to redirect and SNAT the traffic that leaves the
 # cluster.
@@ -1731,7 +1736,7 @@ loadBalancer:
 # -- Configure N-S k8s service loadbalancing
 nodePort:
   # -- Enable the Cilium NodePort service implementation.
-  enabled: false
+  enabled: true
 
   # -- Port range to use for NodePort services.
   # range: "30000,32767"
@@ -1763,7 +1768,7 @@ pprof:
 
 # -- Configure prometheus metrics on the configured port at /metrics
 prometheus:
-  enabled: false
+  enabled: true
   port: 9962
   serviceMonitor:
     # -- Enable service monitors.
@@ -2092,7 +2097,7 @@ tls:
 #   - disabled
 #   - vxlan (default)
 #   - geneve
-tunnel: ""
+tunnel: "vxlan"
 
 # -- Tunneling protocol to use in tunneling mode and for ad-hoc tunnels.
 # @default -- `"vxlan"`
@@ -2223,21 +2228,21 @@ operator:
   enabled: true
 
   # -- Roll out cilium-operator pods automatically when configmap is updated.
-  rollOutPods: false
+  rollOutPods: true
 
   # -- cilium-operator image.
   image:
     override: ~
-    repository: "quay.io/cilium/operator"
-    tag: "v1.14.2"
+    repository: "${operator_repo}"
+    tag: "${operator_tag}"
     # operator-generic-digest
-    genericDigest: ""
+    genericDigest: "sha256:6635160485ce3ca027d4f140db96f32dcef6c589f9303b437ac2348826e3d5cf"
     # operator-azure-digest
-    azureDigest: ""
+    azureDigest: "sha256:6561f9f1029578a10ba7daed7eee143689315431f0db4e1c37e43ed65fc7aa53"
     # operator-aws-digest
-    awsDigest: ""
+    awsDigest: "sha256:d70674d2150a96de2aa3d943ecd2b879c09e46414a0822a2c214ec6585c2c61c"
     # operator-alibabacloud-digest
-    alibabacloudDigest: ""
+    alibabacloudDigest: "sha256:a9041d5ca5e5ccde93845590a32e166694e50f83d60d22c08829762b0d766a7b"
     useDigest: false
     pullPolicy: "IfNotPresent"
     suffix: ""
@@ -2256,8 +2261,8 @@ operator:
   updateStrategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 50%
+      maxSurge: 1
+      maxUnavailable: 1
 
   # -- Affinity for cilium-operator
   affinity:
@@ -2478,7 +2483,7 @@ nodeinit:
 
   # -- Security context to be added to nodeinit pods.
   securityContext:
-    privileged: false
+    privileged: true
     seLinuxOptions:
       level: 's0'
       # Running with spc_t since we have removed the privileged mode.
@@ -2892,7 +2897,7 @@ clustermesh:
         #                 certificates not provided by the user at installation
         #                 time.
         # - certmanager:  This method use cert-manager to generate & rotate certificates.
-        method: helm
+        method: cronJob
         # -- Generated certificates validity duration in days.
         certValidityDuration: 1095
         # -- Schedule for certificates regeneration (regardless of their expiration date).
@@ -3060,7 +3065,7 @@ dnsProxy:
   # the upstream DNS server returns a DNS record with a shorter TTL, Cilium
   # overwrites the TTL with this value. Setting this value to zero means that
   # Cilium will honor the TTLs returned by the upstream DNS server.
-  minTtl: 0
+  minTtl: 3600
   # -- DNS cache data at this path is preloaded on agent startup.
   preCache: ""
   # -- Global port on which the in-agent DNS proxy should listen. Default 0 is a OS-assigned port.
