@@ -33,7 +33,6 @@ exec /usr/bin/docker run --name kubelet \
   --volume /lib/modules:/lib/modules:ro \
   --volume /run:/run \
   --volume /sys/fs/cgroup:/sys/fs/cgroup \
-  --volume /sys/fs/cgroup/systemd:/sys/fs/cgroup/systemd \
   --volume /usr/share/ca-certificates:/usr/share/ca-certificates:ro \
   --volume /var/lib/containerd/:/var/lib/containerd \
   --volume /var/lib/calico:/var/lib/calico:ro \
