@@ -10,6 +10,12 @@ locals {
         source   = "https://github.com/a8m/envsubst/releases/download/v1.2.0/envsubst-Linux-x86_64"
         checksum = "sha512-91dfd502ab14173ac8af35ca318c9872ec3e0b04b34580b65f787faead355e29ca9609aaeb6ca0629d7dd9cfaeaa83769a166eb03923ae19441da04150e865c6"
       }
+    },
+    {
+      nerdctl = {
+        source   = "https://github.com/containerd/nerdctl/releases/download/v1.6.0/nerdctl-1.6.0-linux-amd64.tar.gz"
+        checksum = "sha512-89dcba32badfd1481d88cd5f4179ff99348578af5004a7e96daa05101e99ba7448685596692ada3186f718ffd1166768ac6a22e041c5887e416e6dc7fda97f24"
+      }
   }, var.binaries)
 
   containers = merge({

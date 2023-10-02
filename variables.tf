@@ -107,8 +107,8 @@ variable "tls_bootstrap_token" {
 
 variable "cloud_provider" {
   description = "The cloud provider configuration."
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 
 variable "ccm_config" {
