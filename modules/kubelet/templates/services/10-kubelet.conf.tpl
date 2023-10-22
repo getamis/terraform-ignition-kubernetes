@@ -5,6 +5,6 @@ Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
 EnvironmentFile=-/etc/default/kubernetes.env
 EnvironmentFile=-/var/lib/kubelet/kubelet-flags.env
 ExecStart=
-ExecStartPre=-/bin/docker rm kubelet
+ExecStartPre=-/opt/bin/nerdctl rm kubelet
 ExecStart=systemd-inhibit --what=shutdown --mode=delay /opt/kubernetes/bin/kubelet-wrapper $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_NETWORK_ARGS $KUBELET_CLOUD_PROVIDER_ARGS $KUBELET_EXTRA_ARGS
-ExecStop=/bin/bash -c "docker stop kubelet && crictl stop -t 60 $$(crictl ps -q)"
+ExecStop=/bin/bash -c "nerdctl stop kubelet && crictl stop -t 60 $$(crictl ps -q)"

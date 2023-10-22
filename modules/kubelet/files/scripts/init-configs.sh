@@ -24,10 +24,14 @@ function require_ev_one() {
 
 source /opt/kubernetes/bin/get-host-info.sh
 
+NERDCTL_BIN_PATH=${NERDCTL_BIN_PATH:="/opt/bin"}
+mkdir -p ${NERDCTL_BIN_PATH}
+sudo tar -xvf /opt/bin/nerdctl.tar.gz -C ${NERDCTL_BIN_PATH}
+
 require_ev_all CFSSL_IMAGE_REPO CFSSL_IMAGE_TAG
 
 CFSSL_IMAGE="${CFSSL_IMAGE_REPO}:${CFSSL_IMAGE_TAG}"
-DOCKER_EXEC="${DOCKER_EXEC:-/usr/bin/docker}"
+NERDCTL_EXEC=${NERDCTL_EXEC:-"/opt/bin/nerdctl"}
 
 KUBE_OPT_PATH=${KUBE_OPT_PATH:="/opt/kubernetes"}
 KUBE_ETC_PATH=${KUBE_ETC_PATH:="/etc/kubernetes"}
@@ -79,7 +83,7 @@ if test -f ${CSR_FILE_SRC} && ! test -f ${KUBELET_VAR_PATH}/pki/${FILE_NAME} ; t
   generate::file ${CA_CONFIG_SRC} ${CA_CONFIG_DEST}
   generate::file ${CSR_FILE_SRC} ${CSR_FILE_DEST}
 
-  ${DOCKER_EXEC} run --rm \
+  ${NERDCTL_EXEC} run --rm \
   -v ${KUBELET_VAR_PATH}/pki/:/tmp/pki/ \
   -v ${KUBE_ETC_PATH}/pki/:${KUBE_ETC_PATH}/pki/ \
   -e HOSTNAME=${HOSTNAME} \
