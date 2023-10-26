@@ -22,11 +22,15 @@ locals {
     }
     vpc_cni = {
       repo = "quay.io/amis/amazon-k8s-cni"
-      tag  = "v1.11.3-nftables"
+      tag  = "v1.15.1"
     }
     vpc_cni_init = {
       repo = "quay.io/amis/amazon-k8s-cni-init"
-      tag  = "v1.11.3"
+      tag  = "v1.15.1"
+    }
+    aws_network_policy_agent = {
+      repo = "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-network-policy-agent"
+      tag  = "v1.0.4"
     }
     calico_node = {
       repo = "quay.io/calico/node"
