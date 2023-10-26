@@ -1250,7 +1250,8 @@ spec:
       nodeSelector:
         kubernetes.io/os: linux
       tolerations:
-        - operator: Exists
+        - key: node-role.kubernetes.io/master
+          operator: Exists
       volumes:
         # To read the configuration from the config map
       - name: cilium-config-path
