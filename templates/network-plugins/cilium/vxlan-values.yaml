@@ -2287,8 +2287,17 @@ operator:
   # -- Node tolerations for cilium-operator scheduling to nodes with taints
   # ref: https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
   tolerations:
-  - key: "node-role.kubernetes.io/master"
-    operator: Exists
+  - key: node.kubernetes.io/not-ready
+    effect: NoSchedule
+  - key: node-role.kubernetes.io/master
+    effect: NoSchedule
+  - key: node-role.kubernetes.io/control-plane
+    effect: NoSchedule
+  - key: node.cloudprovider.kubernetes.io/uninitialized
+    effect: NoSchedule
+    value: "true"
+  - key: CriticalAddonsOnly
+    operator: "Exists"
     # - key: "key"
     #   operator: "Equal|Exists"
     #   value: "value"
