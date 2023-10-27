@@ -1,3 +1,4 @@
+# Source from: https://github.com/coredns/deployment/blob/master/kubernetes/coredns.yaml.sed
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -15,29 +16,23 @@ metadata:
     addonmanager.kubernetes.io/mode: Reconcile
   name: system:coredns
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - endpoints
-  - services
-  - pods
-  - namespaces
-  verbs:
-  - list
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - nodes
-  verbs:
-  - get
-- apiGroups:
-  - discovery.k8s.io
-  resources:
-  - endpointslices
-  verbs:
-  - list
-  - watch
+  - apiGroups:
+    - ""
+    resources:
+    - endpoints
+    - services
+    - pods
+    - namespaces
+    verbs:
+    - list
+    - watch
+  - apiGroups:
+    - discovery.k8s.io
+    resources:
+    - endpointslices
+    verbs:
+    - list
+    - watch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -97,6 +92,7 @@ metadata:
     kubernetes.io/cluster-service: "true"
     addonmanager.kubernetes.io/mode: Reconcile
     kubernetes.io/name: "CoreDNS"
+    app.kubernetes.io/name: coredns
 spec:
   replicas: ${replicas}
   strategy:
@@ -106,22 +102,23 @@ spec:
   selector:
     matchLabels:
       k8s-app: kube-dns
+      app.kubernetes.io/name: coredns
   template:
     metadata:
       labels:
         k8s-app: kube-dns
+        app.kubernetes.io/name: coredns
       annotations:
         seccomp.security.alpha.kubernetes.io/pod: 'docker/default'
     spec:
       priorityClassName: system-cluster-critical
       serviceAccountName: coredns
-      priorityClassName: system-cluster-critical
       tolerations:
-      - key: "CriticalAddonsOnly"
-        operator: "Exists"
-      - key: "node-role.kubernetes.io/master"
-        operator: "Exists"
-        effect: "NoSchedule"
+        - key: "CriticalAddonsOnly"
+          operator: "Exists"
+        - key: "node-role.kubernetes.io/master"
+          operator: "Exists"
+          effect: "NoSchedule"
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -180,6 +177,14 @@ spec:
         - containerPort: 9153
           name: metrics
           protocol: TCP
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            add:
+            - NET_BIND_SERVICE
+            drop:
+            - all
+          readOnlyRootFilesystem: true
         livenessProbe:
           httpGet:
             path: /health
@@ -194,14 +199,6 @@ spec:
             path: /ready
             port: 8181
             scheme: HTTP
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            add:
-            - NET_BIND_SERVICE
-            drop:
-            - all
-          readOnlyRootFilesystem: true
       dnsPolicy: Default
       volumes:
         - name: config-volume
@@ -224,9 +221,11 @@ metadata:
     kubernetes.io/cluster-service: "true"
     addonmanager.kubernetes.io/mode: Reconcile
     kubernetes.io/name: "CoreDNS"
+    app.kubernetes.io/name: coredns
 spec:
   selector:
     k8s-app: kube-dns
+    app.kubernetes.io/name: coredns
   clusterIP: ${cluster_dns_ip}
   ports:
   - name: dns
