@@ -21,11 +21,11 @@ source /opt/kubernetes/bin/get-host-info.sh
 export KUBECONFIG=/etc/kubernetes/admin.conf
 
 set -x
-nerdctl run --rm \
+nerdctl run --network host --rm \
   -v /etc/kubernetes/admin.conf:/root/.kube/config:ro \
   --entrypoint=kubectl ${KUBECTL_IMAGE} label node ${HOSTNAME_FQDN} node-role.kubernetes.io/master="" --overwrite
 
-nerdctl run --rm \
+nerdctl run --network host --rm \
   -v /etc/kubernetes/admin.conf:/root/.kube/config:ro \
   -v ${ADDONS_PATH}:${ADDONS_PATH}:ro \
   --entrypoint=kubectl ${KUBECTL_IMAGE} apply -f ${ADDONS_PATH}
