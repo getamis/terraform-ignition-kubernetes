@@ -31,6 +31,11 @@ module "ignition_kubernetes" {
   internal_endpoint    = "https://127.0.0.1:6443"
   etcd_endpoints       = "https://127.0.0.1:2379"
   encryption_secret    = random_password.encryption_secret.result
+  log_level = {
+    aws_cloud_controller_manager = "4"
+    containerd                   = "debug"
+    cilium_cni                   = "DEBUG"
+  }
 
   tls_bootstrap_token = {
     id     = random_id.bootstrap_token_id.hex
