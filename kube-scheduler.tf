@@ -9,6 +9,7 @@ data "ignition_file" "kube_scheduler" {
       kubeconfig  = "${local.etc_path}/scheduler.conf"
       extra_flags = local.scheduler_flags
       resources   = local.components_resource["kube_scheduler"]
+      log_level   = var.log_level["kube_scheduler"]
     })
     mime = "text/yaml"
   }

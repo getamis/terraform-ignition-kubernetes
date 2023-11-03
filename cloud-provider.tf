@@ -10,6 +10,7 @@ data "ignition_file" "aws_cloud_controller_manager" {
       image                           = "${local.containers["cloud_controller_manager"].repo}:${local.containers["cloud_controller_manager"].tag}"
       configure_cloud_routes          = local.ccm_config["configure_cloud_routes"]
       use_service_account_credentials = local.ccm_config["use_service_account_credentials"]
+      log_level                       = var.log_level["aws_cloud_controller_manager"]
     })
     mime = "text/yaml"
   }

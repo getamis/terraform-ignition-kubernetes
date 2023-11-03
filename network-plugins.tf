@@ -17,6 +17,7 @@ data "ignition_file" "aws_vpc_cni_yaml" {
       cluster_endpoint  = var.internal_endpoint
       enable_eni_prefix = var.enable_eni_prefix
       external_snat     = var.external_snat
+      log_level         = var.log_level["aws_vpc_cni"]
     })
     mime = "text/yaml"
   }
@@ -76,6 +77,7 @@ data "ignition_file" "cilium_vxlan_yaml" {
       cluster_mask_size = var.node_cidr_mask_size
       apiserver_host    = trimprefix(var.internal_endpoint, "https://")
       apiserver_port    = "443"
+      debug             = var.log_level["cilium_cni"] == "DEBUG" ? true : false
     })
     mime = "text/yaml"
   }

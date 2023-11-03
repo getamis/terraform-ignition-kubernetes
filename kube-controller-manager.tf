@@ -13,6 +13,7 @@ data "ignition_file" "kube_controller_manager" {
       cloud_provider = local.cloud_provider
       extra_flags    = local.controller_manager_flags
       resources      = local.components_resource["kube_controller_manager"]
+      log_level      = var.log_level["kube_controller_manager"]
     })
     mime = "text/yaml"
   }

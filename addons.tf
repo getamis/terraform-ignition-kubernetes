@@ -19,7 +19,8 @@ data "ignition_file" "kube_proxy" {
 
   content {
     content = templatefile("${path.module}/templates/addons/kube-proxy.yaml.tpl", {
-      image = "${local.containers["kube_proxy"].repo}:${local.containers["kube_proxy"].tag}"
+      image     = "${local.containers["kube_proxy"].repo}:${local.containers["kube_proxy"].tag}"
+      log_level = var.log_level["kube_proxy"]
     })
     mime = "text/yaml"
   }
