@@ -53,7 +53,7 @@ data:
   skip-cnp-status-startup-clean: "false"
 
   # If you want to run cilium in debug mode change this value to true
-  debug: "true"
+  debug: "${debug}"
   # The agent can be put into the following three policy enforcement modes
   # default, always and never.
   # https://docs.cilium.io/en/latest/security/policy/intro/#policy-enforcement-modes
@@ -1171,7 +1171,7 @@ spec:
     metadata:
       annotations:
         # ensure pods roll when configmap updates
-        cilium.io/cilium-configmap-checksum: "f154a3a410c8d36a13d605f8ea41d1707fb76648976448ce1b5da721fecf10cc"
+        cilium.io/cilium-configmap-checksum: "98ce0da7e581c0e0e2042514162d4e0ec706d12e6b7821cacdf4aeea3b02d842"
       labels:
         io.cilium/app: operator
         name: cilium-operator

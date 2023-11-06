@@ -89,6 +89,7 @@ data "ignition_file" "kube_apiserver" {
       // TODO: move to merged_apiserver_flags
       cloud_provider = local.cloud_provider
       extra_flags    = local.merged_apiserver_flags
+      log_level      = var.log_level["kube_apiserver"]
     })
     mime = "text/yaml"
   }

@@ -138,7 +138,7 @@ spec:
     spec:
       containers:
       - args:
-        - --v=2
+        - --v=${log_level}
         - --cloud-provider=aws
         - --use-service-account-credentials=${use_service_account_credentials}
         - --configure-cloud-routes=${configure_cloud_routes}

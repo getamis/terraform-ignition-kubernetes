@@ -439,7 +439,7 @@ spec:
             - name: AWS_VPC_K8S_CNI_EXTERNALSNAT
               value: "${external_snat}"
             - name: AWS_VPC_K8S_CNI_LOGLEVEL
-              value: "DEBUG"
+              value: "${log_level}"
             - name: AWS_VPC_K8S_CNI_LOG_FILE
               value: "/host/var/log/aws-routed-eni/ipamd.log"
             - name: AWS_VPC_K8S_CNI_RANDOMIZESNAT
@@ -449,7 +449,7 @@ spec:
             - name: AWS_VPC_K8S_PLUGIN_LOG_FILE
               value: "/var/log/aws-routed-eni/plugin.log"
             - name: AWS_VPC_K8S_PLUGIN_LOG_LEVEL
-              value: "DEBUG"
+              value: "${log_level}"
             - name: CLUSTER_ENDPOINT
               value: "${cluster_endpoint}"
             - name: DISABLE_INTROSPECTION

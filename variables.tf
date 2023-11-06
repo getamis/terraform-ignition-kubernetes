@@ -119,6 +119,7 @@ variable "cloud_provider" {
 
 variable "ccm_config" {
   description = "The cloud contorller manager configuration."
+  type        = map(any)
   default     = {}
 }
 
@@ -138,26 +139,31 @@ variable "kubelet_cert" {
 
 variable "kubelet_config" {
   description = "The configuration of kubelet. The variables need to follow https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go. Do not use underline."
+  type        = map(any)
   default     = {}
 }
 
 variable "kubelet_flags" {
   description = "The flags of kubelet. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/. Do not use underline."
+  type        = map(any)
   default     = {}
 }
 
 variable "apiserver_flags" {
   description = "The flags of kube-apiserver. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/. Do not use underline."
+  type        = map(any)
   default     = {}
 }
 
 variable "controller_manager_flags" {
   description = "The flags of kube-controller-manager. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/. Do not use underline."
+  type        = map(any)
   default     = {}
 }
 
 variable "scheduler_flags" {
   description = "The flags of kube-scheduler. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/. Do not use underline."
+  type        = map(any)
   default     = {}
 }
 
@@ -175,6 +181,7 @@ variable "etcd_endpoints" {
 
 variable "audit_log_flags" {
   description = "The flags of audit log in kube-apiserver. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/. Do not use underline."
+  type        = map(any)
   default     = {}
 }
 
@@ -198,6 +205,7 @@ variable "enable_iam_auth" {
 
 variable "auth_webhook_config_path" {
   description = "The path of webhook config for kube-apiserver."
+  type        = string
   default     = "/etc/kubernetes/config/aws-iam-authenticator/kubeconfig"
 }
 
@@ -221,11 +229,13 @@ variable "oidc_config" {
 
 variable "kube_proxy_config" {
   description = "The configuration of kube-proxy. The variables need to follow https://github.com/kubernetes/kube-proxy/blob/master/config/v1alpha1/types.go. Do not use underline."
+  type        = map(any)
   default     = {}
 }
 
 variable "coredns_config" {
   description = "The configuration of CoreDNS."
+  type        = map(any)
   default     = {}
 }
 
@@ -234,4 +244,20 @@ variable "feature_gates" {
   description = "A set of key=value pairs that describe feature gates for alpha/experimental features."
   type        = map(bool)
   default     = {}
+}
+
+variable "log_level" {
+  description = "Log level and verbosity of each components"
+  type = object({
+    aws_cloud_controller_manager = optional(string, "2")     # 2: Info, 3: Extended Info, 4: Debug, 5: Trace
+    aws_vpc_cni                  = optional(string, "DEBUG") # DEBUG, INFO, WARN, ERROR, FATAL
+    containerd                   = optional(string, "info")  # trace, debug, info, warn, error, fatal, panic
+    cilium_cni                   = optional(string, "DEBUG") # DEBUG: enable debug logging, INFO: disable debug logging
+    docker                       = optional(string, "info")  # debug, info, warn, error, fatal
+    kube_apiserver               = optional(string, "2")     # 2: Info, 3: Extended Info, 4: Debug, 5: Trace
+    kube_controller_manager      = optional(string, "2")     # 2: Info, 3: Extended Info, 4: Debug, 5: Trace
+    kube_scheduler               = optional(string, "2")     # 2: Info, 3: Extended Info, 4: Debug, 5: Trace
+    kube_proxy                   = optional(string, "2")     # 2: Info, 3: Extended Info, 4: Debug, 5: Trace
+    kubelet                      = optional(string, "2")     # 2: Info, 3: Extended Info, 4: Debug, 5: Trace
+  })
 }

@@ -156,6 +156,7 @@ data "ignition_file" "kubelet_env" {
       # https://kubernetes.io/docs/tasks/administer-cluster/running-cloud-controller/#running-cloud-controller-manager
       kubelet_cloud_provider_flag = local.cloud_provider != "" ? "--cloud-provider=external --image-credential-provider-config=/var/lib/kubelet/credential_provider.yaml --image-credential-provider-bin-dir=/opt/bin/ecr-credential-provider" : ""
       extra_flags                 = local.kubelet_extra_flags
+      log_level                   = var.log_level
     })
   }
 }

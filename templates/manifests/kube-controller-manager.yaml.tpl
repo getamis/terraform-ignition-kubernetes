@@ -37,6 +37,7 @@ spec:
     - --${flag}=${value}
 %{ endif ~}
 %{ endfor ~}
+    - --v=${log_level}
     imagePullPolicy: IfNotPresent
     livenessProbe:
       failureThreshold: 8

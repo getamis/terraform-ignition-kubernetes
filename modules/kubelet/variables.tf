@@ -76,3 +76,9 @@ variable "max_pods" {
   type        = string
   default     = "110"
 }
+
+variable "log_level" {
+  description = "(Optional) log level of kubelet, default is 2 (Info)"
+  type        = string
+  default     = "2"
+}

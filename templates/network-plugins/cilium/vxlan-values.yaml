@@ -10,7 +10,7 @@
 
 debug:
   # -- Enable debug logging
-  enabled: true
+  enabled: "${debug}"
   # -- Configure verbosity levels for debug logging
   # This option is used to enable debug messages for operations related to such
   # sub-system such as (e.g. kvstore, envoy, datapath or policy), and flow is

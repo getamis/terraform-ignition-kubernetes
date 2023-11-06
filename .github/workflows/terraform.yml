@@ -1,5 +1,5 @@
 name: "Terraform test" 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   tflint:
@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: TFLint
-        uses: docker://wata727/tflint
+        uses: docker://ghcr.io/terraform-linters/tflint:v0.48.0
 
   fmt-and-validate:
     name: fmt and validate
@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@master
       - name: Install terraform
         env:
-          TF_VERSION: 1.2.8
+          TF_VERSION: 1.5.7
         run: |
           # Install terraform
           wget https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip -O /tmp/terraform.zip

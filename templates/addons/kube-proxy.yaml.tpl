@@ -43,6 +43,7 @@ spec:
         - kube-proxy
         - --config=/var/lib/kube-proxy/config.conf
         - --hostname-override=$(NODE_NAME)
+        - --v=${log_level}
         env:
         - name: NODE_NAME
           valueFrom:
