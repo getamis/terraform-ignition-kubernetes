@@ -92,7 +92,6 @@ metadata:
     kubernetes.io/cluster-service: "true"
     addonmanager.kubernetes.io/mode: Reconcile
     kubernetes.io/name: "CoreDNS"
-    app.kubernetes.io/name: coredns
 spec:
   replicas: ${replicas}
   strategy:
@@ -102,12 +101,10 @@ spec:
   selector:
     matchLabels:
       k8s-app: kube-dns
-      app.kubernetes.io/name: coredns
   template:
     metadata:
       labels:
         k8s-app: kube-dns
-        app.kubernetes.io/name: coredns
       annotations:
         seccomp.security.alpha.kubernetes.io/pod: 'docker/default'
     spec:
@@ -221,11 +218,9 @@ metadata:
     kubernetes.io/cluster-service: "true"
     addonmanager.kubernetes.io/mode: Reconcile
     kubernetes.io/name: "CoreDNS"
-    app.kubernetes.io/name: coredns
 spec:
   selector:
     k8s-app: kube-dns
-    app.kubernetes.io/name: coredns
   clusterIP: ${cluster_dns_ip}
   ports:
   - name: dns
