@@ -308,6 +308,12 @@ rules:
     resources:
       - pods
     verbs: ["list", "watch", "get"]
+%{ if annotate_pod_ip == true ~}
+  - apiGroups: [""]
+    resources:
+      - pods
+    verbs: ["patch"]
+-%{ endif ~}
   - apiGroups: [""]
     resources:
       - nodes
