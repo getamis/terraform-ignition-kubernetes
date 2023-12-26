@@ -12,12 +12,13 @@ data "ignition_file" "aws_vpc_cni_yaml" {
       init_image       = "${local.containers["vpc_cni_init"].repo}:${local.containers["vpc_cni_init"].tag}"
       node_agent_image = "${local.containers["aws_network_policy_agent"].repo}:${local.containers["aws_network_policy_agent"].tag}"
       # vpc cni config
-      annotate_pod_ip   = var.annotate_pod_ip
-      cni_version       = local.containers["vpc_cni"].tag
-      cluster_endpoint  = var.internal_endpoint
-      enable_eni_prefix = var.enable_eni_prefix
-      external_snat     = var.external_snat
-      log_level         = var.log_level["aws_vpc_cni"]
+      annotate_pod_ip       = var.annotate_pod_ip
+      cni_version           = local.containers["vpc_cni"].tag
+      cluster_endpoint      = var.internal_endpoint
+      enable_eni_prefix     = var.enable_eni_prefix
+      enable_network_policy = var.enable_network_policy
+      external_snat         = var.external_snat
+      log_level             = var.log_level["aws_vpc_cni"]
     })
     mime = "text/yaml"
   }
