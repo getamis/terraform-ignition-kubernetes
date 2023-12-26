@@ -32,18 +32,6 @@ locals {
       repo = "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-network-policy-agent"
       tag  = "v1.0.4"
     }
-    calico_node = {
-      repo = "quay.io/calico/node"
-      tag  = "v3.20.1"
-    }
-    calico_typha = {
-      repo = "quay.io/calico/typha"
-      tag  = "v3.20.1"
-    }
-    calico_autoscaler = {
-      repo = "k8s.gcr.io/cluster-proportional-autoscaler-amd64"
-      tag  = "1.8.5"
-    }
     flannel_cni = {
       repo = "quay.io/coreos/flannel"
       tag  = "v0.14.0-amd64"

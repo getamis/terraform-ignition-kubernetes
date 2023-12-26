@@ -35,7 +35,6 @@ exec /opt/bin/nerdctl run --name kubelet \
   --volume /sys/fs/cgroup:/sys/fs/cgroup \
   --volume /usr/share/ca-certificates:/usr/share/ca-certificates:ro \
   --volume /var/lib/containerd/:/var/lib/containerd \
-  --volume /var/lib/calico:/var/lib/calico:ro \
   --volume /var/lib/kubelet:/var/lib/kubelet:rshared \
   --volume /var/log:/var/log \
   --volume /var/run/lock:/var/run/lock \

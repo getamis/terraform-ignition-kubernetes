@@ -68,12 +68,6 @@ variable "network_plugin" {
   default     = "amazon-vpc"
 }
 
-variable "enable_calico" {
-  description = "(optional) whether enable the calico"
-  type        = bool
-  default     = false
-}
-
 variable "enable_eni_prefix" {
   description = "(Optional) assign prefix to AWS EC2 network interface"
   type        = bool

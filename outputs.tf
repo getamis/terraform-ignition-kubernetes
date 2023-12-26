@@ -35,9 +35,6 @@ output "files" {
     var.network_plugin == "cilium-vxlan" ? [
       data.ignition_file.cilium_vxlan_yaml[0].rendered,
     ] : [],
-    var.enable_calico ? [
-      data.ignition_file.aws_cni_calico_yaml[0].rendered,
-    ] : [],
     module.kubelet.files,
     module.admin_kubeconfig.files,
     module.controller_manager_kubeconfig.files,
