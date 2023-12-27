@@ -24,7 +24,7 @@ data "ignition_file" "aws_vpc_cni_yaml" {
   }
 }
 
-data "ignition_file" "aws_nework_policy_controller_yaml" {
+data "ignition_file" "aws_network_policy_controller_yaml" {
   count = (var.network_plugin == "amazon-vpc" && var.enable_network_policy) ? 1 : 0
 
   mode      = 420
