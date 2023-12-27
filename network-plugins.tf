@@ -24,6 +24,21 @@ data "ignition_file" "aws_vpc_cni_yaml" {
   }
 }
 
+data "ignition_file" "aws_nework_policy_controller_yaml" {
+  count = (var.network_plugin == "amazon-vpc" && var.enable_network_policy) ? 1 : 0
+
+  mode      = 420
+  path      = "${local.etc_path}/addons/aws-network-policy-controller.yaml"
+  overwrite = true
+
+  content {
+    content = templatefile("${path.module}/templates/network-plugins/amazon-vpc/aws-network-policy-controller.yaml.tpl", {
+      image            = "${local.containers["aws_network_policy_controller"].repo}:${local.containers["aws_network_policy_controller"].tag}"
+    })
+    mime = "text/yaml"
+  }
+}
+
 data "ignition_file" "flannel_yaml" {
   count = var.network_plugin == "flannel" ? 1 : 0
 

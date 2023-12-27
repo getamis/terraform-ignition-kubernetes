@@ -32,6 +32,10 @@ locals {
       repo = "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-network-policy-agent"
       tag  = "v1.0.7"
     }
+    aws_network_policy_controller = {
+      repo = "602401143452.dkr.ecr.us-west-2.amazonaws.com/eks/amazon-network-policy-controller-k8s"
+      tag  = "v1.0.2"
+    }
     flannel_cni = {
       repo = "quay.io/coreos/flannel"
       tag  = "v0.14.0-amd64"

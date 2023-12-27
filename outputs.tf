@@ -26,6 +26,9 @@ output "files" {
       data.ignition_file.kube_proxy.rendered,
       data.ignition_file.kube_proxy_cm.rendered,
       data.ignition_file.aws_vpc_cni_yaml[0].rendered,
+      var.enable_network_policy ? [
+        data.ignition_file.aws_network_policy_controller_yaml[0].rendered
+      ] : [],
     ] : [],
     var.network_plugin == "flannel" ? [
       data.ignition_file.kube_proxy.rendered,
