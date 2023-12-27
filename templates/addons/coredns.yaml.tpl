@@ -88,6 +88,7 @@ metadata:
   name: coredns
   namespace: kube-system
   labels:
+    # WARN: DO NOT change these lables, it may break the kube-dns service.
     k8s-app: kube-dns
     kubernetes.io/cluster-service: "true"
     addonmanager.kubernetes.io/mode: Reconcile
@@ -220,6 +221,7 @@ metadata:
     kubernetes.io/name: "CoreDNS"
 spec:
   selector:
+    # WARN: DO NOT change these lables, it may break the kube-dns service.
     k8s-app: kube-dns
   clusterIP: ${cluster_dns_ip}
   ports:
