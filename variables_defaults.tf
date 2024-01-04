@@ -34,7 +34,7 @@ locals {
     }
     aws_network_policy_controller = {
       repo = "602401143452.dkr.ecr.us-west-2.amazonaws.com/eks/amazon-network-policy-controller-k8s"
-      tag  = "v1.0.2"
+      tag  = "v1.0.3"
     }
     flannel_cni = {
       repo = "quay.io/coreos/flannel"
