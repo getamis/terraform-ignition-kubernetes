@@ -34,7 +34,6 @@ No modules.
 | [ignition_file.kubelet_wrapper_sh](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
 | [ignition_file.kubernetes_env](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
 | [ignition_file.logind_kubelet_conf](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
-| [ignition_file.nerdctl](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
 | [ignition_file.node_shutdown_sh](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
 | [ignition_file.sysctl_k8s_conf](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
 | [ignition_file.sysctl_max_user_watches_conf](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
