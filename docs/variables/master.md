@@ -38,6 +38,7 @@ This document gives an overview of variables used in the Ignition of the Kuberne
 | [ignition_file.apiserver_kubelet_client_key](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
 | [ignition_file.audit_log_policy](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
 | [ignition_file.aws_cloud_controller_manager](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
+| [ignition_file.aws_network_policy_controller_yaml](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
 | [ignition_file.aws_vpc_cni_yaml](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
 | [ignition_file.bootstrap_token_rbac](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
 | [ignition_file.bootstrap_token_secret](https://registry.terraform.io/providers/community-terraform-providers/ignition/2.1.2/docs/data-sources/file) | data source |
@@ -85,7 +86,7 @@ This document gives an overview of variables used in the Ignition of the Kuberne
 | <a name="input_enable_eni_prefix"></a> [enable\_eni\_prefix](#input\_enable\_eni\_prefix) | (Optional) assign prefix to AWS EC2 network interface | `bool` | `true` | no |
 | <a name="input_enable_iam_auth"></a> [enable\_iam\_auth](#input\_enable\_iam\_auth) | Enable AWS IAM authenticator or not. | `bool` | `false` | no |
 | <a name="input_enable_irsa"></a> [enable\_irsa](#input\_enable\_irsa) | Enable AWS IAM role service account or not. | `bool` | `false` | no |
-| <a name="input_enable_network_policy"></a> [enable\_network\_policy](#input\_enable\_network\_policy) | (Optional) enable network policy or not | `bool` | `false` | no |
+| <a name="input_enable_network_policy"></a> [enable\_network\_policy](#input\_enable\_network\_policy) | (Optional) [AWS VPC CNI] Enable AWS Network Policy Agent. | `bool` | `false` | no |
 | <a name="input_encryption_secret"></a> [encryption\_secret](#input\_encryption\_secret) | The secret key for encrypting | `string` | `""` | no |
 | <a name="input_etcd_endpoints"></a> [etcd\_endpoints](#input\_etcd\_endpoints) | The comma separated list of etcd endpoints (e.g., 'http://etcd1:2379,http://etcd2:2379'). | `string` | `""` | no |
 | <a name="input_external_snat"></a> [external\_snat](#input\_external\_snat) | (Optional) [AWS VPC CNI] Specifies whether an external NAT gateway should be used to provide SNAT of secondary ENI IP addresses. If set to true, the SNAT iptables rule and off-VPC IP rule are not applied, and these rules are removed if they have already been applied. | `bool` | `false` | no |
