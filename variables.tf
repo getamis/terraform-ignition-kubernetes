@@ -68,12 +68,6 @@ variable "network_plugin" {
   default     = "amazon-vpc"
 }
 
-variable "enable_calico" {
-  description = "(optional) whether enable the calico"
-  type        = bool
-  default     = false
-}
-
 variable "enable_eni_prefix" {
   description = "(Optional) assign prefix to AWS EC2 network interface"
   type        = bool
@@ -88,6 +82,12 @@ variable "annotate_pod_ip" {
 
 variable "external_snat" {
   description = "(Optional) [AWS VPC CNI] Specifies whether an external NAT gateway should be used to provide SNAT of secondary ENI IP addresses. If set to true, the SNAT iptables rule and off-VPC IP rule are not applied, and these rules are removed if they have already been applied."
+  type        = bool
+  default     = false
+}
+
+variable "enable_network_policy" {
+  description = "(Optional) [AWS VPC CNI] Enable AWS Network Policy Agent."
   type        = bool
   default     = false
 }

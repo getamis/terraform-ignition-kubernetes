@@ -1,6 +1,6 @@
-# Vendored from https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/v1.15.1/config/master/aws-k8s-cni.yaml
+# Vendored from https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/v1.16.0/config/master/aws-k8s-cni.yaml
 ---
-# Source: crds/customresourcedefinition.yaml
+# Source: aws-vpc-cni/crds/customresourcedefinition.yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -267,7 +267,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.15.1"
+    app.kubernetes.io/version: "v1.16.0"
 ---
 # Source: aws-vpc-cni/templates/configmap.yaml
 apiVersion: v1
@@ -279,10 +279,15 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.15.1"
+    app.kubernetes.io/version: "v1.16.0"
 data:
   enable-windows-ipam: "false"
-  enable-network-policy-controller: "false" # TODO: Support AWS VPC CNI Network Policy
+  enable-network-policy-controller: "${enable_network_policy}"
+  enable-windows-prefix-delegation: "false"
+  warm-prefix-target: "0"
+  warm-ip-target: "1"
+  minimum-ip-target: "3"
+  branch-eni-cooldown: "60"
 ---
 # Source: aws-vpc-cni/templates/clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -293,7 +298,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.15.1"
+    app.kubernetes.io/version: "v1.16.0"
 rules:
   - apiGroups:
       - crd.k8s.amazonaws.com
@@ -334,7 +339,7 @@ rules:
       - vpcresources.k8s.aws
     resources:
       - cninodes
-    verbs: ["get", "list", "patch"]
+    verbs: ["get", "list", "watch", "patch"]
 ---
 # Source: aws-vpc-cni/templates/clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -345,7 +350,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.15.1"
+    app.kubernetes.io/version: "v1.16.0"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -365,7 +370,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.15.1"
+    app.kubernetes.io/version: "v1.16.0"
 spec:
   updateStrategy:
     rollingUpdate:
@@ -517,11 +522,12 @@ spec:
                   fieldPath: spec.nodeName
           args:
             - --enable-ipv6=false
-            - --enable-network-policy=false # TODO: Support AWS VPC CNI Network Policy
+            - --enable-network-policy=${enable_network_policy}
             - --enable-cloudwatch-logs=false
             - --enable-policy-event-logs=false
             - --metrics-bind-addr=:8162
             - --health-probe-bind-addr=:8163
+            - --conntrack-cache-cleanup-period=300
           resources:
             requests:
               cpu: 25m

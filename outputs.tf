@@ -27,6 +27,9 @@ output "files" {
       data.ignition_file.kube_proxy_cm.rendered,
       data.ignition_file.aws_vpc_cni_yaml[0].rendered,
     ] : [],
+    var.network_plugin == "amazon-vpc" && var.enable_network_policy ? [
+      data.ignition_file.aws_network_policy_controller_yaml[0].rendered,
+    ] : [],
     var.network_plugin == "flannel" ? [
       data.ignition_file.kube_proxy.rendered,
       data.ignition_file.kube_proxy_cm.rendered,
@@ -34,9 +37,6 @@ output "files" {
     ] : [],
     var.network_plugin == "cilium-vxlan" ? [
       data.ignition_file.cilium_vxlan_yaml[0].rendered,
-    ] : [],
-    var.enable_calico ? [
-      data.ignition_file.aws_cni_calico_yaml[0].rendered,
     ] : [],
     module.kubelet.files,
     module.admin_kubeconfig.files,

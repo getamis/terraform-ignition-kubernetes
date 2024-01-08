@@ -21,28 +21,20 @@ locals {
       tag  = "1.11.1"
     }
     vpc_cni = {
-      repo = "quay.io/amis/amazon-k8s-cni"
-      tag  = "v1.15.1"
+      repo = "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni"
+      tag  = "v1.16.0"
     }
     vpc_cni_init = {
-      repo = "quay.io/amis/amazon-k8s-cni-init"
-      tag  = "v1.15.1"
+      repo = "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni-init"
+      tag  = "v1.16.0"
     }
     aws_network_policy_agent = {
       repo = "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-network-policy-agent"
-      tag  = "v1.0.4"
+      tag  = "v1.0.7"
     }
-    calico_node = {
-      repo = "quay.io/calico/node"
-      tag  = "v3.20.1"
-    }
-    calico_typha = {
-      repo = "quay.io/calico/typha"
-      tag  = "v3.20.1"
-    }
-    calico_autoscaler = {
-      repo = "k8s.gcr.io/cluster-proportional-autoscaler-amd64"
-      tag  = "1.8.5"
+    aws_network_policy_controller = {
+      repo = "602401143452.dkr.ecr.us-west-2.amazonaws.com/eks/amazon-network-policy-controller-k8s"
+      tag  = "v1.0.3"
     }
     flannel_cni = {
       repo = "quay.io/coreos/flannel"

@@ -22,7 +22,7 @@ PARAMS=("$@")
 [[ ! -z ${PROVIDER_ID} ]] && PARAMS+=(--provider-id=${PROVIDER_ID})
 
 set -x
-exec /opt/bin/nerdctl run --name kubelet \
+exec /usr/bin/docker run --name kubelet \
   --log-driver=journald \
   --privileged \
   --pid host \
@@ -35,12 +35,12 @@ exec /opt/bin/nerdctl run --name kubelet \
   --volume /sys/fs/cgroup:/sys/fs/cgroup \
   --volume /usr/share/ca-certificates:/usr/share/ca-certificates:ro \
   --volume /var/lib/containerd/:/var/lib/containerd \
-  --volume /var/lib/calico:/var/lib/calico:ro \
-  --volume /var/lib/kubelet:/var/lib/kubelet:rshared \
+  --volume /var/lib/docker:/var/lib/docker \
+  --volume /var/lib/kubelet:/var/lib/kubelet:rshared,z \
   --volume /var/log:/var/log \
-  --volume /var/run/lock:/var/run/lock \
-  --volume /opt/cni/bin:/opt/cni/bin \
-  --volume /opt/bin/ecr-credential-provider:/opt/bin/ecr-credential-provider \
+  --volume /var/run/lock:/var/run/lock:z \
+  --volume /opt/cni/bin:/opt/cni/bin:z \
+  --volume /opt/bin/ecr-credential-provider:/opt/bin/ecr-credential-provider:z \
   --volume /etc/cni/net.d:/etc/cni/net.d \
   ${KUBELET_IMAGE} \
     --node-ip=${HOST_IP} \

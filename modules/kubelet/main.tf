@@ -40,16 +40,6 @@ data "ignition_file" "envsubst" {
   }
 }
 
-data "ignition_file" "nerdctl" {
-  path      = "/opt/bin/nerdctl.tar.gz"
-  mode      = 500
-  overwrite = true
-
-  source {
-    source       = local.binaries["nerdctl"].source
-    verification = local.binaries["nerdctl"].checksum
-  }
-}
 
 data "ignition_file" "kubernetes_env" {
   path      = "/etc/default/kubernetes.env"
