@@ -50,6 +50,8 @@ data:
   identity-gc-interval: "15m0s"
   cilium-endpoint-gc-interval: "5m0s"
   nodes-gc-interval: "5m0s"
+  # NOTE: cilium/cilium#29590
+  # skip-cnp-status-startup-clean: "false"
 
   # If you want to run cilium in debug mode change this value to true
   debug: "${debug}"
@@ -111,7 +113,9 @@ data:
   # backend and affinity maps.
   bpf-lb-map-max: "65536"
   bpf-lb-external-clusterip: "false"
-
+  # Expose 'drop' events for Cilium monitor and/or Hubble (default true)
+  # Expose 'policy verdict' events for Cilium monitor and/or Hubble (default true)
+  # Expose 'trace' events for Cilium monitor and/or Hubble (default true
   bpf-events-drop-enabled: "true"
   bpf-events-policy-verdict-enabled: "true"
   bpf-events-trace-enabled: "true"
@@ -156,7 +160,8 @@ data:
   enable-ipv4-masquerade: "true"
   enable-ipv4-big-tcp: "false"
   enable-ipv6-big-tcp: "false"
-  enable-ipv6-masquerade: "true"
+  enable-ipv6-masquerade: "false"
+  # NOTE: cilium/ebpf#1117
   enable-tcx: "true"
   datapath-mode: "veth"
   enable-masquerade-to-route-source: "false"
@@ -168,11 +173,11 @@ data:
   direct-routing-skip-unreachable: "false"
   enable-local-redirect-policy: "false"
 
-  kube-proxy-replacement: "false"
+  kube-proxy-replacement: "true"
   kube-proxy-replacement-healthz-bind-address: ""
   bpf-lb-sock: "false"
   bpf-lb-sock-terminate-pod-connections: "false"
-  enable-host-port: "false"
+  enable-host-port: "true"
   enable-external-ips: "false"
   enable-node-port: "true"
   enable-health-check-nodeport: "true"
