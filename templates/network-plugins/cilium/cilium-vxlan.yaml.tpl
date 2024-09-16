@@ -50,7 +50,8 @@ data:
   identity-gc-interval: "15m0s"
   cilium-endpoint-gc-interval: "5m0s"
   nodes-gc-interval: "5m0s"
-  skip-cnp-status-startup-clean: "false"
+  # NOTE: cilium/cilium#29590
+  # skip-cnp-status-startup-clean: "false"
 
   # If you want to run cilium in debug mode change this value to true
   debug: "${debug}"
@@ -65,6 +66,12 @@ data:
   # NOTE that this will open the port on ALL nodes where Cilium pods are
   # scheduled.
   prometheus-serve-addr: ":9962"
+  # A space-separated list of controller groups for which to enable metrics.
+  # The special values of "all" and "none" are supported.
+  controller-group-metrics:
+    write-cni-file
+    sync-host-ips
+    sync-lb-maps-with-k8s-services
   # Port to expose Envoy metrics (e.g. "9964"). Envoy metrics listener will be disabled if this
   # field is not set.
   proxy-prometheus-port: "9964"
@@ -106,6 +113,12 @@ data:
   # backend and affinity maps.
   bpf-lb-map-max: "65536"
   bpf-lb-external-clusterip: "false"
+  # Expose 'drop' events for Cilium monitor and/or Hubble (default true)
+  # Expose 'policy verdict' events for Cilium monitor and/or Hubble (default true)
+  # Expose 'trace' events for Cilium monitor and/or Hubble (default true
+  bpf-events-drop-enabled: "true"
+  bpf-events-policy-verdict-enabled: "true"
+  bpf-events-trace-enabled: "true"
 
   # Pre-allocation of map entries allows per-packet latency to be reduced, at
   # the expense of up-front memory allocation for the entries in the maps. The
@@ -124,10 +137,6 @@ data:
   # 1.4 or later, then it may cause one-time disruptions during the upgrade.
   preallocate-bpf-maps: "false"
 
-  # Regular expression matching compatible Istio sidecar istio-proxy
-  # container image names
-  sidecar-istio-proxy-image: "cilium/istio_proxy"
-
   # Name of the cluster. Only relevant when building a mesh of clusters.
   cluster-name: default
   # Unique ID of the cluster. Must be unique across all conneted clusters and
@@ -139,8 +148,10 @@ data:
   #   - disabled
   #   - vxlan (default)
   #   - geneve
+  # Default case
   routing-mode: "tunnel"
   tunnel-protocol: "vxlan"
+  service-no-backend-response: "reject"
 
 
   # Enables L7 proxy for L7 policy enforcement and visibility
@@ -150,22 +161,35 @@ data:
   enable-ipv4-big-tcp: "false"
   enable-ipv6-big-tcp: "false"
   enable-ipv6-masquerade: "false"
+  # NOTE: cilium/ebpf#1117
+  enable-tcx: "true"
+  datapath-mode: "veth"
+  enable-masquerade-to-route-source: "false"
 
   enable-xt-socket-fallback: "true"
   install-no-conntrack-iptables-rules: "false"
 
   auto-direct-node-routes: "false"
+  direct-routing-skip-unreachable: "false"
   enable-local-redirect-policy: "false"
 
   kube-proxy-replacement: "true"
   kube-proxy-replacement-healthz-bind-address: ""
   bpf-lb-sock: "false"
+  bpf-lb-sock-terminate-pod-connections: "false"
+  enable-host-port: "true"
+  enable-external-ips: "false"
+  enable-node-port: "true"
   enable-health-check-nodeport: "true"
+  enable-health-check-loadbalancer-ip: "false"
   node-port-bind-protection: "true"
   enable-auto-protect-node-port-range: "true"
+  bpf-lb-acceleration: "disabled"
   enable-svc-source-range-check: "true"
   enable-l2-neigh-discovery: "true"
   arping-refresh-period: "30s"
+  k8s-require-ipv4-pod-cidr: "false"
+  k8s-require-ipv6-pod-cidr: "false"
   enable-k8s-networkpolicy: "true"
   # Tell the agent to generate and write a CNI configuration file
   write-cni-conf-when-ready: /host/etc/cni/net.d/05-cilium.conflist
@@ -175,13 +199,15 @@ data:
   enable-endpoint-health-checking: "true"
   enable-health-checking: "true"
   enable-well-known-identities: "false"
-  enable-remote-node-identity: "true"
+  enable-node-selector-labels: "false"
   synchronize-k8s-nodes: "true"
   operator-api-serve-addr: "127.0.0.1:9234"
   # Enable Hubble gRPC service.
   enable-hubble: "true"
   # UNIX domain socket for Hubble server to listen to.
   hubble-socket-path: "/var/run/cilium/hubble.sock"
+  hubble-export-file-max-size-mb: "10"
+  hubble-export-file-max-backups: "5"
   # An additional address for Hubble server to listen to (e.g. ":4244").
   hubble-listen-address: ":4244"
   hubble-disable-tls: "false"
@@ -192,26 +218,27 @@ data:
   ipam-cilium-node-update-rate: "15s"
   cluster-pool-ipv4-cidr: "${cluster_cidr}"
   cluster-pool-ipv4-mask-size: "${cluster_mask_size}"
-  disable-cnp-status-updates: "true"
-  cnp-node-status-gc-interval: "0s"
   egress-gateway-reconciliation-trigger-interval: "1s"
   enable-vtep: "false"
   vtep-endpoint: ""
   vtep-cidr: ""
   vtep-mask: ""
   vtep-mac: ""
-  enable-bgp-control-plane: "false"
   bpf-root: "/sys/fs/bpf"
   cgroup-root: "/run/cilium/cgroupv2"
   enable-k8s-terminating-endpoint: "true"
   enable-sctp: "false"
   annotate-k8s-node: "true"
-  k8s-client-qps: "5"
-  k8s-client-burst: "10"
+
+  k8s-client-qps: "10"
+  k8s-client-burst: "20"
   remove-cilium-node-taints: "true"
   set-cilium-node-taints: "true"
   set-cilium-is-up-condition: "true"
   unmanaged-pod-watcher-interval: "15"
+  # default DNS proxy to transparent mode in non-chaining modes
+  dnsproxy-enable-transparent-mode: "true"
+  dnsproxy-socket-linger-timeout: "10"
   tofqdns-dns-reject-response-code: "refused"
   tofqdns-enable-dns-compression: "true"
   tofqdns-endpoint-max-ip-per-hostname: "50"
@@ -226,11 +253,26 @@ data:
   mesh-auth-rotated-identities-queue-size: "1024"
   mesh-auth-gc-interval: "5m0s"
 
+  proxy-xff-num-trusted-hops-ingress: "0"
+  proxy-xff-num-trusted-hops-egress: "0"
   proxy-connect-timeout: "2"
   proxy-max-requests-per-connection: "0"
   proxy-max-connection-duration-seconds: "0"
+  proxy-idle-timeout-seconds: "60"
 
   external-envoy-proxy: "false"
+  envoy-base-id: "0"
+
+  envoy-keep-cap-netbindservice: "false"
+  max-connected-clusters: "255"
+  clustermesh-enable-endpoint-sync: "false"
+  clustermesh-enable-mcs-api: "false"
+
+  nat-map-stats-entries: "32"
+  nat-map-stats-interval: "30s"
+
+# Extra config allows adding arbitrary properties to the cilium config.
+# By putting it at the end of the ConfigMap, it's also possible to override existing properties.
 ---
 # Source: cilium/templates/hubble-relay/configmap.yaml
 apiVersion: v1
@@ -252,6 +294,7 @@ data:
     tls-hubble-client-cert-file: /var/lib/hubble-relay/tls/client.crt
     tls-hubble-client-key-file: /var/lib/hubble-relay/tls/client.key
     tls-hubble-server-ca-files: /var/lib/hubble-relay/tls/hubble-server-ca.crt
+    
     disable-server-tls: true
 ---
 # Source: cilium/templates/cilium-agent/clusterrole.yaml
@@ -313,6 +356,9 @@ rules:
   resources:
   - ciliumloadbalancerippools
   - ciliumbgppeeringpolicies
+  - ciliumbgpnodeconfigs
+  - ciliumbgpadvertisements
+  - ciliumbgppeerconfigs
   - ciliumclusterwideenvoyconfigs
   - ciliumclusterwidenetworkpolicies
   - ciliumegressgatewaypolicies
@@ -363,11 +409,10 @@ rules:
 - apiGroups:
   - cilium.io
   resources:
-  - ciliumnetworkpolicies/status
-  - ciliumclusterwidenetworkpolicies/status
   - ciliumendpoints/status
   - ciliumendpoints
   - ciliuml2announcementpolicies/status
+  - ciliumbgpnodeconfigs/status
   verbs:
   - patch
 ---
@@ -505,6 +550,9 @@ rules:
   resources:
   - ciliumendpointslices
   - ciliumenvoyconfigs
+  - ciliumbgppeerconfigs
+  - ciliumbgpadvertisements
+  - ciliumbgpnodeconfigs
   verbs:
   - create
   - update
@@ -531,6 +579,11 @@ rules:
   resourceNames:
   - ciliumloadbalancerippools.cilium.io
   - ciliumbgppeeringpolicies.cilium.io
+  - ciliumbgpclusterconfigs.cilium.io
+  - ciliumbgppeerconfigs.cilium.io
+  - ciliumbgpadvertisements.cilium.io
+  - ciliumbgpnodeconfigs.cilium.io
+  - ciliumbgpnodeconfigoverrides.cilium.io
   - ciliumclusterwideenvoyconfigs.cilium.io
   - ciliumclusterwidenetworkpolicies.cilium.io
   - ciliumegressgatewaypolicies.cilium.io
@@ -551,6 +604,9 @@ rules:
   resources:
   - ciliumloadbalancerippools
   - ciliumpodippools
+  - ciliumbgppeeringpolicies
+  - ciliumbgpclusterconfigs
+  - ciliumbgpnodeconfigoverrides
   verbs:
   - get
   - list
@@ -581,40 +637,6 @@ rules:
   - create
   - get
   - update
----
-# Source: cilium/templates/hubble/tls-cronjob/clusterrole.yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: hubble-generate-certs
-  labels:
-    app.kubernetes.io/part-of: cilium
-rules:
-  - apiGroups:
-      - ""
-    resources:
-      - secrets
-    verbs:
-      - create
-  - apiGroups:
-      - ""
-    resources:
-      - secrets
-    resourceNames:
-      - hubble-server-certs
-      - hubble-relay-client-certs
-      - hubble-relay-server-certs
-    verbs:
-      - update
-  - apiGroups:
-      - ""
-    resources:
-      - secrets
-    resourceNames:
-      - cilium-ca
-    verbs:
-      - get
-      - update
 ---
 # Source: cilium/templates/cilium-agent/clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -648,22 +670,6 @@ subjects:
   name: "cilium-operator"
   namespace: kube-system
 ---
-# Source: cilium/templates/hubble/tls-cronjob/clusterrolebinding.yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: hubble-generate-certs
-  labels:
-    app.kubernetes.io/part-of: cilium
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: hubble-generate-certs
-subjects:
-- kind: ServiceAccount
-  name: "hubble-generate-certs"
-  namespace: kube-system
----
 # Source: cilium/templates/cilium-agent/role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -682,6 +688,43 @@ rules:
   - list
   - watch
 ---
+# Source: cilium/templates/hubble/tls-cronjob/role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: hubble-generate-certs
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/part-of: cilium
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - create
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    resourceNames:
+      - hubble-server-certs
+      - hubble-relay-client-certs
+      - hubble-relay-server-certs
+      - hubble-metrics-server-certs
+      - hubble-ui-client-certs
+    verbs:
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    resourceNames:
+      - cilium-ca
+    verbs:
+      - get
+      - update
+---
 # Source: cilium/templates/cilium-agent/rolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -698,6 +741,23 @@ subjects:
   - kind: ServiceAccount
     name: "cilium"
     namespace: kube-system
+---
+# Source: cilium/templates/hubble/tls-cronjob/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: hubble-generate-certs
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/part-of: cilium
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: hubble-generate-certs
+subjects:
+- kind: ServiceAccount
+  name: "hubble-generate-certs"
+  namespace: kube-system
 ---
 # Source: cilium/templates/cilium-agent/service.yaml
 apiVersion: v1
@@ -729,6 +789,7 @@ apiVersion: v1
 metadata:
   name: hubble-relay
   namespace: kube-system
+  annotations:
   labels:
     k8s-app: hubble-relay
     app.kubernetes.io/name: hubble-relay
@@ -740,7 +801,7 @@ spec:
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 4245
+    targetPort: grpc
 ---
 # Source: cilium/templates/hubble/peer-service.yaml
 apiVersion: v1
@@ -790,6 +851,9 @@ spec:
         app.kubernetes.io/name: cilium-agent
         app.kubernetes.io/part-of: cilium
     spec:
+      securityContext:
+        appArmorProfile:
+          type: Unconfined
       containers:
       - name: cilium-agent
         image: "${agent_repo}:${agent_tag}"
@@ -810,6 +874,7 @@ spec:
           failureThreshold: 105
           periodSeconds: 2
           successThreshold: 1
+          initialDelaySeconds: 5
         livenessProbe:
           httpGet:
             host: "127.0.0.1"
@@ -849,11 +914,42 @@ spec:
               fieldPath: metadata.namespace
         - name: CILIUM_CLUSTERMESH_CONFIG
           value: /var/lib/cilium/clustermesh/
+        - name: GOMEMLIMIT
+          valueFrom:
+            resourceFieldRef:
+              resource: limits.memory
+              divisor: '1'
         - name: KUBERNETES_SERVICE_HOST
           value: "${apiserver_host}"
         - name: KUBERNETES_SERVICE_PORT
           value: "${apiserver_port}"
         lifecycle:
+          postStart:
+            exec:
+              command:
+              - "bash"
+              - "-c"
+              - |
+                    set -o errexit
+                    set -o pipefail
+                    set -o nounset
+                    
+                    # When running in AWS ENI mode, it's likely that 'aws-node' has
+                    # had a chance to install SNAT iptables rules. These can result
+                    # in dropped traffic, so we should attempt to remove them.
+                    # We do it using a 'postStart' hook since this may need to run
+                    # for nodes which might have already been init'ed but may still
+                    # have dangling rules. This is safe because there are no
+                    # dependencies on anything that is part of the startup script
+                    # itself, and can be safely run multiple times per node (e.g. in
+                    # case of a restart).
+                    if [[ "$(iptables-save | grep -E -c 'AWS-SNAT-CHAIN|AWS-CONNMARK-CHAIN')" != "0" ]];
+                    then
+                        echo 'Deleting iptables rules created by the AWS CNI VPC plugin'
+                        iptables-save | grep -E -v 'AWS-SNAT-CHAIN|AWS-CONNMARK-CHAIN' | iptables-restore
+                    fi
+                    echo 'Done!'
+                    
           preStop:
             exec:
               command:
@@ -874,6 +970,10 @@ spec:
         - name: envoy-metrics
           containerPort: 9964
           hostPort: 9964
+          protocol: TCP
+        - name: envoy-admin
+          containerPort: 9901
+          hostPort: 9901
           protocol: TCP
         securityContext:
           privileged: true
@@ -905,7 +1005,7 @@ spec:
         image: "${agent_repo}:${agent_tag}"
         imagePullPolicy: IfNotPresent
         command:
-        - cilium
+        - cilium-dbg
         - build-config
         env:
         - name: K8S_NODE_NAME
@@ -1000,6 +1100,12 @@ spec:
               name: cilium-config
               key: clean-cilium-bpf-state
               optional: true
+        - name: WRITE_CNI_CONF_WHEN_READY
+          valueFrom:
+            configMapKeyRef:
+              name: cilium-config
+              key: write-cni-conf-when-ready
+              optional: true
         - name: KUBERNETES_SERVICE_HOST
           value: "${apiserver_host}"
         - name: KUBERNETES_SERVICE_PORT
@@ -1015,11 +1121,7 @@ spec:
           mountPath: /run/cilium/cgroupv2
           mountPropagation: HostToContainer
         - name: cilium-run
-          mountPath: /var/run/cilium
-        resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi # wait-for-kube-proxy
+          mountPath: /var/run/cilium # wait-for-kube-proxy
       # Install the CNI binaries in an InitContainer so we don't have a writable host mount in the agent
       - name: install-cni-binaries
         image: "${agent_repo}:${agent_tag}"
@@ -1041,7 +1143,6 @@ spec:
             mountPath: /host/opt/cni/bin # .Values.cni.install
       restartPolicy: Always
       priorityClassName: system-node-critical
-      serviceAccount: "cilium"
       serviceAccountName: "cilium"
       automountServiceAccountToken: true
       terminationGracePeriodSeconds: 1
@@ -1071,7 +1172,7 @@ spec:
         hostPath:
           path: /sys/fs/bpf
           type: DirectoryOrCreate
-      # To mount cgroup2 filesystem on the host
+      # To mount cgroup2 filesystem on the host or apply sysctlfix
       - name: hostproc
         hostPath:
           path: /proc
@@ -1123,6 +1224,20 @@ spec:
                 path: common-etcd-client.crt
               - key: ca.crt
                 path: common-etcd-client-ca.crt
+          # note: we configure the volume for the kvstoremesh-specific certificate
+          # regardless of whether KVStoreMesh is enabled or not, so that it can be
+          # automatically mounted in case KVStoreMesh gets subsequently enabled,
+          # without requiring an agent restart.
+          - secret:
+              name: clustermesh-apiserver-local-cert
+              optional: true
+              items:
+              - key: tls.key
+                path: local-etcd-client.key
+              - key: tls.crt
+                path: local-etcd-client.crt
+              - key: ca.crt
+                path: local-etcd-client-ca.crt
       - name: hubble-tls
         projected:
           # note: the leading zero means this number is in octal representation: do not remove it
@@ -1164,14 +1279,14 @@ spec:
   # podAntiAffinity which prevents deployments of multiple operator replicas on the same node.
   strategy:
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
+      maxSurge: 25%
+      maxUnavailable: 50%
     type: RollingUpdate
   template:
     metadata:
       annotations:
         # ensure pods roll when configmap updates
-        cilium.io/cilium-configmap-checksum: "98ce0da7e581c0e0e2042514162d4e0ec706d12e6b7821cacdf4aeea3b02d842"
+        cilium.io/cilium-configmap-checksum: "88e932e545725518fd1edd78ee421796b7915aebd806d0c29d6c55ae7fc0ffda"
       labels:
         io.cilium/app: operator
         name: cilium-operator
@@ -1235,7 +1350,6 @@ spec:
       hostNetwork: true
       restartPolicy: Always
       priorityClassName: system-cluster-critical
-      serviceAccount: "cilium-operator"
       serviceAccountName: "cilium-operator"
       automountServiceAccountToken: true
       # In HA mode, cilium-operator pods must not be scheduled on the same
@@ -1316,11 +1430,37 @@ spec:
             - name: grpc
               containerPort: 4245
           readinessProbe:
-            tcpSocket:
-              port: grpc
+            grpc:
+              port: 4222
+            timeoutSeconds: 3
+          # livenessProbe will kill the pod, we should be very conservative
+          # here on failures since killing the pod should be a last resort, and
+          # we should provide enough time for relay to retry before killing it.
           livenessProbe:
-            tcpSocket:
-              port: grpc
+            grpc:
+              port: 4222
+            timeoutSeconds: 10
+            # Give relay time to establish connections and make a few retries
+            # before starting livenessProbes.
+            initialDelaySeconds: 10
+            # 10 second * 12 failures = 2 minutes of failure.
+            # If relay cannot become healthy after 2 minutes, then killing it
+            # might resolve whatever issue is occurring.
+            #
+            # 10 seconds is a reasonable retry period so we can see if it's
+            # failing regularly or only sporadically.
+            periodSeconds: 10
+            failureThreshold: 12
+          startupProbe:
+            grpc:
+              port: 4222
+            # Give relay time to get it's certs and establish connections and
+            # make a few retries before starting startupProbes.
+            initialDelaySeconds: 10
+            # 20 * 3 seconds = 1 minute of failure before we consider startup as failed.
+            failureThreshold: 20
+            # Retry more frequently at startup so that it can be considered started more quickly.
+            periodSeconds: 3
           resources:
             limits:
               cpu: 1000m
@@ -1336,9 +1476,9 @@ spec:
             mountPath: /var/lib/hubble-relay/tls
             readOnly: true
           terminationMessagePolicy: FallbackToLogsOnError
+        
       restartPolicy: Always
       priorityClassName: 
-      serviceAccount: "hubble-relay"
       serviceAccountName: "hubble-relay"
       automountServiceAccountToken: false
       terminationGracePeriodSeconds: 1
@@ -1383,7 +1523,6 @@ metadata:
     k8s-app: hubble-generate-certs
     app.kubernetes.io/name: hubble-generate-certs
     app.kubernetes.io/part-of: cilium
-  annotations:
 spec:
   schedule: "0 0 1 */4 *"
   concurrencyPolicy: Forbid
@@ -1394,36 +1533,61 @@ spec:
           labels:
             k8s-app: hubble-generate-certs
         spec:
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
           containers:
             - name: certgen
               image: "${certgen_repo}:${certgen_tag}"
               imagePullPolicy: IfNotPresent
+              securityContext:
+                capabilities:
+                  drop:
+                  - ALL
+                allowPrivilegeEscalation: false
               command:
                 - "/usr/bin/cilium-certgen"
               # Because this is executed as a job, we pass the values as command
               # line args instead of via config map. This allows users to inspect
               # the values used in past runs by inspecting the completed pod.
               args:
-                - "--cilium-namespace=kube-system"
                 - "--debug"
                 - "--ca-generate"
                 - "--ca-reuse-secret"
-                - "--hubble-server-cert-generate"
-                - "--hubble-server-cert-common-name=*.default.hubble-grpc.cilium.io"
-                - "--hubble-server-cert-validity-duration=94608000s"
-                - "--hubble-relay-client-cert-generate"
-                - "--hubble-relay-client-cert-validity-duration=94608000s"
-          hostNetwork: true
+                - "--ca-secret-namespace=kube-system"
+                - "--ca-secret-name=cilium-ca"
+                - "--ca-common-name=Cilium CA"
+              env:
+                - name: CILIUM_CERTGEN_CONFIG
+                  value: |
+                    certs:
+                    - name: hubble-server-certs
+                      namespace: kube-system
+                      commonName: "*.default.hubble-grpc.cilium.io"
+                      hosts:
+                      - "*.default.hubble-grpc.cilium.io"
+                      usage:
+                      - signing
+                      - key encipherment
+                      - server auth
+                      validity: 26280h
+                    - name: hubble-relay-client-certs
+                      namespace: kube-system
+                      commonName: "*.hubble-relay.cilium.io"
+                      hosts:
+                      - "*.hubble-relay.cilium.io"
+                      usage:
+                      - signing
+                      - key encipherment
+                      - client auth
+                      validity: 26280h
+          hostNetwork: false
           serviceAccount: "hubble-generate-certs"
           serviceAccountName: "hubble-generate-certs"
           automountServiceAccountToken: true
           restartPolicy: OnFailure
+          affinity:
       ttlSecondsAfterFinished: 1800
----
-# Source: cilium/templates/cilium-secrets-namespace.yaml
-# Only create the namespace if it's different from Ingress secret namespace or Ingress is not enabled.
-
-# Only create the namespace if it's different from Ingress and Gateway API secret namespaces (if enabled).
 ---
 # Source: cilium/templates/hubble/tls-cronjob/job.yaml
 apiVersion: batch/v1
@@ -1443,28 +1607,58 @@ spec:
       labels:
         k8s-app: hubble-generate-certs
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: certgen
           image: "${certgen_repo}:${certgen_tag}"
           imagePullPolicy: IfNotPresent
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
+            allowPrivilegeEscalation: false
           command:
             - "/usr/bin/cilium-certgen"
           # Because this is executed as a job, we pass the values as command
           # line args instead of via config map. This allows users to inspect
           # the values used in past runs by inspecting the completed pod.
           args:
-            - "--cilium-namespace=kube-system"
             - "--debug"
             - "--ca-generate"
             - "--ca-reuse-secret"
-            - "--hubble-server-cert-generate"
-            - "--hubble-server-cert-common-name=*.default.hubble-grpc.cilium.io"
-            - "--hubble-server-cert-validity-duration=94608000s"
-            - "--hubble-relay-client-cert-generate"
-            - "--hubble-relay-client-cert-validity-duration=94608000s"
-      hostNetwork: true
+            - "--ca-secret-namespace=kube-system"
+            - "--ca-secret-name=cilium-ca"
+            - "--ca-common-name=Cilium CA"
+          env:
+            - name: CILIUM_CERTGEN_CONFIG
+              value: |
+                certs:
+                - name: hubble-server-certs
+                  namespace: kube-system
+                  commonName: "*.default.hubble-grpc.cilium.io"
+                  hosts:
+                  - "*.default.hubble-grpc.cilium.io"
+                  usage:
+                  - signing
+                  - key encipherment
+                  - server auth
+                  validity: 26280h
+                - name: hubble-relay-client-certs
+                  namespace: kube-system
+                  commonName: "*.hubble-relay.cilium.io"
+                  hosts:
+                  - "*.hubble-relay.cilium.io"
+                  usage:
+                  - signing
+                  - key encipherment
+                  - client auth
+                  validity: 26280h
+      hostNetwork: false
       serviceAccount: "hubble-generate-certs"
       serviceAccountName: "hubble-generate-certs"
       automountServiceAccountToken: true
       restartPolicy: OnFailure
+      affinity:
   ttlSecondsAfterFinished: 1800
