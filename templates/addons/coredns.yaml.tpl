@@ -1,4 +1,4 @@
-# Source from: https://github.com/coredns/deployment/blob/master/kubernetes/coredns.yaml.sed
+# Source from: https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/coredns/coredns.yaml.sed
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -106,9 +106,10 @@ spec:
     metadata:
       labels:
         k8s-app: kube-dns
-      annotations:
-        seccomp.security.alpha.kubernetes.io/pod: 'docker/default'
     spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       priorityClassName: system-cluster-critical
       serviceAccountName: coredns
       tolerations:
