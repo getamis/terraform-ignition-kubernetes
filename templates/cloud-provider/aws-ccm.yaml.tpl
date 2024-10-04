@@ -53,8 +53,6 @@ rules:
   - serviceaccounts
   verbs:
   - create
-  - get
-  - list
 - apiGroups:
   - ""
   resources:
