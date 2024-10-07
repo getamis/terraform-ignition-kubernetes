@@ -53,8 +53,6 @@ rules:
   - serviceaccounts
   verbs:
   - create
-  - get
-  - list
 - apiGroups:
   - ""
   resources:
@@ -88,6 +86,18 @@ rules:
   - ""
   resources:
   - serviceaccounts/token
+  verbs:
+  - create
+- apiGroups:
+  - authentication.k8s.io
+  resources:
+  - tokenreviews
+  verbs:
+  - create
+- apiGroups:
+  - authorization.k8s.io
+  resources:
+  - subjectaccessreviews
   verbs:
   - create
 ---
@@ -148,6 +158,8 @@ spec:
         resources:
           requests:
             cpu: 200m
+      # We speculatively set hostNetwork to true for the AWS CCM to connect to the AWS API
+      # https://shazi.info/amazon-eks-pod-%E5%AD%98%E5%8F%96-imdsv2-%E7%95%B0%E5%B8%B8%E7%B7%A9%E6%85%A2%E8%99%95%E7%90%86/
       hostNetwork: true
       nodeSelector:
         node-role.kubernetes.io/master: ""

@@ -18,7 +18,7 @@ locals {
     }
     coredns = {
       repo = "coredns/coredns"
-      tag  = "1.11.1"
+      tag  = "1.11.3"
     }
     vpc_cni = {
       repo = "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni"
@@ -58,7 +58,7 @@ locals {
     }
     cloud_controller_manager = {
       repo = "registry.k8s.io/provider-aws/cloud-controller-manager"
-      tag  = "v1.27.1"
+      tag  = "v1.31.0"
     }
   }, var.containers)
 
