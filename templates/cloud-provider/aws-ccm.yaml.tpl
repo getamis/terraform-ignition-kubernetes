@@ -53,6 +53,9 @@ rules:
   - serviceaccounts
   verbs:
   - create
+  # Add get to verbs for serviceaccounts resources in clusterRoleRules. This allows the cloud controller manager to get service accounts upon startup.
+  - get
+  - list
 - apiGroups:
   - ""
   resources:
