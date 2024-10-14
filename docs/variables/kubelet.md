@@ -54,7 +54,7 @@ No modules.
 | <a name="input_extra_config"></a> [extra\_config](#input\_extra\_config) | The extra configuration of kubelet. The variables need to follow https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go. Do not use underline. | `map(string)` | `{}` | no |
 | <a name="input_extra_flags"></a> [extra\_flags](#input\_extra\_flags) | The extra flags of kubelet. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/. Do not use underline. | `map(string)` | `{}` | no |
 | <a name="input_feature_gates"></a> [feature\_gates](#input\_feature\_gates) | A set of key=value pairs that describe feature gates for alpha/experimental features. | `map(bool)` | `{}` | no |
-| <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | Desired Kubernetes version. | `string` | `"v1.31.0"` | no |
+| <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | Desired Kubernetes version. | `string` | `"v1.31.1"` | no |
 | <a name="input_log_level"></a> [log\_level](#input\_log\_level) | (Optional) log level of kubelet, default is 2 (Info) | `string` | `"2"` | no |
 | <a name="input_max_pods"></a> [max\_pods](#input\_max\_pods) | (Optional) the max pod number in the node when enable eni prefix | `string` | `"110"` | no |
 | <a name="input_network_plugin"></a> [network\_plugin](#input\_network\_plugin) | Desired network plugin which is use for Kubernetes cluster. e.g. 'flannel', 'amazon-vpc', 'cilium-vxlan' | `string` | `"amazon-vpc"` | no |
