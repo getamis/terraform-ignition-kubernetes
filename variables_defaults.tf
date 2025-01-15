@@ -22,19 +22,19 @@ locals {
     }
     vpc_cni = {
       repo = "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni"
-      tag  = "v1.16.0"
+      tag  = "v1.19.2"
     }
     vpc_cni_init = {
       repo = "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni-init"
-      tag  = "v1.16.0"
+      tag  = "v1.19.2"
     }
     aws_network_policy_agent = {
       repo = "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-network-policy-agent"
-      tag  = "v1.0.7"
+      tag  = "v1.1.6"
     }
     aws_network_policy_controller = {
       repo = "602401143452.dkr.ecr.us-west-2.amazonaws.com/eks/amazon-network-policy-controller-k8s"
-      tag  = "v1.0.3"
+      tag  = "v1.0.7"
     }
     flannel_cni = {
       repo = "quay.io/coreos/flannel"

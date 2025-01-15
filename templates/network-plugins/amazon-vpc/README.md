@@ -13,4 +13,4 @@
 1. Copy `config/amazon-network-policy-controller-k8s.yaml`
 
 ### AWS VPC CNI
-1. Vendored from https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/v1.16.0/config/master/aws-k8s-cni.yaml
+1. Vendored from https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/v1.19.2/config/master/aws-k8s-cni.yaml
