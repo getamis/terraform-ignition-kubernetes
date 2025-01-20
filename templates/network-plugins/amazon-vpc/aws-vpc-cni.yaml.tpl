@@ -484,6 +484,8 @@ spec:
               value: "/var/log/aws-routed-eni/plugin.log"
             - name: AWS_VPC_K8S_PLUGIN_LOG_LEVEL
               value: "${log_level}"
+            - name: CLUSTER_ENDPOINT
+              value: "${cluster_endpoint}"
             - name: DISABLE_INTROSPECTION
               value: "false"
             - name: DISABLE_METRICS

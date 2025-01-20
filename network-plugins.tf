@@ -14,6 +14,7 @@ data "ignition_file" "aws_vpc_cni_yaml" {
       # vpc cni config
       annotate_pod_ip       = var.annotate_pod_ip
       cni_version           = local.containers["vpc_cni"].tag
+      cluster_endpoint      = var.internal_endpoint
       enable_eni_prefix     = var.enable_eni_prefix
       enable_network_policy = var.enable_network_policy
       external_snat         = var.external_snat
