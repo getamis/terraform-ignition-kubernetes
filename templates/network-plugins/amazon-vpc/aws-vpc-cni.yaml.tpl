@@ -1,4 +1,3 @@
-# Vendored from https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/v1.16.0/config/master/aws-k8s-cni.yaml
 ---
 # Source: aws-vpc-cni/crds/customresourcedefinition.yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -17,6 +16,40 @@ spec:
         openAPIV3Schema:
           type: object
           x-kubernetes-preserve-unknown-fields: true
+          description: ENIConfig is the Schema for the eniconfigs API
+          properties:
+            apiVersion:
+              description: |-
+                APIVersion defines the versioned schema of this representation of an object.
+                Servers should convert recognized schemas to the latest internal value, and
+                may reject unrecognized values.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+              type: string
+            kind:
+              description: |-
+                Kind is a string value representing the REST resource this object represents.
+                Servers may infer this from the endpoint the client submits requests to.
+                Cannot be updated.
+                In CamelCase.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: ENIConfigSpec defines the desired state of ENIConfig
+              properties:
+                securityGroups:
+                  items:
+                    type: string
+                  type: array
+                subnet:
+                  type: string
+              required:
+              - subnet
+              type: object
+            status:
+              description: ENIConfigStatus defines the observed state of ENIConfig
+              type: object
   names:
     plural: eniconfigs
     singular: eniconfig
@@ -267,7 +300,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.16.0"
+    app.kubernetes.io/version: "v1.19.2"
 ---
 # Source: aws-vpc-cni/templates/configmap.yaml
 apiVersion: v1
@@ -279,7 +312,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.16.0"
+    app.kubernetes.io/version: "v1.19.2"
 data:
   enable-windows-ipam: "false"
   enable-network-policy-controller: "${enable_network_policy}"
@@ -298,7 +331,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.16.0"
+    app.kubernetes.io/version: "v1.19.2"
 rules:
   - apiGroups:
       - crd.k8s.amazonaws.com
@@ -313,12 +346,6 @@ rules:
     resources:
       - pods
     verbs: ["list", "watch", "get"]
-%{ if annotate_pod_ip == true ~}
-  - apiGroups: [""]
-    resources:
-      - pods
-    verbs: ["patch"]
--%{ endif ~}
   - apiGroups: [""]
     resources:
       - nodes
@@ -350,7 +377,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.16.0"
+    app.kubernetes.io/version: "v1.19.2"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -370,7 +397,7 @@ metadata:
     app.kubernetes.io/name: aws-node
     app.kubernetes.io/instance: aws-vpc-cni
     k8s-app: aws-node
-    app.kubernetes.io/version: "v1.16.0"
+    app.kubernetes.io/version: "v1.19.2"
 spec:
   updateStrategy:
     rollingUpdate:
@@ -437,10 +464,6 @@ spec:
           env:
             - name: ADDITIONAL_ENI_TAGS
               value: "{}"
-%{ if annotate_pod_ip == true ~}
-            - name: ANNOTATE_POD_IP
-              value: "true"
-%{ endif ~}
             - name: AWS_VPC_CNI_NODE_PORT_SUPPORT
               value: "true"
             - name: AWS_VPC_ENI_MTU
@@ -477,6 +500,10 @@ spec:
               value: "false"
             - name: ENABLE_PREFIX_DELEGATION
               value: "${enable_eni_prefix}"
+            - name: ENABLE_SUBNET_DISCOVERY
+              value: "true"
+            - name: NETWORK_POLICY_ENFORCING_MODE
+              value: "standard"
             - name: VPC_CNI_VERSION
               value: "${cni_version}"
             - name: WARM_ENI_TARGET
@@ -525,6 +552,7 @@ spec:
             - --enable-network-policy=${enable_network_policy}
             - --enable-cloudwatch-logs=false
             - --enable-policy-event-logs=false
+            - --log-file=/var/log/aws-routed-eni/network-policy-agent.log
             - --metrics-bind-addr=:8162
             - --health-probe-bind-addr=:8163
             - --conntrack-cache-cleanup-period=300
@@ -566,6 +594,7 @@ spec:
       - name: xtables-lock
         hostPath:
           path: /run/xtables.lock
+          type: FileOrCreate
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -584,3 +613,5 @@ spec:
                 operator: NotIn
                 values:
                 - fargate
+                - hybrid
+                - auto

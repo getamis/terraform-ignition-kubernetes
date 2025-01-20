@@ -69,7 +69,6 @@ This document gives an overview of variables used in the Ignition of the Kuberne
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_annotate_pod_ip"></a> [annotate\_pod\_ip](#input\_annotate\_pod\_ip) | (Optional) enable to fix pod startup connectivity issue on installing Calico with aws-vpc-cni plugin. (Issue: https://github.com/aws/amazon-vpc-cni-k8s/issues/493) | `bool` | `false` | no |
 | <a name="input_apiserver_flags"></a> [apiserver\_flags](#input\_apiserver\_flags) | The flags of kube-apiserver. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/. Do not use underline. | `map(any)` | `{}` | no |
 | <a name="input_apiserver_secure_port"></a> [apiserver\_secure\_port](#input\_apiserver\_secure\_port) | n/a | `number` | `6443` | no |
 | <a name="input_audit_log_flags"></a> [audit\_log\_flags](#input\_audit\_log\_flags) | The flags of audit log in kube-apiserver. The variables need to follow https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/. Do not use underline. | `map(any)` | `{}` | no |
