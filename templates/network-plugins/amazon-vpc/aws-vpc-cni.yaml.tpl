@@ -506,19 +506,19 @@ spec:
               value: "standard"
             - name: VPC_CNI_VERSION
               value: "${cni_version}"
-            {% if warm_eni_target != null %}
+            {% if warm_eni_target != "" %}
             - name: WARM_ENI_TARGET
               value: "${warm_eni_target}"
             {% endif %}
-            {% if warm_prefix_target != null %}
+            {% if warm_prefix_target != "" %}
             - name: WARM_PREFIX_TARGET
               value: "${warm_prefix_target}"
             {% endif %}
-            {% if warm_ip_target != null %}
+            {% if warm_ip_target != "" %}
             - name: WARM_IP_TARGET
               value: "${warm_ip_target}"
             {% endif %}
-            {% if minimum_ip_target != null %}
+            {% if minimum_ip_target != "" %}
             - name: MINIMUM_IP_TARGET
               value: "${minimum_ip_target}"
             {% endif %}

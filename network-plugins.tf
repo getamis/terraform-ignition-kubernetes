@@ -17,11 +17,11 @@ data "ignition_file" "aws_vpc_cni_yaml" {
       enable_eni_prefix     = var.enable_eni_prefix
       enable_network_policy = var.enable_network_policy
       external_snat         = var.external_snat
-      # IP Allocation Strategy
-      warm_eni_target       = var.ip_allocation_strategy.warm_eni_target
-      warm_prefix_target    = var.ip_allocation_strategy.warm_prefix_target
-      warm_ip_target        = var.ip_allocation_strategy.warm_ip_target
-      minimum_ip_target     = var.ip_allocation_strategy.minimum_ip_target
+      # IP Allocation Strategy (Cannot be null, so we need to convert to empty string)
+      warm_eni_target       = var.ip_allocation_strategy.warm_eni_target == null ? "" : var.ip_allocation_strategy.warm_eni_target
+      warm_prefix_target    = var.ip_allocation_strategy.warm_prefix_target == null ? "" : var.ip_allocation_strategy.warm_prefix_target
+      warm_ip_target        = var.ip_allocation_strategy.warm_ip_target == null ? "" : var.ip_allocation_strategy.warm_ip_target
+      minimum_ip_target     = var.ip_allocation_strategy.minimum_ip_target == null ? "" : var.ip_allocation_strategy.minimum_ip_target
       # log level
       log_level             = var.log_level["aws_vpc_cni"]
     })
