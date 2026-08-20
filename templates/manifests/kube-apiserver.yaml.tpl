@@ -43,6 +43,11 @@ spec:
 %{ endif ~}
 %{ endfor ~}
     - --v=${log_level}
+%{ if resources["gomemlimit"] != "" ~}
+    env:
+    - name: GOMEMLIMIT
+      value: ${resources["gomemlimit"]}
+%{ endif ~}
     imagePullPolicy: IfNotPresent
     livenessProbe:
       failureThreshold: 8

@@ -144,18 +144,21 @@ locals {
       memory_request = "1536Mi"
       cpu_limit      = "400m"
       memory_limit   = "1536Mi"
+      gomemlimit     = ""
     },
     kube_controller_manager = {
       cpu_request    = "200m"
       memory_request = ""
       cpu_limit      = ""
       memory_limit   = ""
+      gomemlimit     = ""
     },
     kube_scheduler = {
       cpu_request    = "100m"
       memory_request = ""
       cpu_limit      = ""
       memory_limit   = ""
+      gomemlimit     = ""
     }
   }, var.components_resource)
 }
